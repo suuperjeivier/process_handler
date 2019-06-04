@@ -1,4 +1,4 @@
-package mx.freshmanasoft.phs;
+package src.main.java.mx.freshmanasoft.phs;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
