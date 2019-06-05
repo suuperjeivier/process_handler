@@ -19,7 +19,7 @@ public class BankAccountServiceImpl implements BankAccountService{
 	@Override
 	public Iterable<BankAccount> fetch() {
 		LOGGER.info("---- CONSULTANDO CUENTAS BANCARIAS ----");
-		return repository.findAll();
+		return repository.findByStatus(1);
 	}
 
 	@Override

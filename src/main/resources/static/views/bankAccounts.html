@@ -130,7 +130,7 @@
 							<div class="form-group row">
 								<div class="col-sm-4 offset-sm-2">
 									<button type="button" class="btn btn-secondary" data-ng-click="baCtrl.cancelBankAccount()">Cancelar</button>
-									<button type="submit" class="btn btn-primary">Registrar</button>
+									<button type="submit" class="btn" data-ng-class="!baCtrl.bankAccount.id? 'btn-primary' : 'btn-info'">{{!baCtrl.bankAccount.id? 'Registrar' : 'Actualizar'}}</button>
 								</div>
 							</div>
 							<div class="line"></div>
@@ -191,8 +191,8 @@
 										<td>{{ba.noTargeta}}</td>
 										<td>{{ba.moneda}}</td>
 										<td>{{ba.contacto}}</td>
-										<td></td>
-										<td></td>
+										<td><button class="btn btn-info" data-ng-click="baCtrl.update(ba)">Actualizar</button></td>
+										<td><button class="btn btn-danger" data-ng-click="baCtrl.delete(ba)">Eliminar</button></td>
 									</tr>
 								</tbody>
 							</table>
