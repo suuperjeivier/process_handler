@@ -15,7 +15,7 @@ public class BankAccount {
 	private String banco;
 
 	private String tipoCuenta;
-	private String socursal;
+	private String sucursal;
 
 	private Integer noCliente;
 	private String clabe;
@@ -29,7 +29,7 @@ public class BankAccount {
 	private String telefonoContacto;
 
 	private Boolean cardexActivo;
-	private Boolean prederterminado;
+	private Boolean predeterminado;
 	
 	private Integer status;
 
@@ -76,17 +76,17 @@ public class BankAccount {
 	}
 
 	/**
-	 * @return the socursal
+	 * @return the sucursal
 	 */
-	public String getSocursal() {
-		return socursal;
+	public String getSucursal() {
+		return sucursal;
 	}
 
 	/**
-	 * @param socursal the socursal to set
+	 * @param socursal the sucursal to set
 	 */
-	public void setSocursal(String socursal) {
-		this.socursal = socursal;
+	public void setSucursal(String sucursal) {
+		this.sucursal = sucursal;
 	}
 
 	/**
@@ -218,15 +218,15 @@ public class BankAccount {
 	/**
 	 * @return the prederterminado
 	 */
-	public Boolean getPrederterminado() {
-		return prederterminado;
+	public Boolean getPredeterminado() {
+		return predeterminado;
 	}
 
 	/**
 	 * @param prederterminado the prederterminado to set
 	 */
-	public void setPrederterminado(Boolean prederterminado) {
-		this.prederterminado = prederterminado;
+	public void setPredeterminado(Boolean predeterminado) {
+		this.predeterminado = predeterminado;
 	}
 
 	/**

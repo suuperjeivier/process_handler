@@ -10,7 +10,7 @@
 <section data-ng-if="baCtrl.bankAccount">
 	<div class="container-fluid">
 		<header>
-			<h1 class="h3 display">Registrar cuenta bancaria</h1>
+			<h1 class="h3 display">{{!baCtrl.bankAccount.id? 'Nueva' : 'Actualizar'}} cuenta bancaria</h1>
 		</header>
 		<div class="row">
 			<div class="col-lg-2"></div>
@@ -18,11 +18,11 @@
 				<div class="card">
 					<div class="card-header"></div>
 					<div class="card-body">
-						<form class="form-horizontal">
+						<form class="form-horizontal" name="formBankAccount" data-ng-submit="baCtrl.submitForm(formBankAccount.$valid)" novalidate>
 							<div class="form-group row">
 								<label class="col-sm-2 form-control-label">Banco</label>
 								<div class="col-sm-10">
-									<select class="form-control">
+									<select class="form-control" data-ng-model="baCtrl.bankAccount.banco">
 										<option disabled>Seleccione un banco...</option>
 										<option value="Bancomer">Bancomer</option>
 										<option value="Banamex">Banamex</option>
@@ -35,7 +35,7 @@
 								<label class="col-sm-2 form-control-label">Tipo de
 									cuenta</label>
 								<div class="col-sm-10">
-									<select class="form-control">
+									<select class="form-control" data-ng-model="baCtrl.bankAccount.tipoCuenta">
 										<option disabled>Seleccione un tipo...</option>
 										<option value="Bancomer">Opcion 1</option>
 										<option value="Banamex">Opcion 2</option>
@@ -44,30 +44,30 @@
 							</div>
 							<div class="line"></div>
 							<div class="form-group row">
-								<label class="col-sm-2 form-control-label">Socursal</label>
+								<label class="col-sm-2 form-control-label">Sucursal</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control">
+									<input type="text" class="form-control" data-ng-model="baCtrl.bankAccount.sucursal">
 								</div>
 							</div>
 							<div class="line"></div>
 							<div class="form-group row">
 								<label class="col-sm-2 form-control-label">No. Ciente</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control">
+									<input type="text" class="form-control" data-ng-model="baCtrl.bankAccount.noCliente">
 								</div>
 							</div>
 							<div class="line"></div>
 							<div class="form-group row">
 								<label class="col-sm-2 form-control-label">Clabe</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control">
+									<input type="text" class="form-control" data-ng-model="baCtrl.bankAccount.clabe">
 								</div>
 							</div>
 							<div class="line"></div>
 							<div class="form-group row">
 								<label class="col-sm-2 form-control-label">Cuenta</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control">
+									<input type="text" class="form-control" data-ng-model="baCtrl.bankAccount.cuenta">
 								</div>
 							</div>
 							<div class="line"></div>
@@ -75,21 +75,21 @@
 								<label class="col-sm-2 form-control-label">Número de
 									targeta</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control">
+									<input type="text" class="form-control" data-ng-model="baCtrl.bankAccount.noTargeta">
 								</div>
 							</div>
 							<div class="line"></div>
 							<div class="form-group row">
 								<label class="col-sm-2 form-control-label">Swif</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control">
+									<input type="text" class="form-control" data-ng-model="baCtrl.bankAccount.swif">
 								</div>
 							</div>
 							<div class="line"></div>
 							<div class="form-group row">
 								<label class="col-sm-2 form-control-label">Moneda</label>
 								<div class="col-sm-10">
-									<select class="form-control">
+									<select class="form-control" data-ng-model="baCtrl.bankAccount.moneda">
 										<option disabled>Elige una opción...</option>
 										<option value="Bancomer">Opcion 1</option>
 										<option value="Banamex">Opcion 2</option>
@@ -101,29 +101,29 @@
 								<label class="col-sm-2 form-control-label">Contacto/Asesor
 									Bancario</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control">
+									<input type="text" class="form-control" data-ng-model="baCtrl.bankAccount.contacto">
 								</div>
 							</div>
 							<div class="line"></div>
 							<div class="form-group row">
-								<label class="col-sm-2 form-control-label">Teéfono de
+								<label class="col-sm-2 form-control-label">Teléfono de
 									contacto</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control">
+									<input type="text" class="form-control" data-ng-model="baCtrl.bankAccount.telefonoContacto">
 								</div>
 							</div>
 							<div class="line"></div>
 							<div class="form-group row">
 								<label class="col-sm-2 form-control-label">Cardex Activo</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control">
+									<input type="checkbox" class="form-control" data-ng-model="baCtrl.bankAccount.cardexActivo">
 								</div>
 							</div>
 							<div class="line"></div>
 							<div class="form-group row">
 								<label class="col-sm-2 form-control-label">Predeterminada</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control">
+									<input type="checkbox" class="form-control" data-ng-model="baCtrl.bankAccount.predeterminado">
 								</div>
 							</div>
 							<div class="line"></div>
@@ -168,62 +168,31 @@
 										<th>#</th>
 										<th>Banco</th>
 										<th>Tipo cuenta</th>
-										<th>socursal</th>
+										<th>sucursal</th>
 										<th>No Cliente</th>
 										<th>Clabe</th>
 										<th>Cuenta</th>
 										<th>No Targeta</th>
-										<th>Swif</th>
 										<th>Moneda</th>
 										<th>Contacto</th>
-										<th>Teléfono contacto</th>
-										<th>Cardex activo</th>
+										<th></th>
+										<th></th>
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
-										<th scope="row">1</th>
-										<td>Mark</td>
-										<td>Otto</td>
-										<td>@mdo</td>
-										<td>@mdo</td>
-										<td>@mdo</td>
-										<td>@mdo</td>
-										<td>@mdo</td>
-										<td>@mdo</td>
-										<td>@mdo</td>
-										<td>@mdo</td>
-										<td>@mdo</td>
-									</tr>
-									<tr>
-										<th scope="row">2</th>
-										<td>Jacob</td>
-										<td>Thornton</td>
-										<td>@fat</td>
-										<td>@mdo</td>
-										<td>@mdo</td>
-										<td>@mdo</td>
-										<td>@mdo</td>
-										<td>@mdo</td>
-										<td>@mdo</td>
-										<td>@mdo</td>
-										<td>@mdo</td>
-										<td>@mdo</td>
-									</tr>
-									<tr>
-										<th scope="row">3</th>
-										<td>Larry</td>
-										<td>the Bird</td>
-										<td>@twitter</td>
-										<td>@mdo</td>
-										<td>@mdo</td>
-										<td>@mdo</td>
-										<td>@mdo</td>
-										<td>@mdo</td>
-										<td>@mdo</td>
-										<td>@mdo</td>
-										<td>@mdo</td>
-										<td>@mdo</td>
+									<tr data-ng-repeat="ba in baCtrl.bankAccounts track by $index">
+										<td scope="row">{{$index+1}}</td>
+										<td>{{ba.banco}}</td>
+										<td>{{ba.tipoCuenta}}</td>
+										<td>{{ba.sucursal}}</td>
+										<td>{{ba.noCliente}}</td>
+										<td>{{ba.clabe}}</td>
+										<td>{{ba.cuenta}}</td>
+										<td>{{ba.noTargeta}}</td>
+										<td>{{ba.moneda}}</td>
+										<td>{{ba.contacto}}</td>
+										<td></td>
+										<td></td>
 									</tr>
 								</tbody>
 							</table>
