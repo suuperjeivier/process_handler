@@ -13,7 +13,7 @@ import mx.freshmanasoft.phs.service.bankaccount.BankAccountService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-@Service("bankAccountService")
+@Service("bankActionService")
 public class BankActionServiceImpl implements BankActionService{
 	private static final Logger LOGGER = LoggerFactory.getLogger(BankActionServiceImpl.class);
 	
