@@ -20,7 +20,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider,$url
 		})
 		.state('bank-actions',{
 			url: '/bank-actions',
-			templateUrl:'views/bankAction.html',
+			templateUrl:'views/bankActions.html',
 			controller: 'bankActionsCtrl',
 			controllerAs: 'bactCtrl'
 		});

@@ -1,4 +1,4 @@
-app.controller('bankActionsCtrl', function (bankAccountService) {
+app.controller('bankActionsCtrl', function (bankActionService) {
     const self = this;
     self.bankActions = [];
     self.bankAction = null;
@@ -14,20 +14,21 @@ app.controller('bankActionsCtrl', function (bankAccountService) {
     };
 
     self.get = () => {
-        bankAccountService.get().then(data => {
+        bankActionService.get().then(data => {
             self.bankAccounts = data;
         }, error => {
-            console.log('Error al obtener las cuentas bancarias', error);
+            console.log('Error al obtener las acciones bancaras', error);
         });
     };
 
     self.post = () => {
-        bankAccountService.post(self.bankAccount).then(data => {
+        console.log('informacion de la accion: ',self.bankAction);
+        bankActionService.post(self.bankAction).then(data => {
             self.bankAccount = null;
             alert("registro exitoso");
             self.getBankAccounts();
         }, error => {
-            console.log('Error al registrar la cuenta bancaria', error);
+            console.log('Error al registrar la accion bancaria', error);
         });
     };
     
@@ -52,22 +53,22 @@ app.controller('bankActionsCtrl', function (bankAccountService) {
     };
     
     self.put = () => {
-        bankAccountService.post(self.bankAction).then(data => {
+        bankActionService.post(self.bankAction).then(data => {
             alert("Actualización exitosa");
             self.bankAction = null;
             self.get();
         }, error => {
-            console.log('Error al actualizar la cuenta bancaría', error);
+            console.log('Error al actualizar la accion bancaria', error);
         });
     };
 
     self.del = bankAction => {
         bankAccount.status = 0;
-        bankAccountService.del(bankAccount).then(data => {
+        bankActionService.del(bankAction).then(data => {
             alert("Eliminación exitosa");
             self.getBankAccounts();
         }, error => {
-            console.log("Error al eliminar el archivo");
+            console.log("Error al eliminar el la accion bancaria", error);
         });
     };
 
