@@ -1,13 +1,22 @@
 package mx.freshmanasoft.phs.entity;
 
+import javax.persistence.CascadeType;
+import javax.persistence.ManyToOne;
+
 import org.springframework.data.annotation.Id;
 
-public class Action {
+import mx.freshmanasoft.phs.entity.bankaccount.BankAccount;
+
+public class BankAction {
 
 	@Id
 	private Long id;
 	private String name;
+	private String cusip;
+	private String serie;
 	private Double value;
+	@ManyToOne(cascade = CascadeType.ALL)
+	private BankAccount account;
 	
 	public Long getId() {
 		return id;
@@ -26,6 +35,12 @@ public class Action {
 	}
 	public void setValue(Double value) {
 		this.value = value;
+	}
+	public BankAccount getAccount() {
+		return account;
+	}
+	public void setAccount(BankAccount account) {
+		this.account = account;
 	}
 
 }

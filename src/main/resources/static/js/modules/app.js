@@ -3,7 +3,7 @@ const app = angular.module('processHandlerApp',['ui.router']);
 // router
 app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider,$urlRouterProvider){
 	
-	$urlRouterProvider.otherwise('/bank-accounts');
+	//$urlRouterProvider.otherwise('/bank-accounts');
 	
 	$stateProvider
 		.state('home',{
@@ -17,5 +17,11 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider,$url
 			templateUrl:'views/bankAccounts.html',
 			controller: 'bankAccountsCtrl',
 			controllerAs: 'baCtrl'
+		})
+		.state('bank-actions',{
+			url: '/bank-actions',
+			templateUrl:'views/bankAction.html',
+			controller: 'bankActionsCtrl',
+			controllerAs: 'bactCtrl'
 		});
 }]);
