@@ -161,7 +161,7 @@
 										<td>{{ba.quantity}}</td>
 										<td>{{ba.unitCost}}</td>
 										<td>{{ba.valueAtCost}}</td>
-										<td>{{ba.acquisitionDate}}</td>
+										<td>{{ba.acquisitionDate | date : 'dd/MM/yyyy'}}</td>
 										<td>{{ba.accountingRecord}}</td>
 										<td><button class="btn btn-info" data-ng-click="bactCtrl.update(ba)">Actualizar</button></td>
 										<td><button class="btn btn-danger" data-ng-click="bactCtrl.delete(ba)">Eliminar</button></td>

@@ -1,4 +1,4 @@
-app.controller('bankActionsCtrl', function (bankActionService) {
+app.controller('bankActionsCtrl', function (bankActionService, bankAccountService) {
     const self = this;
     self.bankActions = [];
     self.bankAction = null;
@@ -15,7 +15,7 @@ app.controller('bankActionsCtrl', function (bankActionService) {
 
     self.get = () => {
         bankActionService.get().then(data => {
-            self.bankAccounts = data;
+            self.bankActions = data;
         }, error => {
             console.log('Error al obtener las acciones bancaras', error);
         });
@@ -24,9 +24,9 @@ app.controller('bankActionsCtrl', function (bankActionService) {
     self.post = () => {
         console.log('informacion de la accion: ',self.bankAction);
         bankActionService.post(self.bankAction).then(data => {
-            self.bankAccount = null;
+            self.bankAction = null;
             alert("registro exitoso");
-            self.getBankAccounts();
+            self.get();
         }, error => {
             console.log('Error al registrar la accion bancaria', error);
         });
@@ -63,10 +63,11 @@ app.controller('bankActionsCtrl', function (bankActionService) {
     };
 
     self.del = bankAction => {
-        bankAccount.status = 0;
+    	bankAction.status = 0;
         bankActionService.del(bankAction).then(data => {
             alert("Eliminación exitosa");
-            self.getBankAccounts();
+            bankAction = null;
+            self.get();
         }, error => {
             console.log("Error al eliminar el la accion bancaria", error);
         });
