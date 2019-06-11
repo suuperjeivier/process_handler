@@ -19,6 +19,7 @@ public class CompanyServiceImpl implements CompanyService{
 	
 	@Override
 	public Iterable<Company> fetch() {
+		LOGGER.debug("getting companies");
 		return repository.findByStatus(1);
 	}
 

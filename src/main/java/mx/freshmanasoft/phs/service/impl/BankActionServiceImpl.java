@@ -1,17 +1,14 @@
 package mx.freshmanasoft.phs.service.impl;
 
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import mx.freshmanasoft.phs.entity.BankAction;
-import mx.freshmanasoft.phs.entity.bankaccount.BankAccount;
 import mx.freshmanasoft.phs.repository.BankActionRepository;
-import mx.freshmanasoft.phs.repository.bankaccount.BankAccountRepository;
 import mx.freshmanasoft.phs.service.BankActionService;
-import mx.freshmanasoft.phs.service.bankaccount.BankAccountService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @Service("bankActionService")
 public class BankActionServiceImpl implements BankActionService{
@@ -21,7 +18,8 @@ public class BankActionServiceImpl implements BankActionService{
 	private BankActionRepository repository;
 
 	@Override
-	public Iterable<BankAction> fetch() {		
+	public Iterable<BankAction> fetch() {
+		LOGGER.debug("getting actions!");
 		return repository.findAll();
 	}
 

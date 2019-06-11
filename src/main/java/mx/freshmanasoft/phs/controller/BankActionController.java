@@ -11,9 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import mx.freshmanasoft.phs.entity.BankAction;
-import mx.freshmanasoft.phs.entity.bankaccount.BankAccount;
 import mx.freshmanasoft.phs.service.BankActionService;
-import mx.freshmanasoft.phs.service.bankaccount.BankAccountService;
 
 
 @RestController

@@ -102,6 +102,7 @@
 										<th>Número de cuenta</th>
 										<th></th>
 										<th></th>
+										<th></th>
 									</tr>
 								</thead>
 								<tbody>
@@ -110,6 +111,8 @@
 										<td>{{co.name}}</td>
 										<td>{{co.friendlyAccount}}</td>
 										<td>{{co.number}}</td>
+										<td><button class="btn btn-success"
+												data-ng-click="cCtrl.addBankAccount(co)">Add Bank Account</button></td>
 										<td><button class="btn btn-info"
 												data-ng-click="cCtrl.update(co)">Actualizar</button></td>
 										<td><button class="btn btn-danger"

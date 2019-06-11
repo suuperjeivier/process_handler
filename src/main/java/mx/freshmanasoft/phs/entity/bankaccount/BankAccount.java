@@ -4,13 +4,17 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+import mx.freshmanasoft.phs.entity.Company;
 
 @Entity
 public class BankAccount {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
-	
+
 	private String banco;
 
 	private String tipoCuenta;
@@ -29,7 +33,9 @@ public class BankAccount {
 
 	private Boolean cardexActivo;
 	private Boolean predeterminado;
-	
+	@ManyToOne
+	@JoinColumn(name="FK_ID_COMPANY")
+	private Company company;
 	private Integer status;
 
 	/**
@@ -226,6 +232,14 @@ public class BankAccount {
 	 */
 	public void setPredeterminado(Boolean predeterminado) {
 		this.predeterminado = predeterminado;
+	}
+
+	public Company getCompany() {
+		return company;
+	}
+
+	public void setCompany(Company company) {
+		this.company = company;
 	}
 
 	/**

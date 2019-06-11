@@ -1,4 +1,4 @@
-app.controller('companyCtrl', function (companyService) {
+app.controller('companyCtrl', function ($state, companyService) {
     const self = this;
     self.company = null;
     self.companys = [];
@@ -71,6 +71,10 @@ app.controller('companyCtrl', function (companyService) {
         }, error => {
             console.log("Error al eliminar el la accion bancaria", error);
         });
+    };
+    
+    self.addBankAccount = company => {
+    	$state.go('bank-accounts', {'company': company}, {location: false, inherit: false});
     };
 
     const initController = () => {

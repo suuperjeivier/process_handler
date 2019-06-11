@@ -1,9 +1,7 @@
-app.controller('bankAccountsCtrl', function (bankAccountService) {
+app.controller('bankAccountsCtrl', function ($stateParams, bankAccountService) {
     const self = this;
-
     self.bankAccounts = [];
     self.bankAccount = null;
-
     self.newBankAccount = () => {
         self.bankAccount = {
             banco: '',
@@ -21,8 +19,8 @@ app.controller('bankAccountsCtrl', function (bankAccountService) {
             predeterminado: false,
             status: 1
         }
+        return self.bankAccount;
     };
-
 
     self.cancelBankAccount = () => {
         self.bankAccount = null;
@@ -87,7 +85,16 @@ app.controller('bankAccountsCtrl', function (bankAccountService) {
     };
 
     const initController = () => {
-        self.getBankAccounts();
+        
+        console.log("params:", $stateParams);
+        if($stateParams.company){
+        	self.getBankAccounts($stateParams.company);
+        	//self.newBankAccount();
+        	//self.bankAccount.company = $stateParams.company;
+        }else{
+        	self.getBankAccounts();
+        }
+        
     };
 
     angular.element(document).ready(function () {
