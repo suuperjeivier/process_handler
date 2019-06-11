@@ -1,0 +1,126 @@
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"
+	charset="ISO-8859-1">
+<div class="breadcrumb-holder">
+	<div class="container-fluid">
+		<ul class="breadcrumb">
+			<li class="breadcrumb-item"><a href="/">Inicio</a></li>
+			<li class="breadcrumb-item">Empresas</li>
+		</ul>
+	</div>
+</div>
+<!--Seccion de contenido  -->
+<section data-ng-if="cCtrl.company">
+	<div class="container-fluid">
+		<header>
+			<h1 class="h3 display">{{!cCtrl.company.id? 'Nueva':
+				'Actualizar'}}</h1>
+		</header>
+		<div class="row">
+			<div class="col-lg-2"></div>
+			<div class="col-lg-8">
+				<div class="card">
+					<div class="card-header"></div>
+					<div class="card-body">
+						<form class="form-horizontal" name="formCompany"
+							data-ng-submit="cCtrl.submitForm(formCompany.$valid)" novalidate>
+							<div class="line"></div>
+							<div class="form-group row">
+								<label class="col-sm-2 form-control-label">Nombre</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control"
+										data-ng-model="cCtrl.company.name">
+								</div>
+							</div>
+							<div class="line"></div>
+							<div class="form-group row">
+								<label class="col-sm-2 form-control-label">Nombre de
+									cuenta amigable</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control"
+										data-ng-model="cCtrl.company.friendlyAccount">
+								</div>
+							</div>
+							<div class="line"></div>
+							<div class="form-group row">
+								<label class="col-sm-2 form-control-label">Número de
+									cuenta</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control"
+										data-ng-model="cCtrl.company.number">
+								</div>
+							</div>
+							<div class="line"></div>
+							<div class="form-group row">
+								<div class="col-sm-4 offset-sm-2">
+									<button type="button" class="btn btn-secundary"
+										data-ng-click="cCtrl.cancel()">Cancelar</button>
+									<button type="submit" class="btn"
+										data-ng-class="!cCtrl.company.id? 'btn-primary': 'btn-info'">{{!cCtrl.company.id?
+										'Registrar' : 'Actualizar'}}</button>
+
+								</div>
+							</div>
+							<div class="line"></div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<!-- Seccion de tabla  -->
+<section data-ng-if="!cCtrl.company">
+	<div class="container-fluid">
+		<header>
+			<h1 class="h3 display">Empresas</h1>
+		</header>
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="card">
+					<div class="card header">
+						<div class="row">
+							<div class="col-sm-2">
+								<button type="button" class="btn btn-primary"
+									data-ng-click="cCtrl.newCompany()">
+									<i class="fa fa-plus"></i> Nueva empresa
+								</button>
+							</div>
+							<div class="col-sm-4">
+								<input type="search" placeholder="Buscar empresa"
+									class="form-control">
+							</div>
+						</div>
+					</div>
+					<div class="card-body">
+						<div class="table-responsive">
+							<table class="table table-striped">
+								<thead>
+									<tr>
+										<th>#</th>
+										<th>Nombre</th>
+										<th>Nombre de cuenta amigable</th>
+										<th>Número de cuenta</th>
+										<th></th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr data-ng-repeat="co in cCtrl.companys track by $index">
+										<td>{{$index+1}}</td>
+										<td>{{co.name}}</td>
+										<td>{{co.friendlyAccount}}</td>
+										<td>{{co.number}}</td>
+										<td><button class="btn btn-info"
+												data-ng-click="cCtrl.update(co)">Actualizar</button></td>
+										<td><button class="btn btn-danger"
+												data-ng-click="cCtrl.del(co)">Eliminar</button></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

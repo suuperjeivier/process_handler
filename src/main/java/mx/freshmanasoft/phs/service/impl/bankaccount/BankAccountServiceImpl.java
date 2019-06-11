@@ -36,7 +36,7 @@ public class BankAccountServiceImpl implements BankAccountService{
 
 	@Override
 	public BankAccount delete(BankAccount entity) {
-		LOGGER.info("---- ACTUALIZANDO CUENTA BANCARIA ----");
+		LOGGER.info("---- ELIMINANDO CUENTA BANCARIA ----");
 		return repository.save(entity);
 	}
 
