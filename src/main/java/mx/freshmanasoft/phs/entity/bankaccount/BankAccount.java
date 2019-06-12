@@ -14,250 +14,170 @@ public class BankAccount {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
-
-	private String banco;
-
-	private String tipoCuenta;
-	private String sucursal;
-
-	private Integer noCliente;
-	private String clabe;
-	private String cuenta;
-
-	private String noTargeta;
-	private String swif;
-	private String moneda;
-	private String contacto;
-
-	private String telefonoContacto;
-
-	private Boolean cardexActivo;
-	private Boolean predeterminado;
+	private String accountType;
+	private String accountNumber;
+	private String address;
+	private String telephone;
+	private String client;
+	private String portfolio;
+	private String period;
+	private String currency;
+	private String bank;
 	@ManyToOne
 	@JoinColumn(name="FK_ID_COMPANY")
 	private Company company;
 	private Integer status;
-
 	/**
 	 * @return the id
 	 */
 	public Long getId() {
 		return id;
 	}
-
 	/**
 	 * @param id the id to set
 	 */
 	public void setId(Long id) {
 		this.id = id;
 	}
-
 	/**
-	 * @return the banco
+	 * @return the accountType
 	 */
-	public String getBanco() {
-		return banco;
+	public String getAccountType() {
+		return accountType;
 	}
-
 	/**
-	 * @param banco the banco to set
+	 * @param accountType the accountType to set
 	 */
-	public void setBanco(String banco) {
-		this.banco = banco;
+	public void setAccountType(String accountType) {
+		this.accountType = accountType;
 	}
-
 	/**
-	 * @return the tipoCuenta
+	 * @return the accountNumber
 	 */
-	public String getTipoCuenta() {
-		return tipoCuenta;
+	public String getAccountNumber() {
+		return accountNumber;
 	}
-
 	/**
-	 * @param tipoCuenta the tipoCuenta to set
+	 * @param accountNumber the accountNumber to set
 	 */
-	public void setTipoCuenta(String tipoCuenta) {
-		this.tipoCuenta = tipoCuenta;
+	public void setAccountNumber(String accountNumber) {
+		this.accountNumber = accountNumber;
 	}
-
 	/**
-	 * @return the sucursal
+	 * @return the address
 	 */
-	public String getSucursal() {
-		return sucursal;
+	public String getAddress() {
+		return address;
 	}
-
 	/**
-	 * @param socursal the sucursal to set
+	 * @param address the address to set
 	 */
-	public void setSucursal(String sucursal) {
-		this.sucursal = sucursal;
+	public void setAddress(String address) {
+		this.address = address;
 	}
-
 	/**
-	 * @return the noCliente
+	 * @return the telephone
 	 */
-	public Integer getNoCliente() {
-		return noCliente;
+	public String getTelephone() {
+		return telephone;
 	}
-
 	/**
-	 * @param noCliente the noCliente to set
+	 * @param telephone the telephone to set
 	 */
-	public void setNoCliente(Integer noCliente) {
-		this.noCliente = noCliente;
+	public void setTelephone(String telephone) {
+		this.telephone = telephone;
 	}
-
 	/**
-	 * @return the clabe
+	 * @return the client
 	 */
-	public String getClabe() {
-		return clabe;
+	public String getClient() {
+		return client;
 	}
-
 	/**
-	 * @param clabe the clabe to set
+	 * @param client the client to set
 	 */
-	public void setClabe(String clabe) {
-		this.clabe = clabe;
+	public void setClient(String client) {
+		this.client = client;
 	}
-
 	/**
-	 * @return the cuenta
+	 * @return the portfolio
 	 */
-	public String getCuenta() {
-		return cuenta;
+	public String getPortfolio() {
+		return portfolio;
 	}
-
 	/**
-	 * @param cuenta the cuenta to set
+	 * @param portfolio the portfolio to set
 	 */
-	public void setCuenta(String cuenta) {
-		this.cuenta = cuenta;
+	public void setPortfolio(String portfolio) {
+		this.portfolio = portfolio;
 	}
-
 	/**
-	 * @return the noTargeta
+	 * @return the period
 	 */
-	public String getNoTargeta() {
-		return noTargeta;
+	public String getPeriod() {
+		return period;
 	}
-
 	/**
-	 * @param noTargeta the noTargeta to set
+	 * @param period the period to set
 	 */
-	public void setNoTargeta(String noTargeta) {
-		this.noTargeta = noTargeta;
+	public void setPeriod(String period) {
+		this.period = period;
 	}
-
 	/**
-	 * @return the swif
+	 * @return the currency
 	 */
-	public String getSwif() {
-		return swif;
+	public String getCurrency() {
+		return currency;
 	}
-
 	/**
-	 * @param swif the swif to set
+	 * @param currency the currency to set
 	 */
-	public void setSwif(String swif) {
-		this.swif = swif;
+	public void setCurrency(String currency) {
+		this.currency = currency;
 	}
-
 	/**
-	 * @return the moneda
+	 * @return the bank
 	 */
-	public String getMoneda() {
-		return moneda;
+	public String getBank() {
+		return bank;
 	}
-
 	/**
-	 * @param moneda the moneda to set
+	 * @param bank the bank to set
 	 */
-	public void setMoneda(String moneda) {
-		this.moneda = moneda;
+	public void setBank(String bank) {
+		this.bank = bank;
 	}
-
 	/**
-	 * @return the contacto
+	 * @return the company
 	 */
-	public String getContacto() {
-		return contacto;
-	}
-
-	/**
-	 * @param contacto the contacto to set
-	 */
-	public void setContacto(String contacto) {
-		this.contacto = contacto;
-	}
-
-	/**
-	 * @return the telefonoContacto
-	 */
-	public String getTelefonoContacto() {
-		return telefonoContacto;
-	}
-
-	/**
-	 * @param telefonoContacto the telefonoContacto to set
-	 */
-	public void setTelefonoContacto(String telefonoContacto) {
-		this.telefonoContacto = telefonoContacto;
-	}
-
-	/**
-	 * @return the cardexActivo
-	 */
-	public Boolean getCardexActivo() {
-		return cardexActivo;
-	}
-
-	/**
-	 * @param cardexActivo the cardexActivo to set
-	 */
-	public void setCardexActivo(Boolean cardexActivo) {
-		this.cardexActivo = cardexActivo;
-	}
-
-	/**
-	 * @return the prederterminado
-	 */
-	public Boolean getPredeterminado() {
-		return predeterminado;
-	}
-
-	/**
-	 * @param prederterminado the prederterminado to set
-	 */
-	public void setPredeterminado(Boolean predeterminado) {
-		this.predeterminado = predeterminado;
-	}
-
 	public Company getCompany() {
 		return company;
 	}
-
+	/**
+	 * @param company the company to set
+	 */
 	public void setCompany(Company company) {
 		this.company = company;
 	}
-
 	/**
 	 * @return the status
 	 */
 	public Integer getStatus() {
 		return status;
 	}
-
 	/**
 	 * @param status the status to set
 	 */
 	public void setStatus(Integer status) {
 		this.status = status;
 	}
-
+	
 	@Override
 	public String toString() {
-		return "BankAccount [id=" + id + ", status=" + status + "]";
+		return "BankAccount [id=" + id + ", accountType=" + accountType + ", accountNumber=" + accountNumber
+				+ ", address=" + address + ", telephone=" + telephone + ", client=" + client + ", portfolio="
+				+ portfolio + ", period=" + period + ", currency=" + currency + ", bank=" + bank + ", company="
+				+ company + ", status=" + status + "]";
 	}
+	
 }

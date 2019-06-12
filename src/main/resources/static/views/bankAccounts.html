@@ -21,10 +21,20 @@
 					<div class="card-body">
 						<form class="form-horizontal" name="formBankAccount" data-ng-submit="baCtrl.submitForm(formBankAccount.$valid)" novalidate>
 							<div class="form-group row">
+								<label class="col-sm-2 form-control-label">Empresa</label>
+								<div class="col-sm-10">
+									<select class="form-control" 
+									data-ng-options="ba as ba.name for ba in baCtrl.business track by ba.id"
+									data-ng-model="baCtrl.bankAccount.company">
+										<option disabled selected>Seleccione un banco...</option>
+									</select>
+								</div>
+							</div>
+							<div class="form-group row">
 								<label class="col-sm-2 form-control-label">Banco</label>
 								<div class="col-sm-10">
-									<select class="form-control" data-ng-model="baCtrl.bankAccount.banco">
-										<option disabled>Seleccione un banco...</option>
+									<select class="form-control" data-ng-model="baCtrl.bankAccount.bank">
+										<option disabled selected>Seleccione un banco...</option>
 										<option value="Bancomer">Bancomer</option>
 										<option value="Banamex">Banamex</option>
 										<option value="Banorte">Banorte</option>
@@ -36,8 +46,8 @@
 								<label class="col-sm-2 form-control-label">Tipo de
 									cuenta</label>
 								<div class="col-sm-10">
-									<select class="form-control" data-ng-model="baCtrl.bankAccount.tipoCuenta">
-										<option disabled>Seleccione un tipo...</option>
+									<select class="form-control" data-ng-model="baCtrl.bankAccount.accountType">
+										<option disabled selected>Seleccione un tipo...</option>
 										<option value="Bancomer">Opcion 1</option>
 										<option value="Banamex">Opcion 2</option>
 									</select>
@@ -45,86 +55,51 @@
 							</div>
 							<div class="line"></div>
 							<div class="form-group row">
-								<label class="col-sm-2 form-control-label">Sucursal</label>
+								<label class="col-sm-2 form-control-label">No. Cuenta</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" data-ng-model="baCtrl.bankAccount.sucursal">
+									<input type="text" class="form-control" data-ng-model="baCtrl.bankAccount.accountNumber">
 								</div>
 							</div>
 							<div class="line"></div>
 							<div class="form-group row">
-								<label class="col-sm-2 form-control-label">No. Ciente</label>
+								<label class="col-sm-2 form-control-label">Dirección</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" data-ng-model="baCtrl.bankAccount.noCliente">
+									<input type="text" class="form-control" data-ng-model="baCtrl.bankAccount.address">
 								</div>
 							</div>
 							<div class="line"></div>
 							<div class="form-group row">
-								<label class="col-sm-2 form-control-label">Clabe</label>
+								<label class="col-sm-2 form-control-label">Teléfono</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" data-ng-model="baCtrl.bankAccount.clabe">
+									<input type="text" class="form-control" data-ng-model="baCtrl.bankAccount.telephone">
 								</div>
 							</div>
 							<div class="line"></div>
 							<div class="form-group row">
-								<label class="col-sm-2 form-control-label">Cuenta</label>
+								<label class="col-sm-2 form-control-label">Cliente</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" data-ng-model="baCtrl.bankAccount.cuenta">
+									<input type="text" class="form-control" data-ng-model="baCtrl.bankAccount.client">
 								</div>
 							</div>
 							<div class="line"></div>
 							<div class="form-group row">
-								<label class="col-sm-2 form-control-label">Número de
-									targeta</label>
+								<label class="col-sm-2 form-control-label">Portafolio</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" data-ng-model="baCtrl.bankAccount.noTargeta">
+									<input type="text" class="form-control" data-ng-model="baCtrl.bankAccount.portfolio">
 								</div>
 							</div>
 							<div class="line"></div>
 							<div class="form-group row">
-								<label class="col-sm-2 form-control-label">Swif</label>
+								<label class="col-sm-2 form-control-label">Periodo</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" data-ng-model="baCtrl.bankAccount.swif">
+									<input type="text" class="form-control" data-ng-model="baCtrl.bankAccount.period">
 								</div>
 							</div>
 							<div class="line"></div>
 							<div class="form-group row">
 								<label class="col-sm-2 form-control-label">Moneda</label>
 								<div class="col-sm-10">
-									<select class="form-control" data-ng-model="baCtrl.bankAccount.moneda">
-										<option disabled>Elige una opci�n...</option>
-										<option value="Bancomer">Opcion 1</option>
-										<option value="Banamex">Opcion 2</option>
-									</select>
-								</div>
-							</div>
-							<div class="line"></div>
-							<div class="form-group row">
-								<label class="col-sm-2 form-control-label">Contacto/Asesor
-									Bancario</label>
-								<div class="col-sm-10">
-									<input type="text" class="form-control" data-ng-model="baCtrl.bankAccount.contacto">
-								</div>
-							</div>
-							<div class="line"></div>
-							<div class="form-group row">
-								<label class="col-sm-2 form-control-label">Teléfono de
-									contacto</label>
-								<div class="col-sm-10">
-									<input type="text" class="form-control" data-ng-model="baCtrl.bankAccount.telefonoContacto">
-								</div>
-							</div>
-							<div class="line"></div>
-							<div class="form-group row">
-								<label class="col-sm-2 form-control-label">Cardex Activo</label>
-								<div class="col-sm-10">
-									<input type="checkbox" class="form-control" data-ng-model="baCtrl.bankAccount.cardexActivo">
-								</div>
-							</div>
-							<div class="line"></div>
-							<div class="form-group row">
-								<label class="col-sm-2 form-control-label">Predeterminada</label>
-								<div class="col-sm-10">
-									<input type="checkbox" class="form-control" data-ng-model="baCtrl.bankAccount.predeterminado">
+									<input type="text" class="form-control" data-ng-model="baCtrl.bankAccount.currency">
 								</div>
 							</div>
 							<div class="line"></div>
@@ -167,15 +142,17 @@
 								<thead>
 									<tr>
 										<th>#</th>
-										<th>Banco</th>
+										<th>Empresa</th>
 										<th>Tipo cuenta</th>
-										<th>sucursal</th>
-										<th>No Cliente</th>
-										<th>Clabe</th>
-										<th>Cuenta</th>
-										<th>No Targeta</th>
+										<th>No. Cuenta</th>
+										<th>Dirección</th>
+										<th>Teléfono</th>
+										<th>Cliente</th>
+										<th>Portafolio</th>
+										<th>Periodo</th>
 										<th>Moneda</th>
-										<th>Contacto</th>
+										<th>Banco</th>
+										<th></th>
 										<th></th>
 										<th></th>
 									</tr>
@@ -183,15 +160,16 @@
 								<tbody>
 									<tr data-ng-repeat="ba in baCtrl.bankAccounts track by $index">
 										<td scope="row">{{$index+1}}</td>
-										<td>{{ba.banco}}</td>
-										<td>{{ba.tipoCuenta}}</td>
-										<td>{{ba.sucursal}}</td>
-										<td>{{ba.noCliente}}</td>
-										<td>{{ba.clabe}}</td>
-										<td>{{ba.cuenta}}</td>
-										<td>{{ba.noTargeta}}</td>
-										<td>{{ba.moneda}}</td>
-										<td>{{ba.contacto}}</td>
+										<td>{{ba.company.name}}</td>
+										<td>{{ba.accountType}}</td>
+										<td>{{ba.accountNumber}}</td>
+										<td>{{ba.address}}</td>
+										<td>{{ba.telephone}}</td>
+										<td>{{ba.client}}</td>
+										<td>{{ba.portfolio}}</td>
+										<td>{{ba.period}}</td>
+										<td>{{ba.currency}}</td>
+										<td>{{ba.bank}}</td>
 										<td><button class="btn btn-success" data-ng-click="baCtrl.stateGoTo('bank-actions', ba)">Acciones</button></td>
 										<td><button class="btn btn-info" data-ng-click="baCtrl.update(ba)">Actualizar</button></td>
 										<td><button class="btn btn-danger" data-ng-click="baCtrl.delete(ba)">Eliminar</button></td>

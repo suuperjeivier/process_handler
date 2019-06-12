@@ -1,22 +1,9 @@
-app.controller('bankAccountsCtrl', function ($state, $stateParams, bankAccountService) {
+app.controller('bankAccountsCtrl', function ($state, $stateParams, bankAccountService, companyService) {
     const self = this;
     self.bankAccounts = [];
     self.bankAccount = null;
     self.newBankAccount = () => {
         self.bankAccount = {
-            banco: '',
-            tipoCuenta: '',
-            sucursal: '',
-            noCliente: 0,
-            clabe: '',
-            cuenta: '',
-            noTargeta: '',
-            swif: '',
-            moneda: '',
-            contacto: '',
-            telefonoContacto: '',
-            cardexActivo: false,
-            predeterminado: false,
             status: 1
         }
         return self.bankAccount;
@@ -52,6 +39,7 @@ app.controller('bankAccountsCtrl', function ($state, $stateParams, bankAccountSe
     	}else{
     		bankAccountService.get().then(data => {
                 self.bankAccounts = data;
+                console.log('Datos obtenidos: ', data);
             }, error => {
                 console.log('Error al obtener las cuentas bancarias', error);
             });
@@ -66,7 +54,15 @@ app.controller('bankAccountsCtrl', function ($state, $stateParams, bankAccountSe
             console.log('Error al obtener las cuentas bancarias', error);
         });
     };
-
+    
+    self.getCompany = () => {
+    	console.log('Buscando por empresa');
+    	companyService.get().then(data => {
+    		self.business = data;
+    	}, error => {
+    		console.log('Error al obtener las empresas: ', error);
+    	})
+    }; 
     self.post = () => {
     	if(self.company){
     		self.bankAccount.company = self.company;
@@ -105,7 +101,7 @@ app.controller('bankAccountsCtrl', function ($state, $stateParams, bankAccountSe
     };
 
     const initController = () => {
-        
+    	self.getCompany();
         console.log("params:", $stateParams);
         if($stateParams.company){
         	self.company = $stateParams.company;
