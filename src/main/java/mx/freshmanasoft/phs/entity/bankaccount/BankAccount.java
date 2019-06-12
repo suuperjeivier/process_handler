@@ -1,5 +1,6 @@
 package mx.freshmanasoft.phs.entity.bankaccount;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -26,6 +27,7 @@ public class BankAccount {
 	@ManyToOne
 	@JoinColumn(name="FK_ID_COMPANY")
 	private Company company;
+	@Column(name="N_STATUS", columnDefinition = "INT(1) NOT NULL DEFAULT 0")
 	private Integer status;
 	/**
 	 * @return the id
