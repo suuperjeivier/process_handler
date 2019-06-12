@@ -8,7 +8,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider,$url
 	$stateProvider
 		.state('home',{
 			url: '/',
-			templateUrl:'',
+			templateUrl:'panel.html',
 			controller: 'homeCtrl',
 			controllerAs: 'hCtrl'
 		})
@@ -22,6 +22,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider,$url
 		.state('bank-actions',{
 			url: '/bank-actions',
 			templateUrl:'views/bankActions.html',
+			params: {account: null},
 			controller: 'bankActionsCtrl',
 			controllerAs: 'bactCtrl'
 		})

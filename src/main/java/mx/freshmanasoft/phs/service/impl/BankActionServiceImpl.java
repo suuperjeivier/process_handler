@@ -39,6 +39,11 @@ public class BankActionServiceImpl implements BankActionService{
 		entity.setId(null);
 		return entity;
 	}
+
+	@Override
+	public Iterable<BankAction> fetch(Long accountId) {
+		return repository.findByAccountId(accountId);
+	}
 	
 
 }

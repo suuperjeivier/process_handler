@@ -7,5 +7,6 @@ public interface BankActionService {
 	BankAction post(BankAction entity);
 	BankAction put(BankAction entity);
 	BankAction delete(BankAction entity);
+	Iterable<BankAction> fetch(Long accountId);
 	
 }

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,6 +25,11 @@ public class BankActionController {
 	@GetMapping
 	public @ResponseBody Iterable<BankAction> getAllBankAccounts(){
 		return service.fetch();
+	}
+	
+	@GetMapping("account/id")
+	public @ResponseBody Iterable<BankAction> getByAccountId(@RequestParam(name="accountId") final Long accountId){
+		return service.fetch(accountId);
 	}
 	
 	@PostMapping

@@ -2,13 +2,12 @@ package mx.freshmanasoft.phs.entity;
 
 import java.util.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import javax.persistence.ManyToOne;
-
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import mx.freshmanasoft.phs.entity.bankaccount.BankAccount;
 
@@ -30,8 +29,18 @@ public class BankAction {
 	private String originalCoin;
 	private Double value;
 	private int status;
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
+	@JoinColumn(name="FK_ID_BANK_ACCOUNT")
 	private BankAccount account;
+	
+	public BankAction() {
+	}
+	
+	public BankAction(String name, String cusip) {
+		this.name = name;
+		this.cusip = cusip;
+	}
+	
 	/**
 	 * @return the id
 	 */

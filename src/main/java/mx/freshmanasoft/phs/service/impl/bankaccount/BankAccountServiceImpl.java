@@ -1,14 +1,14 @@
 package mx.freshmanasoft.phs.service.impl.bankaccount;
 
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import mx.freshmanasoft.phs.entity.bankaccount.BankAccount;
 import mx.freshmanasoft.phs.repository.bankaccount.BankAccountRepository;
 import mx.freshmanasoft.phs.service.bankaccount.BankAccountService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 @Service("bankAccountService")
 public class BankAccountServiceImpl implements BankAccountService{
@@ -38,6 +38,12 @@ public class BankAccountServiceImpl implements BankAccountService{
 	public BankAccount delete(BankAccount entity) {
 		LOGGER.info("---- ELIMINANDO CUENTA BANCARIA ----");
 		return repository.save(entity);
+	}
+
+	@Override
+	public Iterable<BankAccount> fetch(Long companyId) {
+		
+		return repository.findByCompanyId(companyId);
 	}
 
 }

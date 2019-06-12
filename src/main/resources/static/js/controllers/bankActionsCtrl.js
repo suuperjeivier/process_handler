@@ -1,4 +1,4 @@
-app.controller('bankActionsCtrl', function (bankActionService, bankAccountService) {
+app.controller('bankActionsCtrl', function ($stateParams, bankActionService) {
     const self = this;
     self.bankActions = [];
     self.bankAction = null;
@@ -14,14 +14,24 @@ app.controller('bankActionsCtrl', function (bankActionService, bankAccountServic
     };
 
     self.get = () => {
-        bankActionService.get().then(data => {
-            self.bankActions = data;
-        }, error => {
-            console.log('Error al obtener las acciones bancaras', error);
-        });
+    	if(self.account){
+    		bankActionService.getByAccountId(self.account.id).then(data => {
+                self.bankActions = data;
+            }, error => {
+                console.log('Error al obtener las acciones bancaras', error);
+            });
+    	}else{
+    		bankActionService.get().then(data => {
+                self.bankActions = data;
+            }, error => {
+                console.log('Error al obtener las acciones bancaras', error);
+            });
+    	}
+        
     };
 
     self.post = () => {
+    	self.bankAction.account = self.account;
         console.log('informacion de la accion: ',self.bankAction);
         bankActionService.post(self.bankAction).then(data => {
             self.bankAction = null;
@@ -34,7 +44,7 @@ app.controller('bankActionsCtrl', function (bankActionService, bankAccountServic
     
     self.update = bankAction => {
         console.log('bankAction: ',bankAction);
-        self.bankAction = bankAccount;
+        self.bankAction = bankAction;
     };
 
     self.submitForm = isValid => {
@@ -74,7 +84,18 @@ app.controller('bankActionsCtrl', function (bankActionService, bankAccountServic
     };
 
     const initController = () => {
-        self.get();
+
+        console.log("params:", $stateParams);
+        if($stateParams.account){
+        	self.account = $stateParams.account;
+        	console.log(self.account);
+        	self.get();
+        	//self.getByCompany(self.company);
+        }else{
+        	//self.company = null;
+        	self.get();
+        	self.account = null;
+        }
     };
 
     angular.element(document).ready(function () {

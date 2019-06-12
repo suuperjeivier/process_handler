@@ -1,4 +1,4 @@
-app.controller('bankAccountsCtrl', function ($stateParams, bankAccountService) {
+app.controller('bankAccountsCtrl', function ($state, $stateParams, bankAccountService) {
     const self = this;
     self.bankAccounts = [];
     self.bankAccount = null;
@@ -46,8 +46,21 @@ app.controller('bankAccountsCtrl', function ($stateParams, bankAccountService) {
         }
     }
 
-    self.getBankAccounts = () => {
-        bankAccountService.get().then(data => {
+    self.get = () => {
+    	if(self.company){
+    		self.getByCompany(self.company);
+    	}else{
+    		bankAccountService.get().then(data => {
+                self.bankAccounts = data;
+            }, error => {
+                console.log('Error al obtener las cuentas bancarias', error);
+            });
+    	}        
+    };
+    
+    self.getByCompany = (comp) => {
+    	console.log('buscando por comapny:', comp);
+        bankAccountService.getByCompany(comp).then(data => {
             self.bankAccounts = data;
         }, error => {
             console.log('Error al obtener las cuentas bancarias', error);
@@ -55,10 +68,13 @@ app.controller('bankAccountsCtrl', function ($stateParams, bankAccountService) {
     };
 
     self.post = () => {
+    	if(self.company){
+    		self.bankAccount.company = self.company;
+    	}
         bankAccountService.post(self.bankAccount).then(data => {
             self.bankAccount = null;
             alert("registro exitoso");
-            self.getBankAccounts();
+            self.get();
         }, error => {
             console.log('Error al registrar la cuenta bancaria', error);
         });
@@ -68,7 +84,7 @@ app.controller('bankAccountsCtrl', function ($stateParams, bankAccountService) {
         bankAccountService.post(self.bankAccount).then(data => {
             alert("Actualización exitosa");
             self.bankAccount = null;
-            self.getBankAccounts();
+            self.get();
         }, error => {
             console.log('Error al actualizar la cuenta bancaría', error);
         });
@@ -78,21 +94,25 @@ app.controller('bankAccountsCtrl', function ($stateParams, bankAccountService) {
         bankAccount.status = 0;
         bankAccountService.del(bankAccount).then(data => {
             alert("Eliminación exitosa");
-            self.getBankAccounts();
+            self.get();
         }, error => {
             console.log("Error al eliminar el archivo");
         });
+    };
+    
+    self.stateGoTo = (stateTrans, data) =>{
+    	$state.go(stateTrans, {'account': data}, {location: false, inherit: false});
     };
 
     const initController = () => {
         
         console.log("params:", $stateParams);
         if($stateParams.company){
-        	self.getBankAccounts($stateParams.company);
-        	//self.newBankAccount();
-        	//self.bankAccount.company = $stateParams.company;
+        	self.company = $stateParams.company;
+        	self.getByCompany(self.company);
         }else{
-        	self.getBankAccounts();
+        	self.company = null;
+        	self.get();
         }
         
     };

@@ -1,5 +1,4 @@
 app.service('bankAccountService', function ($q, factory) {
-
     const self = this;
     const path = 'bank-accounts';
     self.get = () => {
@@ -11,6 +10,17 @@ app.service('bankAccountService', function ($q, factory) {
             });
         });
     };
+    
+    self.getByCompany = (comp) => {
+    	let data = {'companyId': comp.id};
+        return $q((resolve, reject) => {
+            factory.get(path+'/company/id', data).then(data => {
+                resolve(data);
+            }, error => {
+                reject(error);
+            });
+        });
+    };    
 
     self.post = bankAccount => {
         return $q((resolve, reject) => {

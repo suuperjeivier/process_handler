@@ -1,8 +1,9 @@
 <div class="breadcrumb-holder">
 	<div class="container-fluid">
 		<ul class="breadcrumb">
-			<li class="breadcrumb-item"><a href="/">Inicio</a></li>
-			<li class="breadcrumb-item active">Cuentas bancarias</li>
+			<li class="breadcrumb-item"><a href="#!" data-ng-click="baCtrl.stateGoTo('home', null)">Inicio</a></li>
+			<li class="breadcrumb-item" data-ng-if="baCtrl.company"><a href="#!bussiness" data-ng-click="baCtrl.stateGoTo('bussiness', null)">Empresas</a></li>
+			<li class="breadcrumb-item active">Cuentas bancarias </li>
 		</ul>
 	</div>
 </div>
@@ -145,7 +146,7 @@
 <section data-ng-if="!baCtrl.bankAccount">
 	<div class="container-fluid">
 		<header>
-			<h1 class="h3 display">Cuentas bancarias</h1>
+			<h1 class="h3 display">Cuentas bancarias {{baCtrl.company ? 'de ' + baCtrl.company.name : ''}}</h1>
 		</header>
 		<div class="row">
 			<div class="col-lg-12">
@@ -191,6 +192,7 @@
 										<td>{{ba.noTargeta}}</td>
 										<td>{{ba.moneda}}</td>
 										<td>{{ba.contacto}}</td>
+										<td><button class="btn btn-success" data-ng-click="baCtrl.stateGoTo('bank-actions', ba)">Acciones</button></td>
 										<td><button class="btn btn-info" data-ng-click="baCtrl.update(ba)">Actualizar</button></td>
 										<td><button class="btn btn-danger" data-ng-click="baCtrl.delete(ba)">Eliminar</button></td>
 									</tr>
