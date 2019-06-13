@@ -11,6 +11,7 @@ app.controller('bankAccountsCtrl', function ($state, $stateParams, bankAccountSe
 
     self.cancelBankAccount = () => {
         self.bankAccount = null;
+        self.validClass = null;
     };
 
     self.update = bankAccount => {
@@ -22,6 +23,65 @@ app.controller('bankAccountsCtrl', function ($state, $stateParams, bankAccountSe
         console.log('Valid Form');
         if (isValid) {
             self.addUpdate();
+            self.validClass = null;
+        }else {
+        	self.validClass = {};
+        	self.validClass.accountType = 'valid';
+        	self.validClass.accountNumber = 'valid';
+        	self.validClass.address = 'valid';
+        	self.validClass.telephone = 'valid';
+        	self.validClass.client = 'valid';
+        	self.validClass.portfolio = 'valid';
+        	self.validClass.period = 'valid';
+        	self.validClass.currency = 'valid';
+        	self.validClass.bank = 'valid';
+        	self.validClass.company = 'valid';
+        	
+        	if(!self.bankAccount.accountType){
+        		self.validClass.accountType = 'invalid';
+        		console.log('incorrecto');
+        	}
+        	
+			if(!self.bankAccount.accountNumber){
+				self.validClass.accountNumber = 'invalid'; 	
+				console.log('incorrecto');
+			}
+			
+			if(!self.bankAccount.address){
+				self.validClass.address = 'invalid';
+				console.log('incorrecto');
+			}
+			
+			if(!self.bankAccount.telephone){
+				self.validClass.telephone = 'invalid';
+				console.log('incorrecto');
+			}
+			
+			if(!self.bankAccount.client){
+				self.validClass.client = 'invalid';
+				console.log('incorrecto');
+			}
+			
+			if(!self.bankAccount.portfolio){
+				self.validClass.portfolio = 'invalid';
+				console.log('incorrecto');
+			}
+			
+			if(!self.bankAccount.period){
+				self.validClass.period = 'invalid';
+			}
+			
+			if(!self.bankAccount.currency){
+				self.validClass.currency = 'invalid';
+			}
+			
+			if(!self.bankAccount.bank){
+				self.validClass.bank = 'invalid';
+			}
+			
+			if(!self.bankAccount.company){
+				self.validClass.company = 'invalid';
+			}
         }
     };
 

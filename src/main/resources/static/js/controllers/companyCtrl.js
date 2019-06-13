@@ -42,6 +42,26 @@ app.controller('companyCtrl', function ($state, companyService) {
         console.log('Valid Form');
         if (isValid) {
             self.addUpdate();
+        }else {
+        	self.validClass = {};
+        	self.validClass.name = 'valid';
+        	self.validClass.friendlyAccount = 'valid';
+        	self.validClass.number = 'valid';
+        	
+        	if(!self.company.name){
+        		self.validClass.name = 'invalid';
+        		console.log('incorrecto');
+        	}
+        	
+			if(!self.company.accountNumber){
+				self.validClass.friendlyAccount = 'invalid'; 	
+				console.log('incorrecto');
+			}
+			
+			if(!self.company.number){
+				self.validClass.number = 'invalid';
+				console.log('incorrecto');
+			}
         }
     };
 

@@ -28,7 +28,11 @@
 								<label class="col-sm-2 form-control-label">Nombre</label>
 								<div class="col-sm-10">
 									<input type="text" class="form-control"
-										data-ng-model="cCtrl.company.name">
+										data-ng-class="cCtrl.validClass.name? 'is-'+cCtrl.validClass.name:''"
+										data-ng-model="cCtrl.company.name" required>
+									<div class="d-block"
+										data-ng-class="cCtrl.validClass.name? cCtrl.validClass.name+'-feedback':''"
+										data-ng-show="cCtrl.validClass.name">Ingrese el nombre de la empresa</div>
 								</div>
 							</div>
 							<div class="line"></div>
@@ -37,7 +41,11 @@
 									cuenta amigable</label>
 								<div class="col-sm-10">
 									<input type="text" class="form-control"
-										data-ng-model="cCtrl.company.friendlyAccount">
+										data-ng-class="cCtrl.validClass.friendlyAccount? 'is-'+cCtrl.validClass.friendlyAccount:''"
+										data-ng-model="cCtrl.company.friendlyAccount" required>
+									<div class="d-block"
+										data-ng-class="cCtrl.validClass.friendlyAccount? cCtrl.validClass.friendlyAccount+'-feedback':''"
+										data-ng-show="cCtrl.validClass.friendlyAccount">Ingrese un nombre de cuenta amigable</div>
 								</div>
 							</div>
 							<div class="line"></div>
@@ -46,7 +54,11 @@
 									cuenta</label>
 								<div class="col-sm-10">
 									<input type="text" class="form-control"
-										data-ng-model="cCtrl.company.number">
+										data-ng-class="cCtrl.validClass.number? 'is-'+cCtrl.validClass.number:''"
+										data-ng-model="cCtrl.company.number" required>
+									<div class="d-block"
+										data-ng-class="cCtrl.validClass.number? cCtrl.validClass.number+'-feedback':''"
+										data-ng-show="cCtrl.validClass.number">Ingrese un número de cuenta</div>
 								</div>
 							</div>
 							<div class="line"></div>
@@ -112,7 +124,7 @@
 										<td>{{co.friendlyAccount}}</td>
 										<td>{{co.number}}</td>
 										<td><button class="btn btn-success"
-												data-ng-click="cCtrl.addBankAccount(co)">Add Bank Account</button></td>
+												data-ng-click="cCtrl.addBankAccount(co)">Detalles</button></td>
 										<td><button class="btn btn-info"
 												data-ng-click="cCtrl.update(co)">Actualizar</button></td>
 										<td><button class="btn btn-danger"

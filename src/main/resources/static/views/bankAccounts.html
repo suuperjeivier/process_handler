@@ -23,22 +23,29 @@
 							<div class="form-group row">
 								<label class="col-sm-2 form-control-label">Empresa</label>
 								<div class="col-sm-10">
-									<select class="form-control" 
+									<select class="form-control" required
+									data-ng-class="baCtrl.validClass.company? 'is-'+baCtrl.validClass.company:''"
 									data-ng-options="ba as ba.name for ba in baCtrl.business track by ba.id"
 									data-ng-model="baCtrl.bankAccount.company">
-										<option disabled selected>Seleccione un banco...</option>
+										<option value="" disabled selected>Seleccione una empresa...</option>
 									</select>
+									<div class="d-block" data-ng-class="baCtrl.validClass.company? baCtrl.validClass.company+'-feedback':''"
+									data-ng-show="baCtrl.validClass.company">Seleccione una empresa</div>
 								</div>
 							</div>
 							<div class="form-group row">
 								<label class="col-sm-2 form-control-label">Banco</label>
 								<div class="col-sm-10">
-									<select class="form-control" data-ng-model="baCtrl.bankAccount.bank">
-										<option disabled selected>Seleccione un banco...</option>
+									<select class="form-control" required
+										data-ng-class="baCtrl.validClass.bank? 'is-'+baCtrl.validClass.bank:''"
+								 		data-ng-model="baCtrl.bankAccount.bank">
+										<option value="" disabled selected>Seleccione un banco...</option>
 										<option value="Bancomer">Bancomer</option>
 										<option value="Banamex">Banamex</option>
 										<option value="Banorte">Banorte</option>
 									</select>
+									<div class="d-block" data-ng-class="baCtrl.validClass.bank? baCtrl.validClass.bank+'-feedback':''"
+									data-ng-show="baCtrl.validClass.bank">Seleccione un banco</div>
 								</div>
 							</div>
 							<div class="line"></div>
@@ -46,60 +53,92 @@
 								<label class="col-sm-2 form-control-label">Tipo de
 									cuenta</label>
 								<div class="col-sm-10">
-									<select class="form-control" data-ng-model="baCtrl.bankAccount.accountType">
-										<option disabled selected>Seleccione un tipo...</option>
+									<select class="form-control" required
+										data-ng-class="baCtrl.validClass.accountType? 'is-'+baCtrl.validClass.accountType:''"
+										data-ng-model="baCtrl.bankAccount.accountType">
+										<option value="" disabled selected>Seleccione un tipo...</option>
 										<option value="Bancomer">Opcion 1</option>
 										<option value="Banamex">Opcion 2</option>
 									</select>
+									<div class="d-block" data-ng-class="baCtrl.validClass.accountType? baCtrl.validClass.accountType+'-feedback':''"
+									data-ng-show="baCtrl.validClass.accountType">Seleccione un tipo</div>
 								</div>
 							</div>
 							<div class="line"></div>
 							<div class="form-group row">
 								<label class="col-sm-2 form-control-label">No. Cuenta</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" data-ng-model="baCtrl.bankAccount.accountNumber">
+									<input type="text" class="form-control" required
+									data-ng-class="baCtrl.validClass.accountNumber? 'is-'+baCtrl.validClass.accountNumber:''"
+									data-ng-model="baCtrl.bankAccount.accountNumber">
+									<div class="d-block" data-ng-class="baCtrl.validClass.accountNumber? baCtrl.validClass.accountNumber+'-feedback':''"
+									data-ng-show="baCtrl.validClass.accountNumber">Ingrese un número de cuenta</div>
 								</div>
 							</div>
 							<div class="line"></div>
 							<div class="form-group row">
 								<label class="col-sm-2 form-control-label">Dirección</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" data-ng-model="baCtrl.bankAccount.address">
+									<input type="text" class="form-control" required
+									data-ng-class="baCtrl.validClass.address? 'is-'+baCtrl.validClass.address:''"
+									 data-ng-model="baCtrl.bankAccount.address">
+									 <div class="d-block" data-ng-class="baCtrl.validClass.address? baCtrl.validClass.address+'-feedback':''"
+									data-ng-show="baCtrl.validClass.address">Ingrese una dirección</div>
 								</div>
 							</div>
 							<div class="line"></div>
 							<div class="form-group row">
 								<label class="col-sm-2 form-control-label">Teléfono</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" data-ng-model="baCtrl.bankAccount.telephone">
+									<input type="tel" required
+									data-ng-class="baCtrl.validClass.telephone? 'is-'+baCtrl.validClass.telephone:''"
+									 pattern="[0-9]{10}"class="form-control" data-ng-model="baCtrl.bankAccount.telephone">
+									<div class="d-block" data-ng-class="baCtrl.validClass.telephone? baCtrl.validClass.telephone+'-feedback':''"
+									data-ng-show="baCtrl.validClass.telephone">Ingrese correctamente el teléfono [5555555555]</div>
 								</div>
 							</div>
 							<div class="line"></div>
 							<div class="form-group row">
 								<label class="col-sm-2 form-control-label">Cliente</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" data-ng-model="baCtrl.bankAccount.client">
+									<input type="text" required
+									data-ng-class="baCtrl.validClass.client? 'is-'+baCtrl.validClass.client:''"
+									class="form-control" data-ng-model="baCtrl.bankAccount.client">
+									<div class="d-block" data-ng-class="baCtrl.validClass.client? baCtrl.validClass.client+'-feedback':''"
+									data-ng-show="baCtrl.validClass.client">Ingrese un cliente</div>
 								</div>
 							</div>
 							<div class="line"></div>
 							<div class="form-group row">
 								<label class="col-sm-2 form-control-label">Portafolio</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" data-ng-model="baCtrl.bankAccount.portfolio">
+									<input type="text" required
+									data-ng-class="baCtrl.validClass.portfolio? 'is-'+baCtrl.validClass.portfolio:''"
+									 class="form-control" data-ng-model="baCtrl.bankAccount.portfolio">
+									 <div class="d-block" data-ng-class="baCtrl.validClass.portfolio? baCtrl.validClass.portfolio+'-feedback':''"
+									data-ng-show="baCtrl.validClass.portfolio">Ingrese un portafolio</div>
 								</div>
 							</div>
 							<div class="line"></div>
 							<div class="form-group row">
 								<label class="col-sm-2 form-control-label">Periodo</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" data-ng-model="baCtrl.bankAccount.period">
+									<input type="text" required
+									data-ng-class="baCtrl.validClass.period? 'is-'+baCtrl.validClass.period:''"
+									 class="form-control" data-ng-model="baCtrl.bankAccount.period">
+									 <div class="d-block" data-ng-class="baCtrl.validClass.period? baCtrl.validClass.period+'-feedback':''"
+									data-ng-show="baCtrl.validClass.period">Ingrese un periodo</div>
 								</div>
 							</div>
 							<div class="line"></div>
 							<div class="form-group row">
 								<label class="col-sm-2 form-control-label">Moneda</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" data-ng-model="baCtrl.bankAccount.currency">
+									<input type="text" required
+									data-ng-class="baCtrl.validClass.currency? 'is-'+baCtrl.validClass.currency:''"
+									class="form-control" data-ng-model="baCtrl.bankAccount.currency">
+									<div class="d-block" data-ng-class="baCtrl.validClass.currency? baCtrl.validClass.currency+'-feedback':''"
+									data-ng-show="baCtrl.validClass.currency">Ingrese una moneda</div>
 								</div>
 							</div>
 							<div class="line"></div>
@@ -132,7 +171,7 @@
 								<button type="button" class="btn btn-primary" data-ng-click="baCtrl.newBankAccount()"><i class="fa fa-plus"></i> Nueva Cuenta</button>
 							</div>
 							<div class="col-sm-4">
-								<input type="search" placeholder="Buscar cuenta" class="form-control">
+								<input type="search" placeholder="Buscar por número de cuenta" class="form-control" data-ng-model="baCtrl.filterAccountNumber">
 							</div>
 						</div>
 					</div>
@@ -158,7 +197,7 @@
 									</tr>
 								</thead>
 								<tbody>
-									<tr data-ng-repeat="ba in baCtrl.bankAccounts track by $index">
+									<tr data-ng-repeat="ba in baCtrl.bankAccounts | filter: baCtrl.filterAccountNumber track by $index">
 										<td scope="row">{{$index+1}}</td>
 										<td>{{ba.company.name}}</td>
 										<td>{{ba.accountType}}</td>
