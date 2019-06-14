@@ -1,18 +1,38 @@
-app.controller('bankAccountsCtrl', function ($state, $stateParams, bankAccountService, companyService) {
+app.controller('bankAccountsCtrl', function ($state, $stateParams, bankAccountService, companyService, $filter) {
     const self = this;
     self.bankAccounts = [];
     self.bankAccount = null;
     self.newBankAccount = () => {
         self.bankAccount = {
-            status: 1
+            status: 1,
+            date: new Date()
         }
         return self.bankAccount;
     };
-
+    
+    self.searchStartDate = new Date();
+    self.searchEndDate = new Date();
+    
     self.cancelBankAccount = () => {
         self.bankAccount = null;
         self.validClass = null;
     };
+    
+    self.searchBetweenDates = (startDate, endDate) => {
+    	let sendData = {
+    			"startDate":  $filter('date')(startDate, "yyyy/MM/dd"),
+    			"endDate": $filter('date')(endDate, "yyyy/MM/dd"),
+    			"status": 1
+    	};
+    	
+    	bankAccountService.getByBetweenDates(sendData).then(data => {
+    		 self.bankAccounts = data;
+    		 console.log('datos optenidos de la busqueda: ', data)
+    	}, error => {
+    		console.log('Error al buscar las cuentas bancarias');
+    	});
+    	
+    };    
 
     self.update = bankAccount => {
         console.log('cuenta: ',bankAccount);

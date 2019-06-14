@@ -98,8 +98,8 @@
 								</button>
 							</div>
 							<div class="col-sm-4">
-								<input type="search" placeholder="Buscar empresa"
-									class="form-control">
+								<input type="search" placeholder="Buscar..."
+									data-ng-model="cCtrl.filterCompany"class="form-control">
 							</div>
 						</div>
 					</div>
@@ -118,7 +118,7 @@
 									</tr>
 								</thead>
 								<tbody>
-									<tr data-ng-repeat="co in cCtrl.companys track by $index">
+									<tr data-ng-repeat="co in cCtrl.companys | filter: cCtrl.filterCompany track by $index">
 										<td>{{$index+1}}</td>
 										<td>{{co.name}}</td>
 										<td>{{co.friendlyAccount}}</td>

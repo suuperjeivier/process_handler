@@ -1,6 +1,9 @@
 package mx.freshmanasoft.phs.service.impl.bankaccount;
 
 
+import java.util.Calendar;
+import java.util.Date;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +24,16 @@ public class BankAccountServiceImpl implements BankAccountService{
 		LOGGER.info("---- CONSULTANDO CUENTAS BANCARIAS ----");
 		return repository.findByStatus(1);
 	}
+	
+	@Override
+	public Iterable<BankAccount> fetchByBetweenDates(Integer status, Date startDate, Date endDate) {
+		LOGGER.info("---- CONSULTANDO CUENTAS BANCARIAS POR FECHAS ["+startDate.toString()+","+endDate.toString()+"]----");
+		Calendar date = Calendar.getInstance();
+		date.setTime(endDate);
+		date.add(Calendar.DAY_OF_YEAR, 1);
+		return repository.findByStatusAndDateBetweenOrderByDateDesc(status, startDate, date.getTime());
+	}
+
 
 	@Override
 	public BankAccount post(BankAccount entity) {
@@ -45,5 +58,4 @@ public class BankAccountServiceImpl implements BankAccountService{
 		
 		return repository.findByCompanyId(companyId);
 	}
-
 }

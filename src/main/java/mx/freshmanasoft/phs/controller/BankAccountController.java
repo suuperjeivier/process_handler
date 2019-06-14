@@ -1,6 +1,9 @@
 package mx.freshmanasoft.phs.controller;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -30,6 +33,13 @@ public class BankAccountController {
 	@GetMapping("company/id")
 	public @ResponseBody Iterable<BankAccount> getByCompany(@RequestParam(name="companyId") final Long companyId){
 		return service.fetch(companyId);
+	}
+	
+	@GetMapping("/between-dates")
+	public @ResponseBody Iterable<BankAccount> getByBetweenDates(@RequestParam(name="status") final Integer status,
+			@RequestParam(name="startDate") @DateTimeFormat(pattern="yyyy/MM/dd") final Date startDate,
+			@RequestParam(name="endDate") @DateTimeFormat(pattern="yyyy/MM/dd") final Date endDate){
+		return service.fetchByBetweenDates(status, startDate, endDate);
 	}
 	
 	@PostMapping

@@ -21,6 +21,17 @@
 					<div class="card-body">
 						<form class="form-horizontal" name="formBankAccount" data-ng-submit="baCtrl.submitForm(formBankAccount.$valid)" novalidate>
 							<div class="form-group row">
+								<label class="col-sm-2 form-control-label">Fecha</label>
+								<div class="col-sm-10">
+									<input type="date" class="form-control" required
+									data-ng-class="baCtrl.validClass.date? 'is-'+baCtrl.validClass.date:''"
+									data-ng-model="baCtrl.bankAccount.date">
+									<div class="d-block" data-ng-class="baCtrl.validClass.date? baCtrl.validClass.date+'-feedback':''"
+									data-ng-show="baCtrl.validClass.date">Ingrese una fecha correcta</div>
+								</div>
+							</div>
+							<div class="line"></div>
+							<div class="form-group row">
 								<label class="col-sm-2 form-control-label">Empresa</label>
 								<div class="col-sm-10">
 									<select class="form-control" required
@@ -166,12 +177,25 @@
 			<div class="col-lg-12">
 				<div class="card">
 					<div class="card-header">
+						<div class="row mb-3">
+							<div class="col-sm-3">
+								<input type="date" class="form-control" data-ng-model="baCtrl.searchStartDate">
+								
+							</div>
+							<div class="col-sm-3">
+								<input type="date" class="form-control" data-ng-model="baCtrl.searchEndDate">
+								
+							</div>
+							<div class="col-sm-3">
+								<button type="button" class="btn btn-dark" data-ng-click="baCtrl.searchBetweenDates(baCtrl.searchStartDate,baCtrl.searchEndDate)">Buscar</button>
+							</div>
+						</div>
 						<div class="row">
 							<div class="col-sm-2">
 								<button type="button" class="btn btn-primary" data-ng-click="baCtrl.newBankAccount()"><i class="fa fa-plus"></i> Nueva Cuenta</button>
 							</div>
 							<div class="col-sm-4">
-								<input type="search" placeholder="Buscar por número de cuenta" class="form-control" data-ng-model="baCtrl.filterAccountNumber">
+								<input type="search" placeholder="Buscar..." class="form-control" data-ng-model="baCtrl.filterAccountNumber">
 							</div>
 						</div>
 					</div>

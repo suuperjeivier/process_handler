@@ -1,5 +1,7 @@
 package mx.freshmanasoft.phs.entity.bankaccount;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -24,6 +26,7 @@ public class BankAccount {
 	private String period;
 	private String currency;
 	private String bank;
+	private Date date;
 	@ManyToOne
 	@JoinColumn(name="FK_ID_COMPANY")
 	private Company company;
@@ -148,6 +151,18 @@ public class BankAccount {
 	 */
 	public void setBank(String bank) {
 		this.bank = bank;
+	}
+	/**
+	 * @return the date
+	 */
+	public Date getDate() {
+		return date;
+	}
+	/**
+	 * @param date the date to set
+	 */
+	public void setDate(Date date) {
+		this.date = date;
 	}
 	/**
 	 * @return the company

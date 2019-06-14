@@ -11,6 +11,16 @@ app.service('bankAccountService', function ($q, factory) {
         });
     };
     
+    self.getByBetweenDates = (dates) => {
+        return $q((resolve, reject) => {
+            factory.get(path+'/between-dates', dates).then(data => {
+                resolve(data);
+            }, error => {
+                reject(error);
+            });
+        });
+    };    
+    
     self.getByCompany = (comp) => {
     	let data = {'companyId': comp.id};
         return $q((resolve, reject) => {
@@ -20,8 +30,9 @@ app.service('bankAccountService', function ($q, factory) {
                 reject(error);
             });
         });
-    };    
-
+    };  
+    
+    
     self.post = bankAccount => {
         return $q((resolve, reject) => {
             factory.post(path,bankAccount).then(data => {
