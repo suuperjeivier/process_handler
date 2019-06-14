@@ -163,7 +163,7 @@
 
 							<div class="col-sm-4">
 								<input type="search" placeholder="Buscar cuenta"
-									class="form-control">
+									class="form-control" data-ng-model="bactCtrl.filterActionNumber">
 							</div>
 						</div>
 					</div>
@@ -187,7 +187,7 @@
 									</tr>
 								</thead>
 								<tbody>
-									<tr data-ng-repeat="ba in bactCtrl.bankActions track by $index">
+									<tr data-ng-repeat="ba in bactCtrl.bankActions | filter: bactCtrl.filterActionNumber track by $index"">
 										<td scope="row">{{$index+1}}</td>
 										<td>{{ba.name}}</td>
 										<td>{{ba.cusip}}</td>
