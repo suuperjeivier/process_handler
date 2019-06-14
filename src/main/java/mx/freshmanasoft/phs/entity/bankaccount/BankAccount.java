@@ -32,6 +32,12 @@ public class BankAccount {
 	private Company company;
 	@Column(name="N_STATUS", columnDefinition = "INT(1) NOT NULL DEFAULT 0")
 	private Integer status;
+	public BankAccount() {
+		
+	}
+	public BankAccount(Long id) {
+		this.id = id;
+	}
 	/**
 	 * @return the id
 	 */
