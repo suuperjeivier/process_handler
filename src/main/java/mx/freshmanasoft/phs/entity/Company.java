@@ -9,8 +9,7 @@ import javax.persistence.Id;
 public class Company {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Long id;
-	
+	private Long id;	
 	private String name;
 	private String friendlyAccount;
 	private String rfc;
@@ -85,4 +84,11 @@ public class Company {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	@Override
+	public String toString() {
+		return "Company [id=" + id + ", name=" + name + ", friendlyAccount=" + friendlyAccount + ", number=" + number
+				+ ", status=" + status + "]";
+	}
+	
 }

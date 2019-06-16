@@ -5,6 +5,7 @@ app.controller('bankAccountsCtrl', function ($state, $stateParams, bankAccountSe
     self.newBankAccount = () => {
         self.bankAccount = {
             status: 1,
+            company: self.company,
             date: new Date()
         }
         return self.bankAccount;

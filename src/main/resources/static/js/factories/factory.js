@@ -25,12 +25,40 @@ app.factory('factory', function ($http, $q) {
                 return $q.reject(response);
             });
         },
+        getExternal: function (url, params) {
+            return $http({
+                url: url,
+                method: "GET",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                params: params
+            }).then(function (response) {
+                return response.data
+            }, function (response) {
+                return $q.reject(response);
+            });
+        },
         post: function (url, _data) {
             return $http({
                 url: '/' + url,
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json'
+                },
+                data: _data
+            }).then(function (response) {
+                return response.data
+            }, function (response) {
+                return $q.reject(response);
+            });
+        },
+        postFile: function (url, _data) {
+            return $http({
+                url: '/' + url,
+                method: "POST",
+                headers: {
+                    'Content-Type': undefined
                 },
                 data: _data
             }).then(function (response) {

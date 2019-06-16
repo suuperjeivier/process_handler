@@ -1,4 +1,5 @@
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" charset="ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"
+	charset="ISO-8859-1">
 <div class="breadcrumb-holder">
 	<div class="container-fluid">
 		<ul class="breadcrumb">
@@ -12,7 +13,8 @@
 <section data-ng-if="bactCtrl.bankAction">
 	<div class="container-fluid">
 		<header>
-			<h1 class="h3 display">{{!bactCtrl.bankAction.id? 'Nueva' : 'Actualizar'}} acción</h1>
+			<h1 class="h3 display">{{!bactCtrl.bankAction.id? 'Nueva' :
+				'Actualizar'}} acción</h1>
 		</header>
 		<div class="row">
 			<div class="col-lg-2"></div>
@@ -20,89 +22,257 @@
 				<div class="card">
 					<div class="card-header"></div>
 					<div class="card-body">
-						<form class="form-horizontal" name="formbankAction" data-ng-submit="bactCtrl.submitForm(formbankAction.$valid)" novalidate>
+						<form class="form-horizontal" name="formbankAction"
+							data-ng-submit="bactCtrl.submitForm(formbankAction.$valid)"
+							novalidate>
 							<div class="line"></div>
 							<div class="form-group row">
-								<label class="col-sm-2 form-control-label">Instrumento de inversión</label>
+								<label class="col-sm-2 form-control-label">Institución
+									bancaria</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" data-ng-model="bactCtrl.bankAction.name">
+									<input type="text" class="form-control"
+										data-ng-model="bactCtrl.bankAction.institucion">
+								</div>
+							</div>
+							<div class="line"></div>
+							<div class="form-group row">
+								<label class="col-sm-2 form-control-label">Instrumento
+									de inversión</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control"
+										data-ng-model="bactCtrl.bankAction.instrumento">
 								</div>
 							</div>
 							<div class="line"></div>
 							<div class="form-group row">
 								<label class="col-sm-2 form-control-label">CUSIP</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" data-ng-model="bactCtrl.bankAction.cusip">
+									<input type="text" class="form-control"
+										data-ng-model="bactCtrl.bankAction.cusip">
 								</div>
 							</div>
 							<div class="line"></div>
 							<div class="form-group row">
 								<label class="col-sm-2 form-control-label">ISIN/Serie</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" data-ng-model="bactCtrl.bankAction.serie">
+									<input type="text" class="form-control"
+										data-ng-model="bactCtrl.bankAction.isinSerie">
 								</div>
 							</div>
 							<div class="line"></div>
 							<div class="form-group row">
-								<label class="col-sm-2 form-control-label">Security Identifier</label>
+								<label class="col-sm-2 form-control-label">Security
+									Identifier</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" data-ng-model="bactCtrl.bankAction.security">
+									<input type="text" class="form-control"
+										data-ng-model="bactCtrl.bankAction.secId">
 								</div>
 							</div>
 							<div class="line"></div>
 							<div class="form-group row">
-								<label class="col-sm-2 form-control-label">Títulos (Cantidad)</label>
+								<label class="col-sm-2 form-control-label">Títulos
+									(Cantidad)</label>
 								<div class="col-sm-10">
-									<input type="number" step="any" class="form-control" data-ng-model="bactCtrl.bankAction.quantity">
+									<input type="number" step="any" class="form-control"
+										data-ng-model="bactCtrl.bankAction.titulos">
 								</div>
 							</div>
 							<div class="line"></div>
 							<div class="form-group row">
 								<label class="col-sm-2 form-control-label">Unit Cost</label>
 								<div class="col-sm-10">
-									<input type="number" step="any" class="form-control" data-ng-model="bactCtrl.bankAction.unitCost">
+									<input type="number" step="any" class="form-control"
+										data-ng-model="bactCtrl.bankAction.unitCost">
 								</div>
 							</div>
 							<div class="line"></div>
 							<div class="form-group row">
 								<label class="col-sm-2 form-control-label">Valor a costo</label>
 								<div class="col-sm-10">
-									<input type="number" step="any" class="form-control" data-ng-model="bactCtrl.bankAction.valueAtCost">
+									<input type="number" step="any" class="form-control"
+										readonly="readonly"										
+										data-ng-value="bactCtrl.bankAction.titulos*bactCtrl.bankAction.unitCost">
 								</div>
 							</div>
 							<div class="line"></div>
 							<div class="form-group row">
-								<label class="col-sm-2 form-control-label">Fecha de Adquisición</label>
+								<label class="col-sm-2 form-control-label">Fecha de
+									Adquisición</label>
 								<div class="col-sm-10">
-									<input type="date" class="form-control" data-ng-model="bactCtrl.bankAction.acquisitionDate">
+									<input type="date" class="form-control"
+										data-ng-model="bactCtrl.bankAction.fechaInicio">
 								</div>
 							</div>
 							<div class="line"></div>
 							<div class="form-group row">
-								<label class="col-sm-2 form-control-label">Registro contable</label>
+								<label class="col-sm-2 form-control-label">Registro
+									contable</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" data-ng-model="bactCtrl.bankAction.accountingRecord">
+									<input type="text" class="form-control" list="registroContableOpts"
+										data-ng-model="bactCtrl.bankAction.registroContable">
 								</div>
 							</div>
 							<div class="line"></div>
 							<div class="form-group row">
 								<label class="col-sm-2 form-control-label">Valor</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" data-ng-model="bactCtrl.bankAction.value">
+									<input type="text" class="form-control" list="valorOpts"
+										data-ng-model="bactCtrl.bankAction.valor">
 								</div>
 							</div>
 							<div class="line"></div>
 							<div class="form-group row">
-								<label class="col-sm-2 form-control-label">Moneda Original</label>
+								<label class="col-sm-2 form-control-label">Moneda
+									Original</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" data-ng-model="bactCtrl.bankAction.originalCoin">
+									<input type="text" class="form-control" list="monedaOriginalOpts"
+										data-ng-model="bactCtrl.bankAction.monedaOriginal">
+								</div>
+							</div>
+							<div class="line"></div>
+							<div class="form-group row">
+								<label class="col-sm-2 form-control-label">Fecha final del periodo</label>
+								<div class="col-sm-10">
+									<input type="date" class="form-control" readonly="readonly"
+										data-ng-value="bactCtrl.bankAction.fechaFinal">
+								</div>
+							</div>
+							<div class="line"></div>							
+							<div class="form-group row">
+								<label class="col-sm-2 form-control-label">T.C. Inicial</label>
+								<div class="col-sm-10">
+									<input type="number" class="form-control" readonly="readonly"
+										data-ng-value="bactCtrl.tcInical.MXN">
+								</div>
+							</div>
+							<div class="line"></div>							
+							<div class="form-group row">
+								<label class="col-sm-2 form-control-label">T.C. Final</label>
+								<div class="col-sm-10">
+									<input type="number" class="form-control" readonly="readonly"
+										data-ng-value="bactCtrl.tcFinal.MXN">
+								</div>
+							</div>
+							<div class="line"></div>							
+							<div class="form-group row">
+								<label class="col-sm-2 form-control-label">Valuacion Dls Compra</label>
+								<div class="col-sm-10">
+									<input type="number" class="form-control" readonly="readonly"
+										data-ng-value="(bactCtrl.bankAction.titulos*bactCtrl.bankAction.unitCost)*bactCtrl.tcInical.MXN">
+								</div>
+							</div>
+							<div class="line"></div>							
+							<div class="form-group row">
+								<label class="col-sm-2 form-control-label">Valuacion Dls afectados al Final del periodo</label>
+								<div class="col-sm-10">
+									<input type="number" class="form-control" readonly="readonly"
+										data-ng-value="(bactCtrl.bankAction.titulos*bactCtrl.bankAction.unitCost)*bactCtrl.tcFinal.MXN">
+								</div>
+							</div>
+							<div class="line"></div>							
+							<div class="form-group row">
+								<label class="col-sm-2 form-control-label">Utilidad (p�rdida) por valuaci�n</label>
+								<div class="col-sm-10">
+									<input type="number" class="form-control" readonly="readonly"
+										data-ng-value="((bactCtrl.bankAction.titulos*bactCtrl.bankAction.unitCost)*bactCtrl.tcFinal.MXN)-((bactCtrl.bankAction.titulos*bactCtrl.bankAction.unitCost)*bactCtrl.tcInical.MXN)">
+								</div>
+							</div>
+							<div class="line"></div>
+							<div class="form-group row">
+								<label class="col-sm-2 form-control-label">Fecha del precio de mercado</label>
+								<div class="col-sm-10">
+									<input type="date" class="form-control" readonly="readonly"
+										data-ng-value="bactCtrl.bankAction.fechaFinal">
+								</div>
+							</div>
+							<div class="line"></div>							
+							<div class="form-group row">
+								<label class="col-sm-2 form-control-label">Market price (Precio de mercado)</label>
+								<div class="col-sm-10">
+									<input type="number" class="form-control"
+										data-ng-model="bactCtrl.bankAction.marketPrice">
+								</div>
+							</div>
+							<div class="line"></div>							
+							<div class="form-group row">
+								<label class="col-sm-2 form-control-label">Valor de mercado</label>
+								<div class="col-sm-10">
+									<input type="number" class="form-control" readonly="readonly"
+										data-ng-value="bactCtrl.bankAction.marketPrice*bactCtrl.bankAction.titulos">
+								</div>
+							</div>
+							<div class="line"></div>							
+							<div class="form-group row">
+								<label class="col-sm-2 form-control-label">Plusv/minusv mensual</label>
+								<div class="col-sm-10">
+									<input type="number" class="form-control" readonly="readonly"
+										data-ng-value="(bactCtrl.bankAction.marketPrice*bactCtrl.bankAction.titulos)-(bactCtrl.bankAction.titulos*bactCtrl.bankAction.unitCost)">
+								</div>
+							</div>
+							<div class="line"></div>							
+							<div class="form-group row">
+								<label class="col-sm-2 form-control-label">Plusv/minusv acumulado</label>
+								<div class="col-sm-10">
+									<input type="number" class="form-control" readonly="readonly"
+										data-ng-value="(bactCtrl.bankAction.marketPrice*bactCtrl.bankAction.titulos)-(bactCtrl.bankAction.titulos*bactCtrl.bankAction.unitCost)">
+								</div>
+							</div>
+							<div class="line"></div>							
+							<div class="form-group row">
+								<label class="col-sm-2 form-control-label">Int Devengado mensual</label>
+								<div class="col-sm-10">
+									<input type="number" class="form-control" readonly="readonly"
+										data-ng-value="0">
+								</div>
+							</div>
+							<div class="line"></div>							
+							<div class="form-group row">
+								<label class="col-sm-2 form-control-label">Int Devengado acumulado</label>
+								<div class="col-sm-10">
+									<input type="number" class="form-control" readonly="readonly"
+										data-ng-value="0">
+								</div>
+							</div>
+							<div class="line"></div>
+							<div class="form-group row">
+								<label class="col-sm-2 form-control-label">Fecha final del periodo</label>
+								<div class="col-sm-10">
+									<input type="date" class="form-control" readonly="readonly"
+										data-ng-value="bactCtrl.bankAction.fechaFinal">
+								</div>
+							</div>
+							<div class="line"></div>							
+							<div class="form-group row">
+								<label class="col-sm-2 form-control-label">Valuaci�n Dls al Final del periodo</label>
+								<div class="col-sm-10">
+									<input type="number" class="form-control" readonly="readonly"
+										data-ng-value="(bactCtrl.bankAction.marketPrice*bactCtrl.bankAction.titulos)*(bactCtrl.tcFinal.MXN)">
+								</div>
+							</div>
+							<div class="line"></div>							
+							<div class="form-group row">
+								<label class="col-sm-2 form-control-label">Plusv/minusv mensual</label>
+								<div class="col-sm-10">
+									<input type="number" class="form-control" readonly="readonly"
+										data-ng-value="((bactCtrl.bankAction.marketPrice*bactCtrl.bankAction.titulos)*(bactCtrl.tcFinal.MXN))-((bactCtrl.bankAction.titulos*bactCtrl.bankAction.unitCost)*bactCtrl.tcInical.MXN)">
+								</div>
+							</div>
+							<div class="line"></div>							
+							<div class="form-group row">
+								<label class="col-sm-2 form-control-label">Plusv/minusv acumulado</label>
+								<div class="col-sm-10">
+									<input type="number" class="form-control" readonly="readonly"
+										data-ng-value="((bactCtrl.bankAction.marketPrice*bactCtrl.bankAction.titulos)*(bactCtrl.tcFinal.MXN))-((bactCtrl.bankAction.titulos*bactCtrl.bankAction.unitCost)*bactCtrl.tcInical.MXN)">
 								</div>
 							</div>
 							<div class="line"></div>
 							<div class="form-group row">
 								<div class="col-sm-4 offset-sm-2">
-									<button type="button" class="btn btn-secondary" data-ng-click="bactCtrl.cancelbankAction()">Cancelar</button>
-									<button type="submit" class="btn" data-ng-class="!bactCtrl.bankAction.id? 'btn-primary' : 'btn-info'">{{!bactCtrl.bankAction.id? 'Registrar' : 'Actualizar'}}</button>
+									<button type="button" class="btn btn-secondary"
+										data-ng-click="bactCtrl.cancelbankAction()">Cancelar</button>
+									<button type="submit" class="btn"
+										data-ng-class="!bactCtrl.bankAction.id? 'btn-primary' : 'btn-info'">{{!bactCtrl.bankAction.id?
+										'Registrar' : 'Actualizar'}}</button>
 								</div>
 							</div>
 							<div class="line"></div>
@@ -125,10 +295,22 @@
 					<div class="card-header">
 						<div class="row">
 							<div class="col-sm-2">
-								<button type="button" class="btn btn-primary" data-ng-click="bactCtrl.newBankAction()"><i class="fa fa-plus"></i> Nueva acción</button>
+								<button type="button" class="btn btn-primary"
+									data-ng-click="bactCtrl.newBankAction()">
+									<i class="fa fa-plus"></i> Nueva acción
+								</button>
 							</div>
+							<div class="col-sm-2">
+								<!-- Button trigger modal -->
+								<button type="button" class="btn btn-primary"
+									data-toggle="modal" data-target="#exampleModal">
+									Cargar archivo de acciones</button>
+							</div>
+
 							<div class="col-sm-4">
-								<input type="search" placeholder="Buscar cuenta" class="form-control">
+								<input type="search" placeholder="Buscar cuenta"
+									class="form-control"
+									data-ng-model="bactCtrl.filterActionNumber">
 							</div>
 						</div>
 					</div>
@@ -138,6 +320,7 @@
 								<thead>
 									<tr>
 										<th>#</th>
+										<th>Institución bancaria</th>
 										<th>Instrumento de inversión (Nombre)</th>
 										<th>Cusip</th>
 										<th>ISIN/Serie</th>
@@ -147,24 +330,34 @@
 										<th>Valor a costo</th>
 										<th>Fecha Adquisición</th>
 										<th>Registro Contable</th>
+										<th>Valor</th>
+										<th>Moneda original</th>
 										<th></th>
 										<th></th>
 									</tr>
 								</thead>
 								<tbody>
-									<tr data-ng-repeat="ba in bactCtrl.bankActions track by $index">
+									<tr
+										data-ng-repeat="ba in bactCtrl.bankActions | filter: bactCtrl.filterActionNumber track by $index"">
 										<td scope="row">{{$index+1}}</td>
-										<td>{{ba.name}}</td>
+										<td>{{ba.institucion}}</td>
+										<td>{{ba.instrumento}}</td>
 										<td>{{ba.cusip}}</td>
-										<td>{{ba.serie}}</td>
-										<td>{{ba.security}}</td>
-										<td>{{ba.quantity}}</td>
+										<td>{{ba.isinSerie}}</td>
+										<td>{{ba.secId}}</td>
+										<td>{{ba.titulos}}</td>
 										<td>{{ba.unitCost}}</td>
-										<td>{{ba.valueAtCost}}</td>
-										<td>{{ba.acquisitionDate | date : 'dd/MM/yyyy'}}</td>
-										<td>{{ba.accountingRecord}}</td>
-										<td><button class="btn btn-info" data-ng-click="bactCtrl.update(ba)">Actualizar</button></td>
-										<td><button class="btn btn-danger" data-ng-click="bactCtrl.delete(ba)">Eliminar</button></td>
+										<td>{{ba.titulos*ba.unitCost}}</td>
+										<td>{{ba.fechaInicio | date : 'dd/MM/yyyy'}}</td>
+										<td>{{ba.registroContable}}</td>
+										<td>{{ba.valor}}</td>
+										<td>{{ba.monedaOriginal}}</td>
+										<td><button class="btn btn-info"
+												data-ng-click="bactCtrl.getHistory(ba)">Historial</button></td>
+										<td><button class="btn btn-warning"
+												data-ng-click="bactCtrl.update(ba)">Actualizar</button></td>
+										<td><button class="btn btn-danger"
+												data-ng-click="bactCtrl.delete(ba)">Eliminar</button></td>
 									</tr>
 								</tbody>
 							</table>
@@ -174,4 +367,50 @@
 			</div>
 		</div>
 	</div>
+	
+	<!-- Modal -->
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Carga de
+						movimientos de cuenta</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<input data-file-model="bactCtrl.myFile" type="file" id="file"
+						name="file" />
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal">Close</button>
+					<button type="button" data-ng-click="bactCtrl.addDocument()"
+						class="btn btn-primary">Cargar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- lists of data -->
+	<datalist id="registroContableOpts">
+		<option value="Capital">
+		<option value="Resultados">
+	</datalist>
+	<datalist id="valorOpts">
+		<option value="Acciones">
+		<option value="Deuda, Bonos y Gubernamental en Pesos">
+		<option value="Deuda, Bonos y Gubernamental en USD">
+		<option value="Efectivo">
+	</datalist>
+	<datalist id="monedaOriginalOpts">
+		<option value="AUD">
+		<option value="EUR">
+		<option value="GBP">
+		<option value="MXP">
+		<option value="USD">		
+	</datalist>
 </section>
+

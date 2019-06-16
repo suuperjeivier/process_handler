@@ -38,16 +38,17 @@
 										correcta</div>
 								</div>
 							</div>
+							<div data-ng-if="!baCtrl.company">
 							<div class="line"></div>
 							<div class="form-group row">
 								<label class="col-sm-2 form-control-label">Empresa</label>
 								<div class="col-sm-10">
 									<select class="form-control" required
-										data-ng-class="baCtrl.validClass.company? 'is-'+baCtrl.validClass.company:''"
-										data-ng-options="ba as ba.name for ba in baCtrl.business track by ba.id"
-										data-ng-model="baCtrl.bankAccount.company">
-										<option value="" disabled selected>Seleccione una
-											empresa...</option>
+									data-ng-class="baCtrl.validClass.company? 'is-'+baCtrl.validClass.company:''"
+									data-ng-options="ba as ba.name for ba in baCtrl.business track by ba.id"
+									data-ng-readonly="baCtrl.company"
+									data-ng-model="baCtrl.bankAccount.company">
+										<option value="" disabled selected>Seleccione una empresa...</option>
 									</select>
 									<div class="d-block"
 										data-ng-class="baCtrl.validClass.company? baCtrl.validClass.company+'-feedback':''"
@@ -55,6 +56,8 @@
 										empresa</div>
 								</div>
 							</div>
+							</div>
+							<div class="line"></div>
 							<div class="form-group row">
 								<label class="col-sm-2 form-control-label">Banco</label>
 								<div class="col-sm-10">
@@ -193,8 +196,7 @@
 <section data-ng-if="!baCtrl.bankAccount">
 	<div class="container-fluid">
 		<header>
-			<h1 class="h3 display">Cuentas bancarias {{baCtrl.company ? 'de
-				' + baCtrl.company.name : ''}}</h1>
+			<h1 class="h3 display">Cuentas bancarias {{baCtrl.company.id ? 'de ' + baCtrl.company.name : ''}}</h1>
 		</header>
 		<div class="row">
 			<div class="col-lg-12">
