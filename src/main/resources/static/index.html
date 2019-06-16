@@ -30,6 +30,8 @@
 <link rel="stylesheet" href="css/custom.css">
 <link rel="stylesheet" href="css/alertify.min.css">
 <link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="css/ui-bootstrap-csp.css">
 <!-- Favicon-->
 <link rel="shortcut icon" href="img/favicon.ico">
 <!-- Tweaks for older IEs-->
@@ -88,7 +90,13 @@
 									<span>ACTIONS </span><strong class="text-primary">handler</strong>
 								</div>
 							</a>
-							<div><select data-ng-options="user.name for user in users" data-ng-model="userSession"></select></div>
+							<div>
+								<select data-ng-options="user.name for user in iniCtrl.users"
+									data-ng-model="userSession">
+									<option value="" selected="selected">Seleccione un
+										usuario en sesión...</option>
+								</select>
+							</div>
 						</div>
 						<ul
 							class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
@@ -237,23 +245,32 @@
 	</div>
 	<!-- JavaScript files-->
 	<script src="vendor/jquery/jquery.min.js"></script>
-	<script src="vendor/popper.js/umd/popper.min.js"> </script>
+	<script src="vendor/popper.js/umd/popper.min.js">
+		
+	</script>
 	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
 	<script src="js/grasp_mobile_progress_circle-1.0.0.min.js"></script>
-	<script src="vendor/jquery.cookie/jquery.cookie.js"> </script>
+	<script src="vendor/jquery.cookie/jquery.cookie.js">
+		
+	</script>
 	<script src="vendor/chart.js/Chart.min.js"></script>
 	<script src="vendor/jquery-validation/jquery.validate.min.js"></script>
+	<script src="js/charts-custom.js"></script>
+	<!-- Main File-->
+	<script src="js/front.js"></script>
 	<script
 		src="vendor/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
 	<script src="js/charts-home.js"></script>
 	<script type="text/javascript" src="js/alertify.min.js"></script>
 	<!-- Main File-->
-	<script src="js/front.js"></script>
+
 	<script type="text/javascript" src="vendor/angularjs/angular.min.js"></script>
 	<script type="text/javascript"
 		src="vendor/angularjs/angular-resource.min.js"></script>
 	<script type="text/javascript"
 		src="vendor/angularjs/angular-ui-router.min.js"></script>
+	<script type="text/javascript"
+		src="js/plugins/ui-bootstrap-tpls-3.0.6.min.js"></script>
 	<script type="text/javascript"
 		src="vendor/angularjs/angular-animate.min.js"></script>
 
@@ -273,5 +290,6 @@
 	<script type="text/javascript" src="js/controllers/companyCtrl.js"></script>
 	<script type="text/javascript" src="js/controllers/inicioCtrl.js"></script>
 	<script type="text/javascript" src="js/controllers/banksCtrl.js"></script>
+	<script type="text/javascript" src="js/controllers/homeCtrl.js"></script>
 </body>
 </html>

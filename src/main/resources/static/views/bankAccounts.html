@@ -1,3 +1,4 @@
+<meta charset="utf-8">
 <div class="breadcrumb-holder">
 	<div class="container-fluid">
 		<ul class="breadcrumb">
@@ -84,13 +85,14 @@
 										data-ng-model="baCtrl.bankAccount.accountType">
 										<option value="" disabled selected>Seleccione un
 											tipo...</option>
-										<option value="Chequera">Chequera</option>
-										<option value="Acciones">Acciones</option>
+										<option value="INVERSION">Inversión</option>
+										<option value="MERCADO DE DINERO">Mercado de dinero</option>
+										<option value="TRANSACCION">Transaccion</option>
 									</select>
 									<div class="d-block"
 										data-ng-class="baCtrl.validClass.accountType? baCtrl.validClass.accountType+'-feedback':''"
 										data-ng-show="baCtrl.validClass.accountType">Seleccione
-										un tipo</div>
+										un tipo de cuenta</div>
 								</div>
 							</div>
 							<div class="line"></div>
@@ -103,7 +105,7 @@
 									<div class="d-block"
 										data-ng-class="baCtrl.validClass.accountNumber? baCtrl.validClass.accountNumber+'-feedback':''"
 										data-ng-show="baCtrl.validClass.accountNumber">Ingrese
-										un número de cuenta</div>
+										un nÃºmero de cuenta</div>
 								</div>
 							</div>
 							<div class="line"></div>

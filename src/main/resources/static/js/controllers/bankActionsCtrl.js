@@ -1,11 +1,15 @@
-app.controller('bankActionsCtrl', function ($filter, $stateParams, bankActionService, storageService, batchService, ratesAPIService) {
+app.controller('bankActionsCtrl', function ($scope, $filter, $stateParams, bankActionService, storageService, batchService, ratesAPIService) {
 	const self = this;
 	self.bankActions = [];
 	self.bankAction = null;
 	self.tcInical = {};
 	self.tcFinal = {};
-
-
+	//pager
+	self.viewby = 10;	
+	self.currentPage = 4;
+	self.itemsPerPage = self.viewby;
+	self.maxSize = 5; //Number of pager buttons to show
+	//end pager
 	self.newBankAction = () => {
 		self.bankAction = {
 				status: 1
@@ -20,12 +24,14 @@ app.controller('bankActionsCtrl', function ($filter, $stateParams, bankActionSer
 		if(self.account){
 			bankActionService.getByAccountId(self.account.id).then(data => {
 				self.bankActions = data;
+				self.paginarAcciones();
 			}, error => {
 				console.log('Error al obtener las acciones bancaras', error);
 			});
 		}else{
 			bankActionService.get().then(data => {
 				self.bankActions = data;
+				self.paginarAcciones();
 			}, error => {
 				console.log('Error al obtener las acciones bancaras', error);
 			});
@@ -93,32 +99,38 @@ app.controller('bankActionsCtrl', function ($filter, $stateParams, bankActionSer
 		var file = self.myFile;
 		console.log('file is ' );
 		console.dir(file);
-		if(self.account){
+		self.processing = true;
+		if(self.account){			
 			storageService.post(file).then(resp =>{
 				console.log(resp);
 				if(resp.message == "FILE_UPLODED"){
 					batchService.post(resp.newFileName, self.account.id).then(resp =>{
 						console.log(resp);
-						$('#myModal').modal('toggle')
+						$('#exampleModal').modal('toggle')
 						alert("correcto, archivo procesado!");
 						self.get();
+						self.processing = false;
 					},error =>{
 						console.error("error");
+						self.processing = false;
 					});
 				}else{
 					console.error("error en mensaje de carga");
+					self.processing = false;
 				}
 			},error =>{
 				console.error("error de procesado en carga");
+				self.processing = false;
 			});
 		}else{
 			alert("no permitido, debe iniciar con un numero de cuenta!");
+			self.processing = false;
 		}
 		//send your binary data via $http or $resource or do anything else with it
 
 	};
 
-	
+
 	/**
 	 * let keys = Object.keys(resp.rates);
 			let firstKey = keys[0];
@@ -133,10 +145,10 @@ app.controller('bankActionsCtrl', function ($filter, $stateParams, bankActionSer
 		console.log("fin:", fechaFin);
 		bac.fechaInicio = new Date(bac.fechaInicio);
 		bac.fechaFinal = new Date(bac.fechaFinal);
-		
+
 
 		ratesAPIService.fecthOnPeriod(""+fechaInicio, ""+fechaFin).then(resp =>{
-			
+
 			let keys = Object.keys(resp.rates);
 			for(var i in keys) {				
 				if(keys[i] == fechaInicio){
@@ -154,7 +166,7 @@ app.controller('bankActionsCtrl', function ($filter, $stateParams, bankActionSer
 			console.error("error");
 		});
 	};
-	
+
 	self.cancelbankAction = () =>{
 		self.bankAction = null;
 	};
@@ -171,8 +183,37 @@ app.controller('bankActionsCtrl', function ($filter, $stateParams, bankActionSer
 		return [year, month, day].join('-');
 	};
 
-	const initController = () => {
+	self.stateGoTo = (stateTrans, obj) =>{
+		$state.go(stateTrans, obj, {location: false, inherit: false});
+	};
 
+	//pager
+	
+	self.paginarAcciones = function(){
+		self.numPages = Math.ceil(self.bankActions.length / self.itemsPerPage);		
+		$scope.$watch('bactCtrl.currentPage + bactCtrl.itemsPerPage', function() {
+		    var begin = ((self.currentPage - 1) * self.itemsPerPage)
+		    , end = begin + self.itemsPerPage;
+		    self.filteredActions = self.bankActions.slice(begin, end);
+		  });
+	}
+
+
+	self.setPage = function (pageNo) {
+		self.currentPage = pageNo;
+	};
+
+	self.pageChanged = function() {
+		console.log('Page changed to: ' + self.currentPage);
+	};
+
+	self.setItemsPerPage = function(num) {
+		self.itemsPerPage = num;
+		self.currentPage = 1; //reset to first page
+	}
+	//end pager
+
+	const initController = () => {
 		console.log("params:", $stateParams);
 		if($stateParams.account){
 			self.account = $stateParams.account;
@@ -185,7 +226,6 @@ app.controller('bankActionsCtrl', function ($filter, $stateParams, bankActionSer
 			self.account = null;
 		}
 	};
-
 	angular.element(document).ready(function () {
 		initController();
 	});

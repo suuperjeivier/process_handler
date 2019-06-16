@@ -87,8 +87,7 @@ public class Company {
 
 	@Override
 	public String toString() {
-		return "Company [id=" + id + ", name=" + name + ", friendlyAccount=" + friendlyAccount + ", number=" + number
-				+ ", status=" + status + "]";
+		return "Company [id=" + id + ", name=" + name + ", friendlyAccount=" + friendlyAccount + ", status=" + status + "]";
 	}
 	
 }

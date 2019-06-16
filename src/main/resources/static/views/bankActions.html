@@ -1,10 +1,15 @@
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"
-	charset="ISO-8859-1">
+<meta charset="utf-8">
 <div class="breadcrumb-holder">
 	<div class="container-fluid">
 		<ul class="breadcrumb">
-			<li class="breadcrumb-item"><a href="/">Inicio</a></li>
-			<li class="breadcrumb-item">Cuentas bancarias</li>
+			<li class="breadcrumb-item"><a href="#!"
+				data-ng-click="bactCtrl.stateGoTo('home', null)">Inicio</a></li>
+			<li class="breadcrumb-item" data-ng-if="bactCtrl.account.company"><a
+				href="#!bussiness"
+				data-ng-click="bactCtrl.stateGoTo('bussiness', {company: bactCtrl.account.company})">Empresas</a></li>
+			<li class="breadcrumb-item" data-ng-if="bactCtrl.account">
+				<a href="#!bank-accounts"
+				data-ng-click="bactCtrl.stateGoTo('bank-accounts', {account: bactCtrl.account})">Cuentas bancarias</a></li>
 			<li class="breadcrumb-item active">Acciones</li>
 		</ul>
 	</div>
@@ -21,13 +26,13 @@
 				<div class="nav flex-column nav-pills" id="v-pills-tab"
 					role="tablist" aria-orientation="vertical">
 					<a class="nav-link active" id="v-pills-home-tab" data-toggle="pill"
-						href="#v-pills-home" role="tab" aria-controls="v-pills-home"
+						data-target="#v-pills-home" target="_self" role="tab" aria-controls="v-pills-home"
 						aria-selected="true">Adquisiciones</a> <a class="nav-link"
-						id="v-pills-profile-tab" data-toggle="pill"
-						href="#v-pills-profile" role="tab" aria-controls="v-pills-profile"
-						aria-selected="false">Valuación Subsecuente</a> <a
+						id="v-pills-profile-tab" target="_self" data-toggle="pill"
+						data-target="#v-pills-profile" role="tab" aria-controls="v-pills-profile"
+						aria-selected="false">ValuaciÃ³n Subsecuente</a> <a
 						class="nav-link" id="v-pills-messages-tab" data-toggle="pill"
-						href="#v-pills-messages" role="tab"
+						data-target="#v-pills-messages" target="_self" role="tab"
 						aria-controls="v-pills-messages" aria-selected="false">Venta</a>
 
 				</div>
@@ -90,7 +95,7 @@
 											</div>
 											<div class="line"></div>
 											<div class="form-group row">
-												<label class="col-sm-2 form-control-label">TÃ­tulos
+												<label class="col-sm-2 form-control-label">TÃƒÂ­tulos
 													(Cantidad)</label>
 												<div class="col-sm-10">
 													<input type="number" step="any" class="form-control"
@@ -202,7 +207,7 @@
 											<div class="line"></div>
 											<div class="form-group row">
 												<label class="col-sm-2 form-control-label">Utilidad
-													(pérdida) por valuación</label>
+													(pÃ©rdida) por valuaciÃ³n</label>
 												<div class="col-sm-10">
 													<input type="number" class="form-control"
 														readonly="readonly"
@@ -286,7 +291,7 @@
 											</div>
 											<div class="line"></div>
 											<div class="form-group row">
-												<label class="col-sm-2 form-control-label">Valuación
+												<label class="col-sm-2 form-control-label">ValuaciÃ³n
 													Dls al Final del periodo</label>
 												<div class="col-sm-10">
 													<input type="number" class="form-control"
@@ -439,7 +444,7 @@
 											</div>
 											<div class="line"></div>
 											<div class="form-group row">
-												<label class="col-sm-2 form-control-label">Valuación
+												<label class="col-sm-2 form-control-label">ValuaciÃ³n
 													Dls periodo anterior</label>
 												<div class="col-sm-10">
 													<input type="number" class="form-control"
@@ -450,7 +455,7 @@
 											
 											<div class="line"></div>
 											<div class="form-group row">
-												<label class="col-sm-2 form-control-label">Valuación
+												<label class="col-sm-2 form-control-label">ValuaciÃ³n
 													Dls al Final del periodo</label>
 												<div class="col-sm-10">
 													<input type="number" class="form-control"
@@ -461,7 +466,7 @@
 											<div class="line"></div>
 											<div class="form-group row">
 												<label class="col-sm-2 form-control-label">Utilidad
-													(pérdida) por valuación</label>
+													(pÃ©rdida) por valuaciÃ³n</label>
 												<div class="col-sm-10">
 													<input type="number" class="form-control"
 														readonly="readonly"
@@ -548,7 +553,7 @@
 											<div class="line"></div>
 											<div class="form-group row">
 												<label class="col-sm-2 form-control-label">Utilidad
-													(pérdida) por valuación</label>
+													(pÃ©rdida) por valuaciÃ³n</label>
 												<div class="col-sm-10">
 													<input type="number" class="form-control"
 														readonly="readonly"
@@ -633,7 +638,7 @@
 								</thead>
 								<tbody>
 									<tr
-										data-ng-repeat="ba in bactCtrl.bankActions | filter: bactCtrl.filterActionNumber track by $index"">
+										data-ng-repeat="ba in bactCtrl.filteredActions | filter: bactCtrl.filterActionNumber track by $index">
 										<td scope="row">{{$index+1}}</td>
 										<td>{{ba.institucion}}</td>
 										<td>{{ba.instrumento}}</td>
@@ -652,10 +657,41 @@
 										<td><button class="btn btn-warning"
 												data-ng-click="bactCtrl.update(ba)">Actualizar</button></td>
 										<td><button class="btn btn-danger"
-												data-ng-click="bactCtrl.delete(ba)">Eliminar</button></td>
+												data-ng-click="bactCtrl.del(ba)">Eliminar</button></td>
 									</tr>
 								</tbody>
 							</table>
+							View <select data-ng-model="bactCtrl.viewby" 
+							data-ng-change="bactCtrl.setItemsPerPage(bactCtrl.viewby)">
+							<option>3</option><option>5</option><option>10</option><option>20</option>
+							<option>30</option><option>40</option><option>50</option></select> records at a time.
+							
+							<pager uib-pagination 
+								total-items="bactCtrl.bankActions.length"								
+								ng-model="bactCtrl.currentPage"
+								items-per-page="bactCtrl.itemsPerPage"
+								num-pages="bactCtrl.numPages" 
+								ng-change="bactCtrl.pageChanged()"
+								max-size="bactCtrl.maxSize" 
+								class="pagination-sm"
+								boundary-link-numbers="true"
+								rotate="false"
+								boundary-links="true"></pager> <pre>Page: {{bactCtrl.currentPage}} / {{bactCtrl.numPages}}</pre>
+							
+							
+							
+							
+<!-- 							<ul uib-pagination total-items="bactCtrl.totalItems"  -->
+<!-- 							ng-model="bactCtrl.currentPage" ng-change="bactCtrl.pageChanged()"></ul> -->
+							
+							
+<!-- 							 <pager  -->
+<!-- 							 	total-items="bactCtrl.totalItems" -->
+<!-- 							  	ng-model="bactCtrl.currentPage" -->
+<!-- 							   	max-size="bactCtrl.maxSize" class="pagination-sm"  -->
+<!-- 							   boundary-links="true"  -->
+<!-- 							 	rotate="false" num-pages="bactCtrl.numPages"  -->
+<!-- 							 	items-per-page="bactCtrl.itemsPerPage"></pager> -->
 						</div>
 					</div>
 				</div>
@@ -684,7 +720,7 @@
 					<button type="button" class="btn btn-secondary"
 						data-dismiss="modal">Close</button>
 					<button type="button" data-ng-click="bactCtrl.addDocument()"
-						class="btn btn-primary">Cargar</button>
+						class="btn btn-primary" data-ng-disabled="bactCtrl.processing">Cargar</button>
 				</div>
 			</div>
 		</div>
