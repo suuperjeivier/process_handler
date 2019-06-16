@@ -1,4 +1,4 @@
-app.controller('bankAccountsCtrl', function ($state, $stateParams, bankAccountService, companyService, $filter) {
+app.controller('bankAccountsCtrl', function ($state, $stateParams, bankAccountService, companyService, banksService,$filter) {
     const self = this;
     self.bankAccounts = [];
     self.bankAccount = null;
@@ -36,6 +36,7 @@ app.controller('bankAccountsCtrl', function ($state, $stateParams, bankAccountSe
 
     self.update = bankAccount => {
         console.log('cuenta: ',bankAccount);
+        bankAccount.date = new Date(bankAccount.date);
         self.bankAccount = bankAccount;
     };
 
@@ -59,46 +60,55 @@ app.controller('bankAccountsCtrl', function ($state, $stateParams, bankAccountSe
         	
         	if(!self.bankAccount.accountType){
         		self.validClass.accountType = 'invalid';
-        		console.log('incorrecto');
+        	}else if(self.bankAccount.accountType.trim().length === 0){
+        		self.validClass.accountType = 'invalid';
         	}
         	
 			if(!self.bankAccount.accountNumber){
 				self.validClass.accountNumber = 'invalid'; 	
-				console.log('incorrecto');
-			}
+			} else if(self.bankAccount.accountNumber.trim().length === 0){
+        		self.validClass.accountNumber = 'invalid';
+        	}
 			
 			if(!self.bankAccount.address){
 				self.validClass.address = 'invalid';
-				console.log('incorrecto');
-			}
+			} else if(self.bankAccount.address.trim().length === 0){
+        		self.validClass.address = 'invalid';
+        	}
 			
 			if(!self.bankAccount.telephone){
 				self.validClass.telephone = 'invalid';
-				console.log('incorrecto');
+			} else if(/\D/.test(self.bankAccount.telephone)){
+				self.validClass.telephone = 'invalid';
 			}
 			
 			if(!self.bankAccount.client){
 				self.validClass.client = 'invalid';
-				console.log('incorrecto');
-			}
+			} else if(self.bankAccount.client.trim().length === 0){
+        		self.validClass.client = 'invalid';
+        	}
 			
 			if(!self.bankAccount.portfolio){
 				self.validClass.portfolio = 'invalid';
-				console.log('incorrecto');
-			}
+			} else if(self.bankAccount.portfolio.trim().length === 0){
+        		self.validClass.portfolio = 'invalid';
+        	}
 			
 			if(!self.bankAccount.period){
 				self.validClass.period = 'invalid';
-			}
+			} else if(self.bankAccount.period.trim().length === 0){
+        		self.validClass.portfolio = 'invalid';
+        	}
 			
 			if(!self.bankAccount.currency){
 				self.validClass.currency = 'invalid';
-			}
+			} else if(self.bankAccount.currency.trim().length === 0){
+        		self.validClass.currency = 'invalid';
+        	}
 			
 			if(!self.bankAccount.bank){
 				self.validClass.bank = 'invalid';
-			}
-			
+			} 
 			if(!self.bankAccount.company){
 				self.validClass.company = 'invalid';
 			}
@@ -143,14 +153,24 @@ app.controller('bankAccountsCtrl', function ($state, $stateParams, bankAccountSe
     		console.log('Error al obtener las empresas: ', error);
     	})
     }; 
+    
+    self.getBanks = () => {
+    	banksService.get().then(data => {
+    		self.banks = data;
+    	}, error => {
+    		console.log('Error al obtener los bancos');
+    	});
+    };
+    
     self.post = () => {
     	if(self.company){
     		self.bankAccount.company = self.company;
     	}
         bankAccountService.post(self.bankAccount).then(data => {
-            self.bankAccount = null;
-            alert("registro exitoso");
+        	
+            alertify.alert('Exito', 'Cuenta bancaria registrada exitosamente', function(){ alertify.success('Ok'); });
             self.get();
+            self.bankAccount = null;
         }, error => {
             console.log('Error al registrar la cuenta bancaria', error);
         });
@@ -158,18 +178,26 @@ app.controller('bankAccountsCtrl', function ($state, $stateParams, bankAccountSe
 
     self.put = () => {
         bankAccountService.post(self.bankAccount).then(data => {
-            alert("Actualización exitosa");
+            
             self.bankAccount = null;
             self.get();
+            alertify.alert('Exito', 'Cuenta bancaria actualizada exitosamente', function(){ alertify.success('Ok'); });
         }, error => {
             console.log('Error al actualizar la cuenta bancaría', error);
         });
     };
-
+    
+    self.confirmDelete = bankAccount => {
+    	alertify.confirm('Confirmar eliminación', '¿Está seguro?', function(){ 
+    		self.delete(bankAccount);
+    		}
+        , function(){ alertify.error('Cancelado')});
+    };
+    
     self.delete = bankAccount => {
         bankAccount.status = 0;
         bankAccountService.del(bankAccount).then(data => {
-            alert("Eliminación exitosa");
+        	alertify.success('Eliminado') 
             self.get();
         }, error => {
             console.log("Error al eliminar el archivo");
@@ -182,6 +210,7 @@ app.controller('bankAccountsCtrl', function ($state, $stateParams, bankAccountSe
 
     const initController = () => {
     	self.getCompany();
+    	self.getBanks();
         console.log("params:", $stateParams);
         if($stateParams.company){
         	self.company = $stateParams.company;
