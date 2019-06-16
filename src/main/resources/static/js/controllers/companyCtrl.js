@@ -26,15 +26,15 @@ app.controller('companyCtrl', function ($state, companyService) {
         console.log('informacion de la empresa: ',self.company);
         companyService.post(self.company).then(data => {
             self.company = null;
-            alert("registro exitoso");
             self.get();
+            alertify.alert('Exito', 'Empresa registrada exitosamente', function(){ alertify.success('Ok'); });
         }, error => {
             console.log('Error al registrar la accion bancaria', error);
         });
     };
     
     self.update = company => {
-        console.log('bankAction: ',company);
+        console.log('company: ',company);
         self.company = company;
     };
 
@@ -42,26 +42,32 @@ app.controller('companyCtrl', function ($state, companyService) {
         console.log('Valid Form');
         if (isValid) {
             self.addUpdate();
+            self.validClass = null;
         }else {
         	self.validClass = {};
         	self.validClass.name = 'valid';
         	self.validClass.friendlyAccount = 'valid';
-        	self.validClass.number = 'valid';
+        	self.validClass.rfc = 'valid';
         	
         	if(!self.company.name){
         		self.validClass.name = 'invalid';
-        		console.log('incorrecto');
+        	} else if(self.company.name.trim().length === 0){
+        		self.validClass.name = 'invalid';
         	}
         	
-			if(!self.company.accountNumber){
-				self.validClass.friendlyAccount = 'invalid'; 	
-				console.log('incorrecto');
-			}
+    		if(!self.company.friendlyAccount){
+				self.validClass.friendlyAccount = 'invalid';
+			} else if(self.company.friendlyAccount.trim().length === 0){
+        		self.validClass.friendlyAccount = 'invalid';
+        	}
+    		
+			if(!self.company.rfc){
+				self.validClass.rfc = 'invalid'; 	
+			} else if(self.company.rfc.trim().length === 0){
+        		self.validClass.rfc = 'invalid';
+        	}
 			
-			if(!self.company.number){
-				self.validClass.number = 'invalid';
-				console.log('incorrecto');
-			}
+	
         }
     };
 
@@ -75,18 +81,25 @@ app.controller('companyCtrl', function ($state, companyService) {
     
     self.put = () => {
         companyService.post(self.company).then(data => {
-            alert("Actualización exitosa");
             self.company = null;
             self.get();
+            alertify.alert('Exito', 'Empresa actualizada exitosamente', function(){ alertify.success('Ok'); });
         }, error => {
             console.log('Error al actualizar la accion bancaria', error);
         });
     };
-
+    
+    self.confirmDelete = company => {
+    	alertify.confirm('Confirmar eliminación', '¿Está seguro?', function(){ 
+    		self.del(company);
+    		}
+        , function(){ alertify.error('Cancelado')});
+    };
+    
     self.del = company => {
         company.status = 0;
         companyService.del(company).then(data => {
-            alert("Eliminación exitosa");
+        	alertify.success('Eliminado')
             self.get();
         }, error => {
             console.log("Error al eliminar el la accion bancaria", error);

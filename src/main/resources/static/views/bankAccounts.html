@@ -1,9 +1,12 @@
 <div class="breadcrumb-holder">
 	<div class="container-fluid">
 		<ul class="breadcrumb">
-			<li class="breadcrumb-item"><a href="#!" data-ng-click="baCtrl.stateGoTo('home', null)">Inicio</a></li>
-			<li class="breadcrumb-item" data-ng-if="baCtrl.company"><a href="#!bussiness" data-ng-click="baCtrl.stateGoTo('bussiness', null)">Empresas</a></li>
-			<li class="breadcrumb-item active">Cuentas bancarias </li>
+			<li class="breadcrumb-item"><a href="#!"
+				data-ng-click="baCtrl.stateGoTo('home', null)">Inicio</a></li>
+			<li class="breadcrumb-item" data-ng-if="baCtrl.company"><a
+				href="#!bussiness"
+				data-ng-click="baCtrl.stateGoTo('bussiness', null)">Empresas</a></li>
+			<li class="breadcrumb-item active">Cuentas bancarias</li>
 		</ul>
 	</div>
 </div>
@@ -11,7 +14,8 @@
 <section data-ng-if="baCtrl.bankAccount">
 	<div class="container-fluid">
 		<header>
-			<h1 class="h3 display">{{!baCtrl.bankAccount.id? 'Nueva' : 'Actualizar'}} cuenta bancaria</h1>
+			<h1 class="h3 display">{{!baCtrl.bankAccount.id? 'Nueva' :
+				'Actualizar'}} cuenta bancaria</h1>
 		</header>
 		<div class="row">
 			<div class="col-lg-2"></div>
@@ -19,15 +23,19 @@
 				<div class="card">
 					<div class="card-header"></div>
 					<div class="card-body">
-						<form class="form-horizontal" name="formBankAccount" data-ng-submit="baCtrl.submitForm(formBankAccount.$valid)" novalidate>
+						<form class="form-horizontal" name="formBankAccount"
+							data-ng-submit="baCtrl.submitForm(formBankAccount.$valid)"
+							novalidate>
 							<div class="form-group row">
 								<label class="col-sm-2 form-control-label">Fecha</label>
 								<div class="col-sm-10">
 									<input type="date" class="form-control" required
-									data-ng-class="baCtrl.validClass.date? 'is-'+baCtrl.validClass.date:''"
-									data-ng-model="baCtrl.bankAccount.date">
-									<div class="d-block" data-ng-class="baCtrl.validClass.date? baCtrl.validClass.date+'-feedback':''"
-									data-ng-show="baCtrl.validClass.date">Ingrese una fecha correcta</div>
+										data-ng-class="baCtrl.validClass.date? 'is-'+baCtrl.validClass.date:''"
+										data-ng-model="baCtrl.bankAccount.date">
+									<div class="d-block"
+										data-ng-class="baCtrl.validClass.date? baCtrl.validClass.date+'-feedback':''"
+										data-ng-show="baCtrl.validClass.date">Ingrese una fecha
+										correcta</div>
 								</div>
 							</div>
 							<div data-ng-if="!baCtrl.company">
@@ -42,8 +50,10 @@
 									data-ng-model="baCtrl.bankAccount.company">
 										<option value="" disabled selected>Seleccione una empresa...</option>
 									</select>
-									<div class="d-block" data-ng-class="baCtrl.validClass.company? baCtrl.validClass.company+'-feedback':''"
-									data-ng-show="baCtrl.validClass.company">Seleccione una empresa</div>
+									<div class="d-block"
+										data-ng-class="baCtrl.validClass.company? baCtrl.validClass.company+'-feedback':''"
+										data-ng-show="baCtrl.validClass.company">Seleccione una
+										empresa</div>
 								</div>
 							</div>
 							</div>
@@ -52,15 +62,16 @@
 								<label class="col-sm-2 form-control-label">Banco</label>
 								<div class="col-sm-10">
 									<select class="form-control" required
+										data-ng-options="banco as banco.name for banco in baCtrl.banks track by banco.id"
 										data-ng-class="baCtrl.validClass.bank? 'is-'+baCtrl.validClass.bank:''"
-								 		data-ng-model="baCtrl.bankAccount.bank">
-										<option value="" disabled selected>Seleccione un banco...</option>
-										<option value="Bancomer">Bancomer</option>
-										<option value="Banamex">Banamex</option>
-										<option value="Banorte">Banorte</option>
+										data-ng-model="baCtrl.bankAccount.bank">
+										<option value="" disabled selected>Seleccione un
+											banco...</option>
 									</select>
-									<div class="d-block" data-ng-class="baCtrl.validClass.bank? baCtrl.validClass.bank+'-feedback':''"
-									data-ng-show="baCtrl.validClass.bank">Seleccione un banco</div>
+									<div class="d-block"
+										data-ng-class="baCtrl.validClass.bank? baCtrl.validClass.bank+'-feedback':''"
+										data-ng-show="baCtrl.validClass.bank">Seleccione un
+										banco</div>
 								</div>
 							</div>
 							<div class="line"></div>
@@ -71,23 +82,28 @@
 									<select class="form-control" required
 										data-ng-class="baCtrl.validClass.accountType? 'is-'+baCtrl.validClass.accountType:''"
 										data-ng-model="baCtrl.bankAccount.accountType">
-										<option value="" disabled selected>Seleccione un tipo...</option>
+										<option value="" disabled selected>Seleccione un
+											tipo...</option>
 										<option value="Chequera">Chequera</option>
 										<option value="Acciones">Acciones</option>
 									</select>
-									<div class="d-block" data-ng-class="baCtrl.validClass.accountType? baCtrl.validClass.accountType+'-feedback':''"
-									data-ng-show="baCtrl.validClass.accountType">Seleccione un tipo</div>
+									<div class="d-block"
+										data-ng-class="baCtrl.validClass.accountType? baCtrl.validClass.accountType+'-feedback':''"
+										data-ng-show="baCtrl.validClass.accountType">Seleccione
+										un tipo</div>
 								</div>
 							</div>
 							<div class="line"></div>
 							<div class="form-group row">
 								<label class="col-sm-2 form-control-label">No. Cuenta</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control" required
-									data-ng-class="baCtrl.validClass.accountNumber? 'is-'+baCtrl.validClass.accountNumber:''"
-									data-ng-model="baCtrl.bankAccount.accountNumber">
-									<div class="d-block" data-ng-class="baCtrl.validClass.accountNumber? baCtrl.validClass.accountNumber+'-feedback':''"
-									data-ng-show="baCtrl.validClass.accountNumber">Ingrese un número de cuenta</div>
+									<input type="text" class="form-control" required maxlength="15"
+										data-ng-class="baCtrl.validClass.accountNumber? 'is-'+baCtrl.validClass.accountNumber:''"
+										data-ng-model="baCtrl.bankAccount.accountNumber">
+									<div class="d-block"
+										data-ng-class="baCtrl.validClass.accountNumber? baCtrl.validClass.accountNumber+'-feedback':''"
+										data-ng-show="baCtrl.validClass.accountNumber">Ingrese
+										un número de cuenta</div>
 								</div>
 							</div>
 							<div class="line"></div>
@@ -95,72 +111,77 @@
 								<label class="col-sm-2 form-control-label">Dirección</label>
 								<div class="col-sm-10">
 									<input type="text" class="form-control" required
-									data-ng-class="baCtrl.validClass.address? 'is-'+baCtrl.validClass.address:''"
-									 data-ng-model="baCtrl.bankAccount.address">
-									 <div class="d-block" data-ng-class="baCtrl.validClass.address? baCtrl.validClass.address+'-feedback':''"
-									data-ng-show="baCtrl.validClass.address">Ingrese una dirección</div>
+										data-ng-class="baCtrl.validClass.address? 'is-'+baCtrl.validClass.address:''"
+										data-ng-model="baCtrl.bankAccount.address">
+									<div class="d-block"
+										data-ng-class="baCtrl.validClass.address? baCtrl.validClass.address+'-feedback':''"
+										data-ng-show="baCtrl.validClass.address">Ingrese una
+										dirección</div>
 								</div>
 							</div>
 							<div class="line"></div>
 							<div class="form-group row">
 								<label class="col-sm-2 form-control-label">Teléfono</label>
 								<div class="col-sm-10">
-									<input type="tel" required
-									data-ng-class="baCtrl.validClass.telephone? 'is-'+baCtrl.validClass.telephone:''"
-									 pattern="[0-9]{10}"class="form-control" data-ng-model="baCtrl.bankAccount.telephone">
-									<div class="d-block" data-ng-class="baCtrl.validClass.telephone? baCtrl.validClass.telephone+'-feedback':''"
-									data-ng-show="baCtrl.validClass.telephone">Ingrese correctamente el teléfono [5555555555]</div>
+									<input type="tel" required maxlength="10"
+										data-ng-class="baCtrl.validClass.telephone? 'is-'+baCtrl.validClass.telephone:''"
+										pattern="[0-9]{10}" class="form-control"
+										data-ng-model="baCtrl.bankAccount.telephone">
+									<div class="d-block"
+										data-ng-class="baCtrl.validClass.telephone? baCtrl.validClass.telephone+'-feedback':''"
+										data-ng-show="baCtrl.validClass.telephone">Ingrese
+										correctamente el teléfono [5555555555]</div>
 								</div>
 							</div>
 							<div class="line"></div>
 							<div class="form-group row">
 								<label class="col-sm-2 form-control-label">Cliente</label>
 								<div class="col-sm-10">
-									<input type="text" required
-									data-ng-class="baCtrl.validClass.client? 'is-'+baCtrl.validClass.client:''"
-									class="form-control" data-ng-model="baCtrl.bankAccount.client">
-									<div class="d-block" data-ng-class="baCtrl.validClass.client? baCtrl.validClass.client+'-feedback':''"
-									data-ng-show="baCtrl.validClass.client">Ingrese un cliente</div>
+									<input type="text" required maxlength="20"
+										data-ng-class="baCtrl.validClass.client? 'is-'+baCtrl.validClass.client:''"
+										class="form-control" data-ng-model="baCtrl.bankAccount.client">
+									<div class="d-block"
+										data-ng-class="baCtrl.validClass.client? baCtrl.validClass.client+'-feedback':''"
+										data-ng-show="baCtrl.validClass.client">Ingrese un
+										cliente</div>
 								</div>
 							</div>
 							<div class="line"></div>
 							<div class="form-group row">
 								<label class="col-sm-2 form-control-label">Portafolio</label>
 								<div class="col-sm-10">
-									<input type="text" required
-									data-ng-class="baCtrl.validClass.portfolio? 'is-'+baCtrl.validClass.portfolio:''"
-									 class="form-control" data-ng-model="baCtrl.bankAccount.portfolio">
-									 <div class="d-block" data-ng-class="baCtrl.validClass.portfolio? baCtrl.validClass.portfolio+'-feedback':''"
-									data-ng-show="baCtrl.validClass.portfolio">Ingrese un portafolio</div>
-								</div>
-							</div>
-							<div class="line"></div>
-							<div class="form-group row">
-								<label class="col-sm-2 form-control-label">Periodo</label>
-								<div class="col-sm-10">
-									<input type="text" required
-									data-ng-class="baCtrl.validClass.period? 'is-'+baCtrl.validClass.period:''"
-									 class="form-control" data-ng-model="baCtrl.bankAccount.period">
-									 <div class="d-block" data-ng-class="baCtrl.validClass.period? baCtrl.validClass.period+'-feedback':''"
-									data-ng-show="baCtrl.validClass.period">Ingrese un periodo</div>
+									<input type="text" required maxlength="10"
+										data-ng-class="baCtrl.validClass.portfolio? 'is-'+baCtrl.validClass.portfolio:''"
+										class="form-control"
+										data-ng-model="baCtrl.bankAccount.portfolio">
+									<div class="d-block"
+										data-ng-class="baCtrl.validClass.portfolio? baCtrl.validClass.portfolio+'-feedback':''"
+										data-ng-show="baCtrl.validClass.portfolio">Ingrese un
+										portafolio</div>
 								</div>
 							</div>
 							<div class="line"></div>
 							<div class="form-group row">
 								<label class="col-sm-2 form-control-label">Moneda</label>
 								<div class="col-sm-10">
-									<input type="text" required
-									data-ng-class="baCtrl.validClass.currency? 'is-'+baCtrl.validClass.currency:''"
-									class="form-control" data-ng-model="baCtrl.bankAccount.currency">
-									<div class="d-block" data-ng-class="baCtrl.validClass.currency? baCtrl.validClass.currency+'-feedback':''"
-									data-ng-show="baCtrl.validClass.currency">Ingrese una moneda</div>
+									<input type="text" required maxlength="15"
+										data-ng-class="baCtrl.validClass.currency? 'is-'+baCtrl.validClass.currency:''"
+										class="form-control"
+										data-ng-model="baCtrl.bankAccount.currency">
+									<div class="d-block"
+										data-ng-class="baCtrl.validClass.currency? baCtrl.validClass.currency+'-feedback':''"
+										data-ng-show="baCtrl.validClass.currency">Ingrese una
+										moneda</div>
 								</div>
 							</div>
 							<div class="line"></div>
 							<div class="form-group row">
 								<div class="col-sm-4 offset-sm-2">
-									<button type="button" class="btn btn-secondary" data-ng-click="baCtrl.cancelBankAccount()">Cancelar</button>
-									<button type="submit" class="btn" data-ng-class="!baCtrl.bankAccount.id? 'btn-primary' : 'btn-info'">{{!baCtrl.bankAccount.id? 'Registrar' : 'Actualizar'}}</button>
+									<button type="button" class="btn btn-secondary"
+										data-ng-click="baCtrl.cancelBankAccount()">Cancelar</button>
+									<button type="submit" class="btn"
+										data-ng-class="!baCtrl.bankAccount.id? 'btn-primary' : 'btn-info'">{{!baCtrl.bankAccount.id?
+										'Registrar' : 'Actualizar'}}</button>
 								</div>
 							</div>
 							<div class="line"></div>
@@ -181,25 +202,35 @@
 			<div class="col-lg-12">
 				<div class="card">
 					<div class="card-header">
-						<div class="row mb-3">
-							<div class="col-sm-3">
-								<input type="date" class="form-control" data-ng-model="baCtrl.searchStartDate">
-								
+						<form class="form-inline mb-3">
+							<div class="form-group">
+								<label>De </label> <input type="date"
+									class="form-control mx-sm-3"
+									data-ng-model="baCtrl.searchStartDate">
 							</div>
-							<div class="col-sm-3">
-								<input type="date" class="form-control" data-ng-model="baCtrl.searchEndDate">
-								
+							<div class="form-group">
+								<label>A </label> <input type="date"
+									class="form-control mx-sm-3"
+									data-ng-model="baCtrl.searchEndDate">
+
 							</div>
-							<div class="col-sm-3">
-								<button type="button" class="btn btn-dark" data-ng-click="baCtrl.searchBetweenDates(baCtrl.searchStartDate,baCtrl.searchEndDate)">Buscar</button>
+							<div class="form-group">
+								<button type="button" class="btn btn-dark"
+									data-ng-click="baCtrl.searchBetweenDates(baCtrl.searchStartDate,baCtrl.searchEndDate)">
+									<i class="fa fa-search"></i> Buscar
+								</button>
 							</div>
-						</div>
+						</form>
 						<div class="row">
 							<div class="col-sm-2">
-								<button type="button" class="btn btn-primary" data-ng-click="baCtrl.newBankAccount()"><i class="fa fa-plus"></i> Nueva Cuenta</button>
+								<button type="button" class="btn btn-primary"
+									data-ng-click="baCtrl.newBankAccount()">
+									<i class="fa fa-plus"></i> Nueva Cuenta
+								</button>
 							</div>
 							<div class="col-sm-4">
-								<input type="search" placeholder="Buscar..." class="form-control" data-ng-model="baCtrl.filterAccountNumber">
+								<input type="search" placeholder="Buscar..."
+									class="form-control" data-ng-model="baCtrl.filterAccountNumber">
 							</div>
 						</div>
 					</div>
@@ -216,16 +247,17 @@
 										<th>Teléfono</th>
 										<th>Cliente</th>
 										<th>Portafolio</th>
-										<th>Periodo</th>
 										<th>Moneda</th>
 										<th>Banco</th>
+										<th>Fecha</th>
 										<th></th>
 										<th></th>
 										<th></th>
 									</tr>
 								</thead>
 								<tbody>
-									<tr data-ng-repeat="ba in baCtrl.bankAccounts | filter: baCtrl.filterAccountNumber track by $index">
+									<tr
+										data-ng-repeat="ba in baCtrl.bankAccounts | filter: baCtrl.filterAccountNumber track by $index">
 										<td scope="row">{{$index+1}}</td>
 										<td>{{ba.company.name}}</td>
 										<td>{{ba.accountType}}</td>
@@ -234,12 +266,15 @@
 										<td>{{ba.telephone}}</td>
 										<td>{{ba.client}}</td>
 										<td>{{ba.portfolio}}</td>
-										<td>{{ba.period}}</td>
 										<td>{{ba.currency}}</td>
-										<td>{{ba.bank}}</td>
-										<td><button class="btn btn-success" data-ng-click="baCtrl.stateGoTo('bank-actions', ba)">Acciones</button></td>
-										<td><button class="btn btn-info" data-ng-click="baCtrl.update(ba)">Actualizar</button></td>
-										<td><button class="btn btn-danger" data-ng-click="baCtrl.delete(ba)">Eliminar</button></td>
+										<td>{{ba.bank.name}}</td>
+										<td>{{ba.date | date: 'dd/MM/yyyy'}}</td>
+										<td><button class="btn btn-success"
+												data-ng-click="baCtrl.stateGoTo('bank-actions', ba)">Acciones</button></td>
+										<td><button class="btn btn-info"
+												data-ng-click="baCtrl.update(ba)">Actualizar</button></td>
+										<td><button class="btn btn-danger"
+												data-ng-click="baCtrl.confirmDelete(ba)">Eliminar</button></td>
 									</tr>
 								</tbody>
 							</table>

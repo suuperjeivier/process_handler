@@ -13,7 +13,7 @@
 	<div class="container-fluid">
 		<header>
 			<h1 class="h3 display">{{!cCtrl.company.id? 'Nueva':
-				'Actualizar'}}</h1>
+				'Actualizar'}} Empresa</h1>
 		</header>
 		<div class="row">
 			<div class="col-lg-2"></div>
@@ -27,7 +27,7 @@
 							<div class="form-group row">
 								<label class="col-sm-2 form-control-label">Nombre</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control"
+									<input type="text" class="form-control" maxlength="30"
 										data-ng-class="cCtrl.validClass.name? 'is-'+cCtrl.validClass.name:''"
 										data-ng-model="cCtrl.company.name" required>
 									<div class="d-block"
@@ -37,34 +37,32 @@
 							</div>
 							<div class="line"></div>
 							<div class="form-group row">
-								<label class="col-sm-2 form-control-label">Nombre de
-									cuenta amigable</label>
+								<label class="col-sm-2 form-control-label">Alias</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control"
+									<input type="text" class="form-control" maxlength="15"
 										data-ng-class="cCtrl.validClass.friendlyAccount? 'is-'+cCtrl.validClass.friendlyAccount:''"
 										data-ng-model="cCtrl.company.friendlyAccount" required>
 									<div class="d-block"
 										data-ng-class="cCtrl.validClass.friendlyAccount? cCtrl.validClass.friendlyAccount+'-feedback':''"
-										data-ng-show="cCtrl.validClass.friendlyAccount">Ingrese un nombre de cuenta amigable</div>
+										data-ng-show="cCtrl.validClass.friendlyAccount">Ingrese un alias a la empresa</div>
 								</div>
 							</div>
 							<div class="line"></div>
 							<div class="form-group row">
-								<label class="col-sm-2 form-control-label">Número de
-									cuenta</label>
+								<label class="col-sm-2 form-control-label">RFC</label>
 								<div class="col-sm-10">
-									<input type="text" class="form-control"
-										data-ng-class="cCtrl.validClass.number? 'is-'+cCtrl.validClass.number:''"
-										data-ng-model="cCtrl.company.number" required>
+									<input type="text" class="form-control" maxlength="13" pattern="[A-Za-z0-9]+"
+										data-ng-class="cCtrl.validClass.rfc? 'is-'+cCtrl.validClass.rfc:''"
+										data-ng-model="cCtrl.company.rfc" required>
 									<div class="d-block"
-										data-ng-class="cCtrl.validClass.number? cCtrl.validClass.number+'-feedback':''"
-										data-ng-show="cCtrl.validClass.number">Ingrese un número de cuenta</div>
+										data-ng-class="cCtrl.validClass.rfc? cCtrl.validClass.rfc+'-feedback':''"
+										data-ng-show="cCtrl.validClass.rfc">Ingrese un número de cuenta</div>
 								</div>
 							</div>
 							<div class="line"></div>
 							<div class="form-group row">
 								<div class="col-sm-4 offset-sm-2">
-									<button type="button" class="btn btn-secundary"
+									<button type="button" class="btn btn-secondary"
 										data-ng-click="cCtrl.cancel()">Cancelar</button>
 									<button type="submit" class="btn"
 										data-ng-class="!cCtrl.company.id? 'btn-primary': 'btn-info'">{{!cCtrl.company.id?
@@ -110,8 +108,8 @@
 									<tr>
 										<th>#</th>
 										<th>Nombre</th>
-										<th>Nombre de cuenta amigable</th>
-										<th>Número de cuenta</th>
+										<th>Alias</th>
+										<th>RFC</th>
 										<th></th>
 										<th></th>
 										<th></th>
@@ -122,13 +120,13 @@
 										<td>{{$index+1}}</td>
 										<td>{{co.name}}</td>
 										<td>{{co.friendlyAccount}}</td>
-										<td>{{co.number}}</td>
+										<td>{{co.rfc}}</td>
 										<td><button class="btn btn-success"
 												data-ng-click="cCtrl.addBankAccount(co)">Detalles</button></td>
 										<td><button class="btn btn-info"
 												data-ng-click="cCtrl.update(co)">Actualizar</button></td>
 										<td><button class="btn btn-danger"
-												data-ng-click="cCtrl.del(co)">Eliminar</button></td>
+												data-ng-click="cCtrl.confirmDelete(co)">Eliminar</button></td>
 									</tr>
 								</tbody>
 							</table>

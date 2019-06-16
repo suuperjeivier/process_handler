@@ -12,7 +12,7 @@ public class Company {
 	private Long id;	
 	private String name;
 	private String friendlyAccount;
-	private String number;
+	private String rfc;
 	private int status;
 
 	/**
@@ -39,6 +39,20 @@ public class Company {
 	/**
 	 * @return the friendlyAccount
 	 */
+	public String getRfc() {
+		return rfc;
+	}
+
+	/**
+	 * @param friendlyAccount the friendlyAccount to set
+	 */
+	public void setRfc(String rfc) {
+		this.rfc = rfc;
+	}
+
+	/**
+	 * @return the friendlyAccount
+	 */
 	public String getFriendlyAccount() {
 		return friendlyAccount;
 	}
@@ -48,20 +62,6 @@ public class Company {
 	 */
 	public void setFriendlyAccount(String friendlyAccount) {
 		this.friendlyAccount = friendlyAccount;
-	}
-
-	/**
-	 * @return the number
-	 */
-	public String getNumber() {
-		return number;
-	}
-
-	/**
-	 * @param number the number to set
-	 */
-	public void setNumber(String number) {
-		this.number = number;
 	}
 
 	/**

@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import mx.freshmanasoft.phs.entity.Bank;
 import mx.freshmanasoft.phs.entity.Company;
 
 @Entity
@@ -23,13 +24,14 @@ public class BankAccount {
 	private String telephone;
 	private String client;
 	private String portfolio;
-	private String period;
 	private String currency;
-	private String bank;
 	private Date date;
 	@ManyToOne
 	@JoinColumn(name="FK_ID_COMPANY")
 	private Company company;
+	@ManyToOne
+	@JoinColumn(name="FK_ID_BANK")
+	private Bank bank;
 	@Column(name="N_STATUS", columnDefinition = "INT(1) NOT NULL DEFAULT 0")
 	private Integer status;
 	public BankAccount() {
@@ -123,18 +125,6 @@ public class BankAccount {
 		this.portfolio = portfolio;
 	}
 	/**
-	 * @return the period
-	 */
-	public String getPeriod() {
-		return period;
-	}
-	/**
-	 * @param period the period to set
-	 */
-	public void setPeriod(String period) {
-		this.period = period;
-	}
-	/**
 	 * @return the currency
 	 */
 	public String getCurrency() {
@@ -149,13 +139,13 @@ public class BankAccount {
 	/**
 	 * @return the bank
 	 */
-	public String getBank() {
+	public Bank getBank() {
 		return bank;
 	}
 	/**
 	 * @param bank the bank to set
 	 */
-	public void setBank(String bank) {
+	public void setBank(Bank bank) {
 		this.bank = bank;
 	}
 	/**
@@ -199,7 +189,7 @@ public class BankAccount {
 	public String toString() {
 		return "BankAccount [id=" + id + ", accountType=" + accountType + ", accountNumber=" + accountNumber
 				+ ", address=" + address + ", telephone=" + telephone + ", client=" + client + ", portfolio="
-				+ portfolio + ", period=" + period + ", currency=" + currency + ", bank=" + bank + ", company="
+				+ portfolio + ", currency=" + currency + ", bank=" + bank + ", company="
 				+ company + ", status=" + status + "]";
 	}
 	
