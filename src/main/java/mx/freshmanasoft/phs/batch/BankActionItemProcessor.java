@@ -1,8 +1,5 @@
 package mx.freshmanasoft.phs.batch;
 
-import java.math.BigDecimal;
-import java.util.Date;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.item.ItemProcessor;
@@ -24,6 +21,8 @@ public class BankActionItemProcessor implements ItemProcessor<BankAction, BankAc
 
 	@Override
     public BankAction process(final BankAction action) throws Exception {
+		
+		
        
         final int _STATUS = 1;
         final Long accountIdFinal = accountId;
@@ -31,6 +30,36 @@ public class BankActionItemProcessor implements ItemProcessor<BankAction, BankAc
         
         BankAction transformedAction = new BankAction();
         transformedAction = action;
+        switch (transformedAction.getRegistroContable()) {
+		case "Capital":
+		case "Resultados":
+			break;
+		default:
+			transformedAction.setRegistroContable("Capital");
+			break;
+		}
+        
+        switch (transformedAction.getValor()) {
+		case "Acciones":
+		case "Deuda, Bonos y Gubernamental en Pesos":	
+		case "Deuda, Bonos y Gubernamental en USD":
+		case "Efectivo":
+			break;			
+		default:
+			transformedAction.setValor("Acciones");
+			break;
+		}
+        switch (transformedAction.getMonedaOriginal()) {
+        case "AUD":
+        case "GBP":
+		case "EUR":
+		case "USD":	
+		case "MXP":		
+			break;			
+		default:
+			transformedAction.setMonedaOriginal("USD");
+			break;
+		}
         transformedAction.setAccountingRecord(accountIdFinal);
         transformedAction.setStatus(_STATUS);
         transformedAction.setAccount(account);

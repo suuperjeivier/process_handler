@@ -35,7 +35,7 @@
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
 </head>
-<body>
+<body data-ng-controller="inicioCtrl as iniCtrl">
 	<!-- Side Navbar -->
 	<nav class="side-navbar">
 		<div class="side-navbar-wrapper">
@@ -107,6 +107,7 @@
 									<span>ACTIONS </span><strong class="text-primary">handler</strong>
 								</div>
 							</a>
+							<div><select data-ng-options="user.name for user in users" data-ng-model="userSession"></select></div>
 						</div>
 						<ul
 							class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
@@ -282,9 +283,11 @@
 	<script type="text/javascript" src="js/services/companyService.js"></script>
 	<script type="text/javascript" src="js/services/storageService.js"></script>
 	<script type="text/javascript" src="js/services/batchService.js"></script>
+	<script type="text/javascript" src="js/services/ratesAPIService.js"></script>
 	<!-- Controllers Angularjs -->
 	<script type="text/javascript" src="js/controllers/bankAccountsCtrl.js"></script>
 	<script type="text/javascript" src="js/controllers/bankActionsCtrl.js"></script>
 	<script type="text/javascript" src="js/controllers/companyCtrl.js"></script>
+	<script type="text/javascript" src="js/controllers/inicioCtrl.js"></script>
 </body>
 </html>

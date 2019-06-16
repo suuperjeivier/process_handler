@@ -5,6 +5,7 @@ app.controller('bankAccountsCtrl', function ($state, $stateParams, bankAccountSe
     self.newBankAccount = () => {
         self.bankAccount = {
             status: 1,
+            company: self.company,
             date: new Date()
         }
         return self.bankAccount;
@@ -36,6 +37,7 @@ app.controller('bankAccountsCtrl', function ($state, $stateParams, bankAccountSe
 
     self.update = bankAccount => {
         console.log('cuenta: ',bankAccount);
+        bankAccount.date = new Date(bankAccount.date);
         self.bankAccount = bankAccount;
     };
 

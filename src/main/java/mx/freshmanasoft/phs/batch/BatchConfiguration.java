@@ -3,10 +3,8 @@ package mx.freshmanasoft.phs.batch;
 import java.net.MalformedURLException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.text.DateFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
-import java.util.Currency;
 import java.util.Locale;
 
 import javax.sql.DataSource;
@@ -26,7 +24,6 @@ import org.springframework.batch.item.database.builder.JdbcBatchItemWriterBuilde
 import org.springframework.batch.item.file.FlatFileItemReader;
 import org.springframework.batch.item.file.builder.FlatFileItemReaderBuilder;
 import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
-import org.springframework.batch.item.file.mapping.DefaultLineMapper;
 import org.springframework.batch.item.file.transform.DefaultFieldSetFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -67,7 +64,7 @@ public class BatchConfiguration {
 
 
 			fieldSetFactory.setNumberFormat(NumberFormat.getCurrencyInstance(locale));
-			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");  
+			SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");  
 			fieldSetFactory.setDateFormat(dateFormat);
 			return new FlatFileItemReaderBuilder<BankAction>()
 					.linesToSkip(1)
@@ -75,12 +72,38 @@ public class BatchConfiguration {
 					.name("actionItemReader")
 					.resource(new UrlResource(rootLocation.resolve(actionsFileName).toUri()))
 					.delimited()
-					.fieldSetFactory(fieldSetFactory)							
-					.names(new String[]{"institucion", "instrumento", "Cusip", "ISIN_Serie",	"Sec_Id",	 "Titulos", "Unit_Cost", "Valor_a_costo", "Market_Price", "Valor_de_mercado", "Plusv_minusv_acumulado", "Int_Devengado",
-							"T_C", "mxn_dls", "Registro_Contable", "Valor", "Moneda_Original", "Fecha_Inicio", "Fecha_Final", "Saldo_Inicial", "Depositos", "Dividendos", "Intereses_Devengado", "Intereses_Cobrado", "Cambio_Mxn_Vs_Dis",
-							"Valuacion_Al_Cierre", "Cancelacion_De_Valuacion_X_Vta", "Cancelacion_De_Interes_Devengado", "Compras", "Ventas", "Utilidad_Perdida", "Retiros", "Gastos", "Impuestos", "Neto_Mov",	"Saldo_Final", "Dls_Al_Inicio",
-							"TC_ Inicial", "TC_Final", "Valuacion_Dls_Al_Inicio", "Valuacion_Dls_Al_Final", "Utilidad_Perdida_Por_Valuacion", "Utilidad_Perdida_Por_Valuacion_Miles"})
-
+					.fieldSetFactory(fieldSetFactory)	
+					.delimiter(",")
+					.includedFields(new Integer[] {0, 1, 2, 3, 4, 5, 6, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 26, 27, 32, 33})//26
+					.names(new String[]{
+							"institucion",
+							"instrumento",
+							"Cusip",
+							"ISIN_Serie",
+							"Sec_Id",
+							"Titulos",
+							"Unit_Cost",							
+							"Market_Price",
+							"Valor_de_mercado",
+							"Plusv_minusv_acumulado",
+							"Int_Devengado",
+							"T_C",
+							"mxn_dls",
+							"Registro_Contable",
+							"Valor",
+							"Moneda_Original",
+							"Fecha_Inicio",
+							"Fecha_Final",
+							"Saldo_Inicial",
+							"Depositos",
+							"Dividendos",
+							"Intereses_Devengado",
+							"Intereses_Cobrado",							
+							"Cancelacion_De_Valuacion_X_Vta",
+							"Cancelacion_De_Interes_Devengado",
+							"Gastos",
+							"Impuestos"
+							})
 					.fieldSetMapper(new BeanWrapperFieldSetMapper<BankAction>() {{
 						setTargetType(BankAction.class);
 					}})
@@ -103,27 +126,43 @@ public class BatchConfiguration {
 	public JdbcBatchItemWriter<BankAction> writer(DataSource dataSource) {
 		return new JdbcBatchItemWriterBuilder<BankAction>()
 				.itemSqlParameterSourceProvider(new BeanPropertyItemSqlParameterSourceProvider<>())
-				.sql("INSERT INTO bank_action ("
-						+ "`accounting_record`, `acquisition_date`, `cambio_mxn_vs_dis`, "
-						+ "`cancelacion_de_interes_devengado`, `cancelacion_de_valuacionxvta`, `compras`, `cusip`,"
-						+ " `depositos`, `dividendos`, `dls_al_inicio`, `fecha_final`, `fecha_inicio`, `gastos`, `impuestos`,"
-						+ " `institucion`, `instrumento`, `int_devengado`, `intereses_cobrado`, `intereses_devengado`, `isin_serie`, "
-						+ "`market_price`, `moneda_original`, `mxn_dls`, `name`, `neto_mov`, `original_coin`, `plusv_minusv_acumulado`,"
-						+ " `quantity`, `registro_contable`, `retiros`, `saldo_final`, `saldo_inicial`, `sec_id`, `security`, `status`,"
-						+ " `tc`, `tc_final`, `tc_inicial`, `titulos`, `unit_cost`, `utilidad_perdida`, `utilidad_perdida_por_valuacion`,"
-						+ " `utilidad_perdida_por_valuacion_miles`, `valor`, `valoracosto`, `valor_de_mercado`, `valuacion_al_cierre`, "
-						+ "`valuacion_dls_al_final`, `valuacion_dls_al_inicio`, `value`, `value_at_cost`, `ventas`, `fk_id_bank_account`)"
-						+ " VALUES ("+
-						":accountingRecord,\r\n" +
-						":acquisitionDate,\r\n" + 
-						":cambioMxnVsDis,\r\n" + 
+				.sql("INSERT INTO bank_action ("																
+						+ "	`cancelacion_de_interes_devengado`,"
+						+ " `cancelacion_de_valuacionxvta`,"						
+						+ " `cusip`,"
+						+ " `depositos`,"
+						+ " `dividendos`,"						
+						+ " `fecha_final`,"
+						+ " `fecha_inicio`,"
+						+ " `gastos`,"
+						+ " `impuestos`,"
+						+ " `institucion`,"
+						+ " `instrumento`,"
+						+ " `int_devengado`,"
+						+ " `intereses_cobrado`,"
+						+ " `intereses_devengado`,"
+						+ " `isin_serie`, "
+						+ "	`market_price`,"
+						+ " `moneda_original`,"
+						+ " `mxn_dls`,"
+						+ " `name`,"					
+						+ " `plusv_minusv_acumulado`,"						
+						+ " `registro_contable`,"						
+						+ " `saldo_inicial`,"
+						+ " `sec_id`,"						
+						+ " `status`,"
+						+ " `tc`,"						
+						+ " `titulos`,"
+						+ " `unit_cost`,"						
+						+ " `valor`,"						
+						+ " `valor_de_mercado`, "										
+						+ " `fk_id_bank_account`)"
+						+ " VALUES ("+															
 						":cancelacionDeInteresDevengado,\r\n" + 
-						":cancelacionDeValuacionXVta,\r\n" + 
-						":compras,\r\n" +
+						":cancelacionDeValuacionXVta,\r\n" + 						
 						":cusip,\r\n" +
 						":depositos,\r\n" + 
-						":dividendos,\r\n" + 
-						":dlsAlInicio,\r\n" + 
+						":dividendos,\r\n" + 						
 						":fechaFinal,\r\n" + 
 						":fechaInicio,\r\n" + 
 						":gastos,\r\n" + 
@@ -137,35 +176,17 @@ public class BatchConfiguration {
 						":marketPrice,\r\n" + 
 						":monedaOriginal,\r\n" + 
 						":mxnDls,\r\n" + 
-						":name,\r\n" + 
-						":netoMov,\r\n" + 
-						":originalCoin,\r\n" + 
-						":plusvMinusvAcumulado,\r\n" + 
-						":quantity,\r\n" + 
-						":registroContable,\r\n" + 
-						":retiros,\r\n" + 
-						":saldoFinal,\r\n" + 
+						":name,\r\n" + 						
+						":plusvMinusvAcumulado,\r\n" + 						
+						":registroContable,\r\n" +						
 						":saldoInicial,\r\n" + 
-						":secId,\r\n" + 
-						":security,\r\n" + 
+						":secId,\r\n" + 						
 						":status,\r\n" + 
-						":tC,\r\n" + 
-						":tcFinal,\r\n" + 
-						":tcInicial,\r\n" + 
+						":tC,\r\n" + 						
 						":titulos,\r\n" + 
-						":unitCost,\r\n" + 
-						":utilidadPerdida,\r\n" + 
-						":utilidadPerdidaPorValuacion,\r\n" + 
-						":utilidadPerdidaPorValuacionMiles,\r\n" + 
-						":valor,\r\n" + 
-						":valorACosto,\r\n" + 
-						":valorDeMercado,\r\n" + 
-						":valuacionAlCierre,\r\n" + 
-						":valuacionDlsAlFinal,\r\n" + 
-						":valuacionDlsAlInicio,\r\n" + 
-						"0,\r\n" + 
-						":valorACosto,\r\n" + 
-						":ventas,\r\n" + 
+						":unitCost,\r\n" +						 
+						":valor,\r\n" +
+						":valorDeMercado,\r\n" +
 						":accountingRecord\r\n" +  
 						")")
 				.dataSource(dataSource)

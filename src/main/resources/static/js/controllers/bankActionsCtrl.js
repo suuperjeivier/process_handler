@@ -1,7 +1,10 @@
-app.controller('bankActionsCtrl', function ($stateParams, bankActionService, storageService, batchService) {
+app.controller('bankActionsCtrl', function ($filter, $stateParams, bankActionService, storageService, batchService, ratesAPIService) {
 	const self = this;
 	self.bankActions = [];
 	self.bankAction = null;
+	self.tcInical = {};
+	self.tcFinal = {};
+
 
 	self.newBankAction = () => {
 		self.bankAction = {
@@ -44,7 +47,10 @@ app.controller('bankActionsCtrl', function ($stateParams, bankActionService, sto
 
 	self.update = bankAction => {
 		console.log('bankAction: ',bankAction);
+		//bankAction.fechaInicio = new Date(bankAction.fechaInicio);
+		bankAction.fechaFinal = new Date(bankAction.fechaFinal);
 		self.bankAction = bankAction;
+		self.fetchForRates(self.bankAction);
 	};
 
 	self.submitForm = isValid => {
@@ -87,7 +93,6 @@ app.controller('bankActionsCtrl', function ($stateParams, bankActionService, sto
 		var file = self.myFile;
 		console.log('file is ' );
 		console.dir(file);
-
 		if(self.account){
 			storageService.post(file).then(resp =>{
 				console.log(resp);
@@ -111,6 +116,59 @@ app.controller('bankActionsCtrl', function ($stateParams, bankActionService, sto
 		}
 		//send your binary data via $http or $resource or do anything else with it
 
+	};
+
+	
+	/**
+	 * let keys = Object.keys(resp.rates);
+			let firstKey = keys[0];
+			let lastKey = keys[Object.keys(resp.rates).length-1];
+			console.log(firstKey);
+			console.log(lastKey);
+	 */
+	self.fetchForRates = (bac) =>{
+		let fechaInicio = $filter('date')(bac.fechaInicio, 'yyyy-MM-dd');
+		let fechaFin = $filter('date')(bac.fechaFinal, 'yyyy-MM-dd');
+		console.log("inicio:", fechaInicio);
+		console.log("fin:", fechaFin);
+		bac.fechaInicio = new Date(bac.fechaInicio);
+		bac.fechaFinal = new Date(bac.fechaFinal);
+		
+
+		ratesAPIService.fecthOnPeriod(""+fechaInicio, ""+fechaFin).then(resp =>{
+			
+			let keys = Object.keys(resp.rates);
+			for(var i in keys) {				
+				if(keys[i] == fechaInicio){
+					self.tcInical = resp.rates[keys[i]];
+					console.warn("encontrado inicial!");
+				}
+				if(keys[i] == fechaFin){
+					console.warn("encontrado fechaFin!");
+					self.tcFinal = resp.rates[keys[i]];
+				}	   
+			}			
+			console.log(self.tcInical);
+			console.log(self.tcFinal);
+		},error =>{
+			console.error("error");
+		});
+	};
+	
+	self.cancelbankAction = () =>{
+		self.bankAction = null;
+	};
+
+	self.formatDate = (date)=>{
+		var d = new Date(date),
+		month = '' + (d.getMonth() + 1),
+		day = '' + d.getDate(),
+		year = d.getFullYear();
+
+		if (month.length < 2) month = '0' + month;
+		if (day.length < 2) day = '0' + day;
+
+		return [year, month, day].join('-');
 	};
 
 	const initController = () => {

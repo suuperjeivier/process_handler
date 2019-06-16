@@ -19,16 +19,13 @@ public class BankAction {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 	private String institucion;
-	private String instrumento;
-	
+	private String instrumento;	
 	private String name;
-	private String cusip;
-	
+	private String cusip;	
 	private String isinSerie;
 	private String secId;
 	private Long titulos;
-	private BigDecimal unitCost;
-	private BigDecimal valorACosto;
+	private BigDecimal unitCost;	
 	private BigDecimal marketPrice;
 	private BigDecimal valorDeMercado;
 	private BigDecimal plusvMinusvAcumulado;
@@ -64,15 +61,7 @@ public class BankAction {
 	private Long valuacionDlsAlFinal;
 	private Long utilidadPerdidaPorValuacion;
 	private Long utilidadPerdidaPorValuacionMiles;
-	
-	
-	private String security;
-	private BigDecimal quantity;
-	private BigDecimal valueAtCost;
-	private Date acquisitionDate;
-	private Long accountingRecord;
-	private String originalCoin;
-	private BigDecimal value;
+	private Long accountingRecord;//lo uso para almacenar de manera temporal el id de la cuenta
 	private int status;
 	@ManyToOne
 	@JoinColumn(name="FK_ID_BANK_ACCOUNT")
@@ -92,8 +81,8 @@ public class BankAction {
 			BigDecimal retiros, BigDecimal gastos, BigDecimal impuestos, BigDecimal netoMov, BigDecimal saldoFinal,
 			BigDecimal dlsAlInicio, BigDecimal tcInicial, BigDecimal tcFinal, Long valuacionDlsAlInicio,
 			Long valuacionDlsAlFinal, Long utilidadPerdidaPorValuacion, Long utilidadPerdidaPorValuacionMiles,
-			String security, BigDecimal quantity, BigDecimal valueAtCost, Date acquisitionDate, Long accountingRecord,
-			String originalCoin, BigDecimal value, int status, BankAccount account) {
+			Long accountingRecord,
+			int status, BankAccount account) {
 		super();
 		
 		this.institucion = institucion;
@@ -103,8 +92,7 @@ public class BankAction {
 		this.isinSerie = isinSerie;
 		this.secId = secId;
 		this.titulos = titulos;
-		this.unitCost = unitCost;
-		this.valorACosto = valorACosto;
+		this.unitCost = unitCost;		
 		this.marketPrice = marketPrice;
 		this.valorDeMercado = valorDeMercado;
 		this.plusvMinusvAcumulado = plusvMinusvAcumulado;
@@ -139,14 +127,9 @@ public class BankAction {
 		this.valuacionDlsAlInicio = valuacionDlsAlInicio;
 		this.valuacionDlsAlFinal = valuacionDlsAlFinal;
 		this.utilidadPerdidaPorValuacion = utilidadPerdidaPorValuacion;
-		this.utilidadPerdidaPorValuacionMiles = utilidadPerdidaPorValuacionMiles;
-		this.security = security;
-		this.quantity = quantity;
-		this.valueAtCost = valueAtCost;
-		this.acquisitionDate = acquisitionDate;
+		this.utilidadPerdidaPorValuacionMiles = utilidadPerdidaPorValuacionMiles;	
+	
 		this.accountingRecord = accountingRecord;
-		this.originalCoin = originalCoin;
-		this.value = value;
 		this.status = status;
 		this.account = account;
 	}
@@ -222,15 +205,7 @@ public class BankAction {
 	public void setUnitCost(BigDecimal unitCost) {
 		this.unitCost = unitCost;
 	}
-
-	public BigDecimal getValorACosto() {
-		return valorACosto;
-	}
-
-	public void setValorACosto(BigDecimal valorACosto) {
-		this.valorACosto = valorACosto;
-	}
-
+	
 	public BigDecimal getMarketPrice() {
 		return marketPrice;
 	}
@@ -511,60 +486,12 @@ public class BankAction {
 		this.utilidadPerdidaPorValuacionMiles = utilidadPerdidaPorValuacionMiles;
 	}
 
-	public String getSecurity() {
-		return security;
-	}
-
-	public void setSecurity(String security) {
-		this.security = security;
-	}
-
-	public BigDecimal getQuantity() {
-		return quantity;
-	}
-
-	public void setQuantity(BigDecimal quantity) {
-		this.quantity = quantity;
-	}
-
-	public BigDecimal getValueAtCost() {
-		return valueAtCost;
-	}
-
-	public void setValueAtCost(BigDecimal valueAtCost) {
-		this.valueAtCost = valueAtCost;
-	}
-
-	public Date getAcquisitionDate() {
-		return acquisitionDate;
-	}
-
-	public void setAcquisitionDate(Date acquisitionDate) {
-		this.acquisitionDate = acquisitionDate;
-	}
-
 	public Long getAccountingRecord() {
 		return accountingRecord;
 	}
 
 	public void setAccountingRecord(Long accountingRecord) {
 		this.accountingRecord = accountingRecord;
-	}
-
-	public String getOriginalCoin() {
-		return originalCoin;
-	}
-
-	public void setOriginalCoin(String originalCoin) {
-		this.originalCoin = originalCoin;
-	}
-
-	public BigDecimal getValue() {
-		return value;
-	}
-
-	public void setValue(BigDecimal value) {
-		this.value = value;
 	}
 
 	public int getStatus() {
@@ -587,7 +514,7 @@ public class BankAction {
 	public String toString() {
 		return "BankAction [id=" + id + ", institucion=" + institucion + ", instrumento=" + instrumento + ", name="
 				+ name + ", cusip=" + cusip + ", isinSerie=" + isinSerie + ", secId=" + secId + ", titulos=" + titulos
-				+ ", unitCost=" + unitCost + ", valorACosto=" + valorACosto + ", marketPrice=" + marketPrice
+				+ ", unitCost=" + unitCost + ", marketPrice=" + marketPrice
 				+ ", valorDeMercado=" + valorDeMercado + ", plusvMinusvAcumulado=" + plusvMinusvAcumulado
 				+ ", intDevengado=" + intDevengado + ", tC=" + tC + ", mxnDls=" + mxnDls + ", registroContable="
 				+ registroContable + ", valor=" + valor + ", monedaOriginal=" + monedaOriginal + ", fechaInicio="
@@ -601,9 +528,8 @@ public class BankAction {
 				+ saldoFinal + ", dlsAlInicio=" + dlsAlInicio + ", tcInicial=" + tcInicial + ", tcFinal=" + tcFinal
 				+ ", valuacionDlsAlInicio=" + valuacionDlsAlInicio + ", valuacionDlsAlFinal=" + valuacionDlsAlFinal
 				+ ", utilidadPerdidaPorValuacion=" + utilidadPerdidaPorValuacion + ", utilidadPerdidaPorValuacionMiles="
-				+ utilidadPerdidaPorValuacionMiles + ", security=" + security + ", quantity=" + quantity
-				+ ", valueAtCost=" + valueAtCost + ", acquisitionDate=" + acquisitionDate + ", accountingRecord="
-				+ accountingRecord + ", originalCoin=" + originalCoin + ", value=" + value + ", status=" + status
+				+ utilidadPerdidaPorValuacionMiles + ", accountingRecord="
+				+ accountingRecord + ", status=" + status
 				+ ", account=" + account + "]";
 	}
 }
