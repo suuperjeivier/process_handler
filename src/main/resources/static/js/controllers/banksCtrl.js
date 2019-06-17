@@ -27,7 +27,7 @@ app.controller('banksCtrl', function ($state, banksService) {
         banksService.post(self.bank).then(data => {
             self.bank = null;
             self.get();
-            alertify.alert('Exito', 'Bnaco registrado exitosamente', function(){ alertify.success('Ok'); });
+            alertify.alert('Exito', 'Banco registrado exitosamente', function(){ alertify.success('Ok'); });
         }, error => {
             console.log('Error al registrar la accion bancaria', error);
         });
