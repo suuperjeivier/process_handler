@@ -12,8 +12,8 @@
 <section data-ng-if="bCtrl.bank">
 	<div class="container-fluid">
 		<header>
-			<h1 class="h3 display">{{!bCtrl.bank.id? 'Nuevo':
-				'Actualizar'}} Banco</h1>
+			<h1 class="h3 display">{{!bCtrl.bank.id? 'Nuevo': 'Actualizar'}}
+				Banco</h1>
 		</header>
 		<div class="row">
 			<div class="col-lg-2"></div>
@@ -32,7 +32,62 @@
 										data-ng-model="bCtrl.bank.name" required>
 									<div class="d-block"
 										data-ng-class="bCtrl.validClass.name? bCtrl.validClass.name+'-feedback':''"
-										data-ng-show="bCtrl.validClass.name">Ingrese el nombre del banco</div>
+										data-ng-show="bCtrl.validClass.name">Ingrese el nombre
+										del banco</div>
+								</div>
+							</div>
+							<div class="line"></div>
+							<div class="form-group row">
+								<label class="col-sm-2 form-control-label">Agente</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control" maxlength="30"
+										data-ng-class="bCtrl.validClass.agent? 'is-'+bCtrl.validClass.agent:''"
+										data-ng-model="bCtrl.bank.agent" required>
+									<div class="d-block"
+										data-ng-class="bCtrl.validClass.agent? bCtrl.validClass.agent+'-feedback':''"
+										data-ng-show="bCtrl.validClass.agent">Ingrese el nombre
+										del Agente</div>
+								</div>
+							</div>
+							<div class="line"></div>
+							<div class="form-group row">
+								<label class="col-sm-2 form-control-label">Teléfono
+									Agente</label>
+								<div class="col-sm-10">
+									<input type="tel" class="form-control" maxlength="10"
+										pattern="[0-9]{10}"
+										data-ng-class="bCtrl.validClass.agentPhone? 'is-'+bCtrl.validClass.agentPhone:''"
+										data-ng-model="bCtrl.bank.agentPhone" required>
+									<div class="d-block"
+										data-ng-class="bCtrl.validClass.agentPhone? bCtrl.validClass.agentPhone+'-feedback':''"
+										data-ng-show="bCtrl.validClass.agentPhone">Ingrese
+										correctamente el teléfono [5555555555]</div>
+								</div>
+							</div>
+							<div class="line"></div>
+							<div class="form-group row">
+								<label class="col-sm-2 form-control-label">Dirección</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control" maxlength="50"
+										data-ng-class="bCtrl.validClass.address? 'is-'+bCtrl.validClass.address:''"
+										data-ng-model="bCtrl.bank.address" required>
+									<div class="d-block"
+										data-ng-class="bCtrl.validClass.address? bCtrl.validClass.address+'-feedback':''"
+										data-ng-show="bCtrl.validClass.address">Ingrese la dirección</div>
+								</div>
+							</div>
+							<div class="line"></div>
+							<div class="form-group row">
+								<label class="col-sm-2 form-control-label">Teléfono</label>
+								<div class="col-sm-10">
+									<input type="tel" class="form-control" maxlength="10"
+										pattern="[0-9]{10}"
+										data-ng-class="bCtrl.validClass.telephone? 'is-'+bCtrl.validClass.telephone:''"
+										data-ng-model="bCtrl.bank.telephone" required>
+									<div class="d-block"
+										data-ng-class="bCtrl.validClass.telephone? bCtrl.validClass.telephone+'-feedback':''"
+										data-ng-show="bCtrl.validClass.telephone">Ingrese
+										correctamente el teléfono [5555555555]</div>
 								</div>
 							</div>
 							<div class="line"></div>
@@ -73,7 +128,7 @@
 							</div>
 							<div class="col-sm-4">
 								<input type="search" placeholder="Buscar..."
-									data-ng-model="bCtrl.filterBank"class="form-control">
+									data-ng-model="bCtrl.filterBank" class="form-control">
 							</div>
 						</div>
 					</div>
@@ -84,14 +139,23 @@
 									<tr>
 										<th>#</th>
 										<th>Nombre</th>
+										<th>Agente</th>
+										<th>Teléfono Agente</th>
+										<th>Dirección</th>
+										<th>Teléfono</th>
 										<th></th>
 										<th></th>
 									</tr>
 								</thead>
 								<tbody>
-									<tr data-ng-repeat="ba in bCtrl.banks | filter: bCtrl.filterBank track by $index">
+									<tr
+										data-ng-repeat="ba in bCtrl.banks | filter: bCtrl.filterBank track by $index">
 										<td>{{$index+1}}</td>
 										<td>{{ba.name}}</td>
+										<td>{{ba.agent}}</td>
+										<td>{{ba.agentPhone}}</td>
+										<td>{{ba.address}}</td>
+										<td>{{ba.telephone}}</td>
 										<td><button class="btn btn-info"
 												data-ng-click="bCtrl.update(ba)">Actualizar</button></td>
 										<td><button class="btn btn-danger"

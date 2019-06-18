@@ -50,6 +50,32 @@ app.controller('banksCtrl', function ($state, banksService) {
         	
         	if(!self.bank.name){
         		self.validClass.name = 'invalid';
+        	} else if(self.bank.name.trim().length === 0){
+        		self.validClass.name = 'invalid';
+        	}
+        	
+        	if(!self.bank.agent){
+        		self.validClass.agent = 'invalid';
+        	} else if(self.bank.agent.trim().length === 0){
+        		self.validClass.agent = 'invalid';
+        	}	
+        	
+        	if(!self.bank.agentPhone){
+        		self.validClass.agentPhone = 'invalid';
+        	} else if(/\D/.test(self.bank.agentPhone)){
+        		self.validClass.agentPhone = 'invalid';
+        	}	
+        	
+        	if(!self.bank.address){
+        		self.validClass.address = 'invalid';
+        	} else if(self.bank.address.trim().length === 0){
+        		self.validClass.address = 'invalid';
+        	}
+        	
+        	if(!self.bank.telephone){
+        		self.validClass.telephone = 'invalid';
+        	} else if(/\D/.test(self.bank.telephone)){
+        		self.validClass.telephone = 'invalid';
         	}	
         }
     };
