@@ -23,7 +23,6 @@ app.controller('banksCtrl', function ($state, banksService) {
     };
 
     self.post = () => {
-        console.log('informacion de la empresa: ',self.company);
         banksService.post(self.bank).then(data => {
             self.bank = null;
             self.get();
@@ -45,8 +44,10 @@ app.controller('banksCtrl', function ($state, banksService) {
         }else {
         	self.validClass = {};
         	self.validClass.name = 'valid';
-        	self.validClass.friendlyAccount = 'valid';
-        	self.validClass.rfc = 'valid';
+        	self.validClass.agent = 'valid';
+        	self.validClass.agentPhone = 'valid';
+        	self.validClass.address = 'valid';
+        	self.validClass.telephone = 'valid';
         	
         	if(!self.bank.name){
         		self.validClass.name = 'invalid';

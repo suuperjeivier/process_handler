@@ -1,7 +1,10 @@
 app.controller('bankAccountsCtrl', function ($state, $stateParams, bankAccountService, companyService, banksService,$filter) {
-    const self = this;
+    
+	const self        = this;
     self.bankAccounts = [];
-    self.bankAccount = null;
+    self.bankAccount  = null;
+    self.bank         = null;
+    
     self.newBankAccount = () => {
         self.bankAccount = {
             status: 1,
@@ -11,12 +14,23 @@ app.controller('bankAccountsCtrl', function ($state, $stateParams, bankAccountSe
         return self.bankAccount;
     };
     
+    self.newBank = () => {
+        self.bank = {
+            status: 1
+        }
+    };
+    
+    
     self.searchStartDate = new Date();
     self.searchEndDate = new Date();
     
     self.cancelBankAccount = () => {
         self.bankAccount = null;
         self.validClass = null;
+    };
+    
+    self.cancelBank = () => {
+        self.bank = null;
     };
     
     self.searchBetweenDates = (startDate, endDate) => {
@@ -176,6 +190,20 @@ app.controller('bankAccountsCtrl', function ($state, $stateParams, bankAccountSe
             console.log('Error al registrar la cuenta bancaria', error);
         });
     };
+    
+    self.postBank = () => {
+    	console.log('data send: ', self.bank)
+        banksService.post(self.bank).then(data => {
+            self.bank = null;
+            self.getBanks();
+            self.bankAccount.bank = data;
+            $('#modal-new-bank').modal('hide')
+            alertify.alert('Exito', 'Banco registrado exitosamente', function(){ alertify.success('Ok'); });
+            
+        }, error => {
+            console.log('Error al registrar la accion bancaria', error);
+        });
+    };
 
     self.put = () => {
         bankAccountService.post(self.bankAccount).then(data => {
@@ -207,6 +235,53 @@ app.controller('bankAccountsCtrl', function ($state, $stateParams, bankAccountSe
     
     self.stateGoTo = (stateTrans, data) =>{
     	$state.go(stateTrans, {'account': data}, {location: false, inherit: false});
+    };
+    
+    self.submitFormBank = isValid => {
+        console.log('Valid Form bank');
+        if (isValid) {
+            self.postBank();
+            self.validClass = null
+        }else {
+        	
+        	self.validClass               = {};
+        	self.validClass.name          = 'valid';
+        	self.validClass.agent         = 'valid';
+        	self.validClass.agentPhone    = 'valid';
+        	self.validClass.addressBank   = 'valid';
+        	self.validClass.telephoneBank = 'valid';
+        	
+        	
+        	if(!self.bank.name){
+        		self.validClass.name = 'invalid';
+        	} else if(self.bank.name.trim().length === 0){
+        		self.validClass.name = 'invalid';
+        	}
+        	
+        	if(!self.bank.agent){
+        		self.validClass.agent = 'invalid';
+        	} else if(self.bank.agent.trim().length === 0){
+        		self.validClass.agent = 'invalid';
+        	}	
+        	
+        	if(!self.bank.agentPhone){
+        		self.validClass.agentPhone = 'invalid';
+        	} else if(/\D/.test(self.bank.agentPhone)){
+        		self.validClass.agentPhone = 'invalid';
+        	}	
+        	
+        	if(!self.bank.address){
+        		self.validClass.addressBank = 'invalid';
+        	} else if(self.bank.address.trim().length === 0){
+        		self.validClass.addressBank = 'invalid';
+        	}
+        	
+        	if(!self.bank.telephone){
+        		self.validClass.telephoneBank = 'invalid';
+        	} else if(/\D/.test(self.bank.telephone)){
+        		self.validClass.telephoneBank = 'invalid';
+        	}	
+        }
     };
 
     const initController = () => {

@@ -40,35 +40,39 @@
 								</div>
 							</div>
 							<div data-ng-if="!baCtrl.company">
-							<div class="line"></div>
-							<div class="form-group row">
-								<label class="col-sm-2 form-control-label">Empresa</label>
-								<div class="col-sm-10">
-									<select class="form-control" required
-									data-ng-class="baCtrl.validClass.company? 'is-'+baCtrl.validClass.company:''"
-									data-ng-options="ba as ba.name for ba in baCtrl.business track by ba.id"
-									data-ng-readonly="baCtrl.company"
-									data-ng-model="baCtrl.bankAccount.company">
-										<option value="" disabled selected>Seleccione una empresa...</option>
-									</select>
-									<div class="d-block"
-										data-ng-class="baCtrl.validClass.company? baCtrl.validClass.company+'-feedback':''"
-										data-ng-show="baCtrl.validClass.company">Seleccione una
-										empresa</div>
+								<div class="line"></div>
+								<div class="form-group row">
+									<label class="col-sm-2 form-control-label">Empresa</label>
+									<div class="col-sm-10">
+										<select class="form-control" required
+											data-ng-class="baCtrl.validClass.company? 'is-'+baCtrl.validClass.company:''"
+											data-ng-options="ba as ba.name for ba in baCtrl.business track by ba.id"
+											data-ng-readonly="baCtrl.company"
+											data-ng-model="baCtrl.bankAccount.company">
+											<option value="" disabled selected>Seleccione una
+												empresa...</option>
+										</select>
+										<div class="d-block"
+											data-ng-class="baCtrl.validClass.company? baCtrl.validClass.company+'-feedback':''"
+											data-ng-show="baCtrl.validClass.company">Seleccione una
+											empresa</div>
+									</div>
 								</div>
-							</div>
 							</div>
 							<div class="line"></div>
 							<div class="form-group row">
 								<label class="col-sm-2 form-control-label">Banco</label>
-								<div class="col-sm-10">
-									<select class="form-control" required
+								<div class="col-sm-10 row" style="margin-left: 1px">
+									<select class="form-control col-sm-11" required
 										data-ng-options="banco as banco.name for banco in baCtrl.banks track by banco.id"
 										data-ng-class="baCtrl.validClass.bank? 'is-'+baCtrl.validClass.bank:''"
 										data-ng-model="baCtrl.bankAccount.bank">
 										<option value="" disabled selected>Seleccione un
 											banco...</option>
+										<option value="?"></option>
 									</select>
+									<button type="button" data-ng-click="baCtrl.newBank()" class="btn btn-primary col-sm-1" data-toggle="modal" data-target="#modal-new-bank"><i class="fa fa-plus"></i></button>
+									
 									<div class="d-block"
 										data-ng-class="baCtrl.validClass.bank? baCtrl.validClass.bank+'-feedback':''"
 										data-ng-show="baCtrl.validClass.bank">Seleccione un
@@ -198,7 +202,8 @@
 <section data-ng-if="!baCtrl.bankAccount">
 	<div class="container-fluid">
 		<header>
-			<h1 class="h3 display">Cuentas bancarias {{baCtrl.company.id ? 'de ' + baCtrl.company.name : ''}}</h1>
+			<h1 class="h3 display">Cuentas bancarias {{baCtrl.company.id ?
+				'de ' + baCtrl.company.name : ''}}</h1>
 		</header>
 		<div class="row">
 			<div class="col-lg-12">
@@ -287,3 +292,93 @@
 		</div>
 	</div>
 </section>
+<div class="modal fade" id="modal-new-bank" tabindex="-1" role="dialog"
+	aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<form class="modal-content" name="formBank" data-ng-submit="baCtrl.submitFormBank(formBank.$valid)" novalidate>
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Nuevo Banco</h5>
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="form-horizontal">
+					<div class="line"></div>
+					<div class="form-group row">
+						<label class="col-sm-2 form-control-label">Nombre</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" maxlength="30"
+								data-ng-class="baCtrl.validClass.name? 'is-'+baCtrl.validClass.name:''"
+								data-ng-model="baCtrl.bank.name" required>
+							<div class="d-block"
+								data-ng-class="baCtrl.validClass.name? baCtrl.validClass.name+'-feedback':''"
+								data-ng-show="baCtrl.validClass.name">Ingrese el nombre del
+								banco</div>
+						</div>
+					</div>
+					<div class="line"></div>
+					<div class="form-group row">
+						<label class="col-sm-2 form-control-label">Agente</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" maxlength="30"
+								data-ng-class="baCtrl.validClass.agent? 'is-'+baCtrl.validClass.agent:''"
+								data-ng-model="baCtrl.bank.agent" required>
+							<div class="d-block"
+								data-ng-class="baCtrl.validClass.agent? baCtrl.validClass.agent+'-feedback':''"
+								data-ng-show="baCtrl.validClass.agent">Ingrese el nombre
+								del Agente</div>
+						</div>
+					</div>
+					<div class="line"></div>
+					<div class="form-group row">
+						<label class="col-sm-2 form-control-label">Teléfono Agente</label>
+						<div class="col-sm-10">
+							<input type="tel" class="form-control" maxlength="10"
+								pattern="[0-9]{10}"
+								data-ng-class="baCtrl.validClass.agentPhone? 'is-'+baCtrl.validClass.agentPhone:''"
+								data-ng-model="baCtrl.bank.agentPhone" required>
+							<div class="d-block"
+								data-ng-class="baCtrl.validClass.agentPhone? baCtrl.validClass.agentPhone+'-feedback':''"
+								data-ng-show="baCtrl.validClass.agentPhone">Ingrese
+								correctamente el teléfono [5555555555]</div>
+						</div>
+					</div>
+					<div class="line"></div>
+					<div class="form-group row">
+						<label class="col-sm-2 form-control-label">Dirección</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" maxlength="50"
+								data-ng-class="baCtrl.validClass.addressBank? 'is-'+baCtrl.validClass.addressBank:''"
+								data-ng-model="baCtrl.bank.address" required>
+							<div class="d-block"
+								data-ng-class="baCtrl.validClass.addressBank? baCtrl.validClass.addressBank+'-feedback':''"
+								data-ng-show="baCtrl.validClass.addressBank">Ingrese la
+								dirección</div>
+						</div>
+					</div>
+					<div class="line"></div>
+					<div class="form-group row">
+						<label class="col-sm-2 form-control-label">Teléfono</label>
+						<div class="col-sm-10">
+							<input type="tel" class="form-control" maxlength="10"
+								pattern="[0-9]{10}"
+								data-ng-class="baCtrl.validClass.telephoneBank? 'is-'+baCtrl.validClass.telephoneBank:''"
+								data-ng-model="baCtrl.bank.telephone" required>
+							<div class="d-block"
+								data-ng-class="baCtrl.validClass.telephoneBank? baCtrl.validClass.telephoneBank+'-feedback':''"
+								data-ng-show="baCtrl.validClass.telephoneBank">Ingrese
+								correctamente el teléfono [5555555555]</div>
+						</div>
+					</div>
+					<div class="line"></div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-ng-click="baCtrl.cancelBank()" data-dismiss="modal">Cerrar</button>
+				<button type="submit" class="btn btn-primary">Registrar</button>
+			</div>
+		</form>
+	</div>
+</div>
