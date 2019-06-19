@@ -22,6 +22,17 @@ app.service('bankActionService', function($q, factory){
 			});
 		});
 	};
+	
+	self.getActionHistory = (actionId) => {
+		let data = {actionId: actionId};
+		return $q((resolve, reject) => {
+			factory.get(path+'/history/id', data).then(data => {
+				resolve(data);
+			}, error => {
+				reject(error);
+			});
+		});
+	};
 
 	self.post = bankAction => {
 		return $q((resolve, reject) => {

@@ -38,6 +38,31 @@ app.controller('bankActionsCtrl', function ($scope, $filter, $stateParams, bankA
 		}
 
 	};
+//pager
+	
+	self.paginarAcciones = function(){
+		self.numPages = Math.ceil(self.bankActions.length / self.itemsPerPage);		
+		$scope.$watch('bactCtrl.currentPage + bactCtrl.itemsPerPage', function() {
+		    var begin = ((self.currentPage - 1) * self.itemsPerPage)
+		    , end = begin + self.itemsPerPage;
+		    self.filteredActions = self.bankActions.slice(begin, end);
+		  });
+	}
+
+
+	self.setPage = function (pageNo) {
+		self.currentPage = pageNo;
+	};
+
+	self.pageChanged = function() {
+		console.log('Page changed to: ' + self.currentPage);
+	};
+
+	self.setItemsPerPage = function(num) {
+		self.itemsPerPage = num;
+		self.currentPage = 1; //reset to first page
+	}
+	//end pager
 
 	self.post = () => {
 		self.bankAction.account = self.account;
@@ -106,7 +131,7 @@ app.controller('bankActionsCtrl', function ($scope, $filter, $stateParams, bankA
 				if(resp.message == "FILE_UPLODED"){
 					batchService.post(resp.newFileName, self.account.id).then(resp =>{
 						console.log(resp);
-						$('#exampleModal').modal('toggle')
+						$('#exampleModal').modal('toggle');
 						alert("correcto, archivo procesado!");
 						self.get();
 						self.processing = false;
@@ -187,31 +212,15 @@ app.controller('bankActionsCtrl', function ($scope, $filter, $stateParams, bankA
 		$state.go(stateTrans, obj, {location: false, inherit: false});
 	};
 
-	//pager
+	self.getHistory = (ba) =>{
+		bankActionService.getActionHistory(ba.id).then(data => {			
+			self.actionsHistory = data;			
+		}, error => {
+			console.log('Error al obtener el historial de la accion bancaria', error);
+		});
+		
+	};
 	
-	self.paginarAcciones = function(){
-		self.numPages = Math.ceil(self.bankActions.length / self.itemsPerPage);		
-		$scope.$watch('bactCtrl.currentPage + bactCtrl.itemsPerPage', function() {
-		    var begin = ((self.currentPage - 1) * self.itemsPerPage)
-		    , end = begin + self.itemsPerPage;
-		    self.filteredActions = self.bankActions.slice(begin, end);
-		  });
-	}
-
-
-	self.setPage = function (pageNo) {
-		self.currentPage = pageNo;
-	};
-
-	self.pageChanged = function() {
-		console.log('Page changed to: ' + self.currentPage);
-	};
-
-	self.setItemsPerPage = function(num) {
-		self.itemsPerPage = num;
-		self.currentPage = 1; //reset to first page
-	}
-	//end pager
 
 	const initController = () => {
 		console.log("params:", $stateParams);

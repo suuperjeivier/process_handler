@@ -27,6 +27,11 @@ public class BankActionController {
 		return service.fetch();
 	}
 	
+	@GetMapping("history/id")
+	public @ResponseBody Iterable<BankAction> getActionHistory(@RequestParam(name="actionId") final Long actionId){
+		return service.fetchHistory(actionId);
+	}
+	
 	@GetMapping("account/id")
 	public @ResponseBody Iterable<BankAction> getByAccountId(@RequestParam(name="accountId") final Long accountId){
 		return service.fetch(accountId);

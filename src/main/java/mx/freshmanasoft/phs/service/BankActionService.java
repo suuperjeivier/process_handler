@@ -8,5 +8,6 @@ public interface BankActionService {
 	BankAction put(BankAction entity);
 	BankAction delete(BankAction entity);
 	Iterable<BankAction> fetch(Long accountId);
+	Iterable<BankAction> fetchHistory(Long actionId);
 	
 }
