@@ -160,6 +160,15 @@ app.controller('bankAccountsCtrl', function ($state, $stateParams, bankAccountSe
         });
     };
     
+    self.getByBank = (bank) => {
+    	console.log('buscando por bank:', bank);
+        bankAccountService.getByBank(bank).then(data => {
+            self.bankAccounts = data;
+        }, error => {
+            console.log('Error al obtener las cuentas bancarias', error);
+        });
+    };
+    
     self.getCompany = () => {
     	console.log('Buscando por empresa');
     	companyService.get().then(data => {
@@ -291,7 +300,10 @@ app.controller('bankAccountsCtrl', function ($state, $stateParams, bankAccountSe
         if($stateParams.company){
         	self.company = $stateParams.company;
         	self.getByCompany(self.company);
-        }else{
+        }else if($stateParams.bank){
+        	self.bank = $stateParams.bank;
+        	self.getByBank(self.bank);
+        } else{
         	self.company = null;
         	self.get();
         }

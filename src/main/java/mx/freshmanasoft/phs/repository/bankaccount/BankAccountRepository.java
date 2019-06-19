@@ -14,5 +14,7 @@ public interface BankAccountRepository extends CrudRepository<BankAccount, Integ
 
 	Iterable<BankAccount> findByCompanyId(Long companyId);
 	
+	Iterable<BankAccount> findByBankId(Integer bankId);
+	
 	Iterable<BankAccount> findByStatusAndDateBetweenOrderByDateDesc(Integer status, Date startDate, Date endDate);
 }

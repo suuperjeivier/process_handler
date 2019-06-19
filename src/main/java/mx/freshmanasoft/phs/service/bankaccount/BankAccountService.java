@@ -9,9 +9,9 @@ import mx.freshmanasoft.phs.entity.bankaccount.BankAccount;
 public interface BankAccountService {
 	Iterable<BankAccount> fetch();
 	Iterable<BankAccount> fetch(Long companyId);
+	Iterable<BankAccount> fetch(Integer bankId);
 	Iterable<BankAccount> fetchByBetweenDates(Integer status, Date startDate, Date endDate);
 	BankAccount post(BankAccount entity);
 	BankAccount put(BankAccount entity);
 	BankAccount delete(BankAccount entity);
-	
 }

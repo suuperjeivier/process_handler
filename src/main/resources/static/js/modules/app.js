@@ -16,7 +16,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider,$url
 	.state('bank-accounts',{
 		url: '/bank-accounts',
 		templateUrl:'views/bankAccounts.html',
-		params: {company: null},
+		params: {company: null, bank: null},
 		controller: 'bankAccountsCtrl',
 		controllerAs: 'baCtrl'
 	})

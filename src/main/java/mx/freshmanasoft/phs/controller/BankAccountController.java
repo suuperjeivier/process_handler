@@ -35,6 +35,11 @@ public class BankAccountController {
 		return service.fetch(companyId);
 	}
 	
+	@GetMapping("bank/id")
+	public @ResponseBody Iterable<BankAccount> getByBank(@RequestParam(name="bankId") final Integer bankId){
+		return service.fetch(bankId);
+	}
+	
 	@GetMapping("/between-dates")
 	public @ResponseBody Iterable<BankAccount> getByBetweenDates(@RequestParam(name="status") final Integer status,
 			@RequestParam(name="startDate") @DateTimeFormat(pattern="yyyy/MM/dd") final Date startDate,

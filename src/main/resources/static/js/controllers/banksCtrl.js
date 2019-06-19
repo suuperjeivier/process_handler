@@ -12,6 +12,10 @@ app.controller('banksCtrl', function ($state, banksService) {
     self.cancel = () => {
         self.bank = null;
     };
+    
+    self.getBankAccounts = bank => {
+    	$state.go('bank-accounts', {'bank': bank}, {location: false, inherit: false});
+    };
 
     self.get = () => {
         banksService.get().then(data => {

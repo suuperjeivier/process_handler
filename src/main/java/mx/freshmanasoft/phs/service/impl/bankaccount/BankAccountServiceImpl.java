@@ -58,4 +58,10 @@ public class BankAccountServiceImpl implements BankAccountService{
 		
 		return repository.findByCompanyId(companyId);
 	}
+
+	@Override
+	public Iterable<BankAccount> fetch(Integer bankId) {
+		
+		return repository.findByBankId(bankId);
+	}
 }

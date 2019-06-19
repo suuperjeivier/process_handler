@@ -145,6 +145,7 @@
 										<th>Teléfono</th>
 										<th></th>
 										<th></th>
+										<th></th>
 									</tr>
 								</thead>
 								<tbody>
@@ -156,6 +157,8 @@
 										<td>{{ba.agentPhone}}</td>
 										<td>{{ba.address}}</td>
 										<td>{{ba.telephone}}</td>
+										<td><button class="btn btn-primary"
+												data-ng-click="bCtrl.getBankAccounts(ba)">Cuentas bancarias</button></td>
 										<td><button class="btn btn-info"
 												data-ng-click="bCtrl.update(ba)">Actualizar</button></td>
 										<td><button class="btn btn-danger"

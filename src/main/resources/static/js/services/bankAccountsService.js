@@ -32,6 +32,16 @@ app.service('bankAccountService', function ($q, factory) {
         });
     };  
     
+    self.getByBank = (bank) => {
+    	let data = {'bankId': bank.id};
+        return $q((resolve, reject) => {
+            factory.get(path+'/bank/id', data).then(data => {
+                resolve(data);
+            }, error => {
+                reject(error);
+            });
+        });
+    };
     
     self.post = bankAccount => {
         return $q((resolve, reject) => {
