@@ -7,9 +7,10 @@
 			<li class="breadcrumb-item" data-ng-if="bactCtrl.account.company"><a
 				href="#!bussiness"
 				data-ng-click="bactCtrl.stateGoTo('bussiness', {company: bactCtrl.account.company})">Empresas</a></li>
-			<li class="breadcrumb-item" data-ng-if="bactCtrl.account">
-				<a href="#!bank-accounts"
-				data-ng-click="bactCtrl.stateGoTo('bank-accounts', {account: bactCtrl.account})">Cuentas bancarias</a></li>
+			<li class="breadcrumb-item" data-ng-if="bactCtrl.account"><a
+				href="#!bank-accounts"
+				data-ng-click="bactCtrl.stateGoTo('bank-accounts', {account: bactCtrl.account})">Cuentas
+					bancarias</a></li>
 			<li class="breadcrumb-item active">Acciones</li>
 		</ul>
 	</div>
@@ -18,22 +19,22 @@
 <section data-ng-if="bactCtrl.bankAction">
 	<div class="container-fluid">
 		<header>
-		<h1 class="h3 display">{{!bactCtrl.bankAction.id? 'Nueva' :
-			'Actualizar'}} acción</h1>
-	</header>
+			<h1 class="h3 display">{{!bactCtrl.bankAction.id? 'Nueva' :
+				'Actualizar'}} acción</h1>
+		</header>
 		<div class="row">
 			<div class="col-3">
 				<div class="nav flex-column nav-pills" id="v-pills-tab"
 					role="tablist" aria-orientation="vertical">
 					<a class="nav-link active" id="v-pills-home-tab" data-toggle="pill"
-						data-target="#v-pills-home" target="_self" role="tab" aria-controls="v-pills-home"
-						aria-selected="true">Adquisiciones</a> <a class="nav-link"
-						id="v-pills-profile-tab" target="_self" data-toggle="pill"
-						data-target="#v-pills-profile" role="tab" aria-controls="v-pills-profile"
-						aria-selected="false">Valuación Subsecuente</a> <a
-						class="nav-link" id="v-pills-messages-tab" data-toggle="pill"
-						data-target="#v-pills-messages" target="_self" role="tab"
-						aria-controls="v-pills-messages" aria-selected="false">Venta</a>
+						data-target="#v-pills-home" target="_self" role="tab"
+						aria-controls="v-pills-home" aria-selected="true">Adquisiciones</a>
+					<a class="nav-link" id="v-pills-profile-tab" target="_self"
+						data-toggle="pill" data-target="#v-pills-profile" role="tab"
+						aria-controls="v-pills-profile" aria-selected="false">Valuación
+						Subsecuente</a> <a class="nav-link" id="v-pills-messages-tab"
+						data-toggle="pill" data-target="#v-pills-messages" target="_self"
+						role="tab" aria-controls="v-pills-messages" aria-selected="false">Venta</a>
 
 				</div>
 			</div>
@@ -346,7 +347,7 @@
 										<form class="form-horizontal" name="formbankAction"
 											data-ng-submit="bactCtrl.submitForm(formbankAction.$valid)"
 											novalidate>
-											
+
 											<div class="line"></div>
 											<div class="form-group row">
 												<label class="col-sm-3 form-control-label">Market
@@ -431,7 +432,7 @@
 														readonly="readonly" data-ng-value="bactCtrl.tcFinal.MXN">
 												</div>
 											</div>
-											<div class="line"></div>											
+											<div class="line"></div>
 											<div class="form-group row">
 												<label class="col-sm-3 form-control-label">Fecha
 													final del periodo</label>
@@ -450,7 +451,7 @@
 														data-ng-value="(bactCtrl.bankAction.marketPrice*bactCtrl.bankAction.titulos)*(bactCtrl.tcFinal.MXN)">
 												</div>
 											</div>
-											
+
 											<div class="line"></div>
 											<div class="form-group row">
 												<label class="col-sm-3 form-control-label">Valuación
@@ -470,7 +471,7 @@
 														readonly="readonly"
 														data-ng-value="((bactCtrl.bankAction.titulos*bactCtrl.bankAction.unitCost)*bactCtrl.tcFinal.MXN)-((bactCtrl.bankAction.titulos*bactCtrl.bankAction.unitCost)*bactCtrl.tcInical.MXN)">
 												</div>
-											</div>											
+											</div>
 											<div class="line"></div>
 											<div class="form-group row">
 												<div class="col-sm-4 offset-sm-3">
@@ -501,14 +502,15 @@
 											novalidate>
 											<div class="line"></div>
 											<div class="form-group row">
-												<label class="col-sm-3 form-control-label">Saldo inicial</label>
+												<label class="col-sm-3 form-control-label">Saldo
+													inicial</label>
 												<div class="col-sm-9">
 													<input type="number" class="form-control"
 														data-ng-model="bactCtrl.bankAction.saldoInicial">
 												</div>
 											</div>
-											
-											
+
+
 											<div class="line"></div>
 											<div class="form-group row">
 												<label class="col-sm-3 form-control-label">T.C.
@@ -557,7 +559,7 @@
 														data-ng-value="((bactCtrl.bankAction.titulos*bactCtrl.bankAction.unitCost)*bactCtrl.tcFinal.MXN)-((bactCtrl.bankAction.titulos*bactCtrl.bankAction.unitCost)*bactCtrl.tcInical.MXN)">
 												</div>
 											</div>
-											
+
 											<div class="form-group row">
 												<div class="col-sm-4 offset-sm-3">
 													<button type="button" class="btn btn-secondary"
@@ -650,7 +652,8 @@
 										<td>{{ba.valor}}</td>
 										<td>{{ba.monedaOriginal}}</td>
 										<td><button class="btn btn-info"
-												data-ng-click="bactCtrl.getHistory(ba)">Historial</button></td>
+												data-ng-click="bactCtrl.getHistory(ba)" data-toggle="modal"
+												data-target="#historyModal">Historial</button></td>
 										<td><button class="btn btn-warning"
 												data-ng-click="bactCtrl.update(ba)">Actualizar</button></td>
 										<td><button class="btn btn-danger"
@@ -658,37 +661,26 @@
 									</tr>
 								</tbody>
 							</table>
-							View <select data-ng-model="bactCtrl.viewby" 
-							data-ng-change="bactCtrl.setItemsPerPage(bactCtrl.viewby)">
-							<option>3</option><option>5</option><option>10</option><option>20</option>
-							<option>30</option><option>40</option><option>50</option></select> records at a time.
-							
-							<pager uib-pagination 
-								total-items="bactCtrl.bankActions.length"								
+							View <select data-ng-model="bactCtrl.viewby" class="form-control"
+								data-ng-change="bactCtrl.setItemsPerPage(bactCtrl.viewby)">
+								<option>3</option>
+								<option>5</option>
+								<option>10</option>
+								<option>20</option>
+								<option>30</option>
+								<option>40</option>
+								<option>50</option>
+							</select> records at a time.
+
+							<pager uib-pagination total-items="bactCtrl.bankActions.length"
 								ng-model="bactCtrl.currentPage"
 								items-per-page="bactCtrl.itemsPerPage"
-								num-pages="bactCtrl.numPages" 
-								ng-change="bactCtrl.pageChanged()"
-								max-size="bactCtrl.maxSize" 
-								class="pagination-sm"
-								boundary-link-numbers="true"
-								rotate="false"
-								boundary-links="true"></pager> <pre>Page: {{bactCtrl.currentPage}} / {{bactCtrl.numPages}}</pre>
-							
-							
-							
-							
-<!-- 							<ul uib-pagination total-items="bactCtrl.totalItems"  -->
-<!-- 							ng-model="bactCtrl.currentPage" ng-change="bactCtrl.pageChanged()"></ul> -->
-							
-							
-<!-- 							 <pager  -->
-<!-- 							 	total-items="bactCtrl.totalItems" -->
-<!-- 							  	ng-model="bactCtrl.currentPage" -->
-<!-- 							   	max-size="bactCtrl.maxSize" class="pagination-sm"  -->
-<!-- 							   boundary-links="true"  -->
-<!-- 							 	rotate="false" num-pages="bactCtrl.numPages"  -->
-<!-- 							 	items-per-page="bactCtrl.itemsPerPage"></pager> -->
+								num-pages="bactCtrl.numPages" ng-change="bactCtrl.pageChanged()"
+								max-size="bactCtrl.maxSize" class="pagination-sm"
+								boundary-link-numbers="true" rotate="false"
+								boundary-links="true"></pager>
+							<pre>Page: {{bactCtrl.currentPage}} / {{bactCtrl.numPages}}</pre>
+
 						</div>
 					</div>
 				</div>
@@ -710,6 +702,7 @@
 					</button>
 				</div>
 				<div class="modal-body">
+					
 					<input data-file-model="bactCtrl.myFile" type="file" id="file"
 						name="file" />
 				</div>
@@ -718,6 +711,51 @@
 						data-dismiss="modal">Close</button>
 					<button type="button" data-ng-click="bactCtrl.addDocument()"
 						class="btn btn-primary" data-ng-disabled="bactCtrl.processing">Cargar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" id="historyModal" tabindex="-1" role="dialog"
+		aria-labelledby="historyModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="historyModalLabel">Historial de
+						accion</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="timeline">
+						<div
+							data-ng-repeat="ha in bactCtrl.actionsHistory track by $index"
+							class="row no-gutters justify-content-end justify-content-md-around align-items-start  timeline-nodes">
+							<div class="col-10 col-md-5 order-3 order-md-1 timeline-content">
+								<h3 class=" text-light">{{ha.registroContable}}</h3>
+								<p>{{ha.tC}}</p>
+								<p>{{ha.tcInicial}}</p>
+								<p>{{ha.tcFinal}}</p>
+								<p>{{'CUSIP: ' + ha.cusip + ', ISIN/Serie: ' + ha.isinSerie
+									+ ', SEC. ID: ' + ha.secId}}</p>
+							</div>
+							<div
+								class="col-2 col-sm-1 px-md-3 order-2 timeline-image text-md-center">
+								<img src="img/img13.png" class="img-fluid" alt="img">
+							</div>
+							<div
+								class="col-10 col-md-5 order-1 order-md-3 py-3 timeline-date">
+								<time>{{ha.fechaInicio | date: 'dd/MM/yyyy'}}</time>
+								<time>{{ha.fechaFinal | date: 'dd/MM/yyyy'}}</time>
+							</div>
+						</div>
+
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal">Close</button>
 				</div>
 			</div>
 		</div>
