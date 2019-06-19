@@ -235,6 +235,12 @@
 									<i class="fa fa-plus"></i> Nueva Cuenta
 								</button>
 							</div>
+							<div class="col-sm-2" data-ng-if="baCtrl.bankParam">
+								<button type="button" class="btn btn-primary"
+									data-toggle="modal" data-target="#modal-bulk-load">
+									<i class="fa fa-file"></i> Carga masiva
+								</button>
+							</div>
 							<div class="col-sm-4">
 								<input type="search" placeholder="Buscar..."
 									class="form-control" data-ng-model="baCtrl.filterAccountNumber">
@@ -382,3 +388,31 @@
 		</form>
 	</div>
 </div>
+
+<!-- Modal -->
+<article class="modal fade" id="modal-bulk-load" tabindex="-1" role="dialog"
+	aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Carga de
+					cuentas bancarias</h5>
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				
+				<input data-file-model="baCtrl.myFile" type="file" id="file"
+					name="file" />
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary"
+					data-dismiss="modal">Close</button>
+				<button type="button" data-ng-click="baCtrl.addDocument()"
+					class="btn btn-primary" data-ng-disabled="baCtrl.processing">Cargar</button>
+			</div>
+		</div>
+	</div>
+</article>

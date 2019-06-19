@@ -301,7 +301,7 @@ app.controller('bankAccountsCtrl', function ($state, $stateParams, bankAccountSe
         	self.company = $stateParams.company;
         	self.getByCompany(self.company);
         }else if($stateParams.bank){
-        	self.bank = $stateParams.bank;
+        	self.bankParam = $stateParams.bank;
         	self.getByBank(self.bank);
         } else{
         	self.company = null;
