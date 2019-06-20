@@ -55,7 +55,7 @@ public class BankActionServiceImpl implements BankActionService{
 		List<BankAction> byIsinSerie = new ArrayList<>();
 		List<BankAction> bySecId = new ArrayList<>();
 		List<BankAction> lbac = null;
-		Iterable<BankAction> res = null;
+	
 		Optional<BankAction> bac = repository.findById(actionId);
 		if(bac.isPresent()) {
 			BankAction action = bac.get();
@@ -69,8 +69,10 @@ public class BankActionServiceImpl implements BankActionService{
 			}else {
 				if(isinSerie != null) {
 					byIsinSerie = repository.findByIsinSerieAndCusipNotNullAndSecIdNotNull(isinSerie);
+				}else if(secId != null) {
+					bySecId = repository.findBySecIdAndCusipNotNullAndIsinSerieNotNull(secId);
 				}else {
-					bySecId = repository.findBySecIdAndCusipNotNullAndIsinSerieNotNull(isinSerie);
+					LOGGER.debug("no params provided for this query");
 				}
 				
 			}
@@ -78,31 +80,9 @@ public class BankActionServiceImpl implements BankActionService{
 			lbac.addAll(byCusip);
 			lbac.addAll(byIsinSerie);
 			lbac.addAll(bySecId);
-			
-			
 
 
-			//			res = repository.findByCusipOrIsinSerieOrSecId(cusip, isinSerie, secId);			
-			//			if(res != null) {
-			//				lbac = new ArrayList<BankAction>();
-			//				while (res.iterator().hasNext()) {
-			//					BankAction bankAction = (BankAction) res.iterator().next();
-			//					if(bankAction.getCusip() != null && !bankAction.getCusip().isEmpty()) {
-			//						lbac.add(bankAction);
-			//					}else {
-			//						if(bankAction.getIsinSerie() != null && !bankAction.getIsinSerie().isEmpty()) {
-			//							lbac.add(bankAction);
-			//						}else {
-			//							if(bankAction.getSecId() != null && !bankAction.getSecId().isEmpty()) {
-			//								lbac.add(bankAction);
-			//							}else {
-			//								//TODO ALL null
-			//							}
-			//						}
-			//					}
-			//					
-			//				}
-			//			}
+		
 		}
 
 		return lbac;
