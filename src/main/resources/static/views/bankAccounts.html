@@ -235,12 +235,12 @@
 									<i class="fa fa-plus"></i> Nueva Cuenta
 								</button>
 							</div>
-							<div class="col-sm-2" data-ng-if="baCtrl.bankParam">
-								<button type="button" class="btn btn-primary"
-									data-toggle="modal" data-target="#modal-bulk-load">
-									<i class="fa fa-file"></i> Carga masiva
-								</button>
-							</div>
+<!-- 							<div class="col-sm-2" data-ng-if="baCtrl.bankParam"> -->
+<!-- 								<button type="button" class="btn btn-primary" -->
+<!-- 									data-toggle="modal" data-target="#modal-bulk-load"> -->
+<!-- 									<i class="fa fa-file"></i> Carga masiva -->
+<!-- 								</button> -->
+<!-- 							</div> -->
 							<div class="col-sm-4">
 								<input type="search" placeholder="Buscar..."
 									class="form-control" data-ng-model="baCtrl.filterAccountNumber">
@@ -409,7 +409,7 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary"
-					data-dismiss="modal">Close</button>
+					data-dismiss="modal">Cerrar</button>
 				<button type="button" data-ng-click="baCtrl.addDocument()"
 					class="btn btn-primary" data-ng-disabled="baCtrl.processing">Cargar</button>
 			</div>

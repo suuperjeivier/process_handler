@@ -1,4 +1,4 @@
-app.controller('bankAccountsCtrl', function ($state, $stateParams, bankAccountService, companyService, banksService,$filter) {
+app.controller('bankAccountsCtrl', function ($state, $stateParams, bankAccountService, companyService, banksService,$filter, storageService) {
     
 	const self        = this;
     self.bankAccounts = [];
@@ -292,7 +292,27 @@ app.controller('bankAccountsCtrl', function ($state, $stateParams, bankAccountSe
         	}	
         }
     };
-
+    
+    self.addDocument = () => {
+    	let file = self.myFile;
+    	self.processing = true;
+    	if(self.bankParam) {
+    		storageService.post(file).then(resp => {
+    			console.log(resp);
+    			if(resp.message === "FILE_UPLODED"){
+    				
+    			} else {
+    				console.error("Error en mensaje de carga");
+    				self.processing = false;
+    			}
+    		}, error => {
+    			console.error("Error de procesado de carga");
+    			self.processing = false;
+    		});
+    	}
+    	
+    };
+    
     const initController = () => {
     	self.getCompany();
     	self.getBanks();
