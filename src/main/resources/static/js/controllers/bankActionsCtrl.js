@@ -26,6 +26,7 @@ app.controller('bankActionsCtrl', function ($scope, $filter, $stateParams, bankA
 				self.bankActions = data;
 				self.paginarAcciones();
 			}, error => {
+				alertify.error('Error');
 				console.log('Error al obtener las acciones bancaras', error);
 			});
 		}else{
@@ -33,6 +34,7 @@ app.controller('bankActionsCtrl', function ($scope, $filter, $stateParams, bankA
 				self.bankActions = data;
 				self.paginarAcciones();
 			}, error => {
+				alertify.error('Error');
 				console.log('Error al obtener las acciones bancaras', error);
 			});
 		}
@@ -69,9 +71,10 @@ app.controller('bankActionsCtrl', function ($scope, $filter, $stateParams, bankA
 		console.log('informacion de la accion: ',self.bankAction);
 		bankActionService.post(self.bankAction).then(data => {
 			self.bankAction = null;
-			alert("registro exitoso");
+            alertify.alert('Exito', 'Registro exitoso', function(){ alertify.success('Ok'); });
 			self.get();
 		}, error => {
+			alertify.error('Error');
 			console.log('Error al registrar la accion bancaria', error);
 		});
 	};
@@ -101,10 +104,11 @@ app.controller('bankActionsCtrl', function ($scope, $filter, $stateParams, bankA
 
 	self.put = () => {
 		bankActionService.post(self.bankAction).then(data => {
-			alert("Actualización exitosa");
+            alertify.alert('Exito', 'Actualización exitosa', function(){ alertify.success('Ok'); });
 			self.bankAction = null;
 			self.get();
 		}, error => {
+			alertify.error('Error');
 			console.log('Error al actualizar la accion bancaria', error);
 		});
 	};
@@ -112,10 +116,11 @@ app.controller('bankActionsCtrl', function ($scope, $filter, $stateParams, bankA
 	self.del = bankAction => {
 		bankAction.status = 0;
 		bankActionService.del(bankAction).then(data => {
-			alert("Eliminación exitosa");
+            alertify.alert('Exito', 'Eliminación exitosa', function(){ alertify.success('Ok'); });
 			bankAction = null;
 			self.get();
 		}, error => {
+			alertify.error('Error');
 			console.log("Error al eliminar el la accion bancaria", error);
 		});
 	};
@@ -132,7 +137,7 @@ app.controller('bankActionsCtrl', function ($scope, $filter, $stateParams, bankA
 					batchService.post(resp.newFileName, self.account.id).then(resp =>{
 						console.log(resp);
 						$('#exampleModal').modal('toggle');
-						alert("correcto, archivo procesado!");
+			            alertify.alert('Exito', 'correcto, archivo procesado!', function(){ alertify.success('Ok'); });
 						self.get();
 						self.processing = false;
 					},error =>{
@@ -140,15 +145,17 @@ app.controller('bankActionsCtrl', function ($scope, $filter, $stateParams, bankA
 						self.processing = false;
 					});
 				}else{
+					alertify.success('Error');
 					console.error("error en mensaje de carga");
 					self.processing = false;
 				}
 			},error =>{
+				alertify.success('Error');
 				console.error("error de procesado en carga");
 				self.processing = false;
 			});
 		}else{
-			alert("no permitido, debe iniciar con un numero de cuenta!");
+            alertify.alert('Error', 'No permitido, debe iniciar con un numero de cuenta!', function(){ alertify.error('Ok'); });
 			self.processing = false;
 		}
 		//send your binary data via $http or $resource or do anything else with it
