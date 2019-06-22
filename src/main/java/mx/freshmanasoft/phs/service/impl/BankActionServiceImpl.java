@@ -51,38 +51,103 @@ public class BankActionServiceImpl implements BankActionService{
 
 	@Override
 	public Iterable<BankAction> fetchHistory(Long actionId) {
-		List<BankAction> byCusip = new ArrayList<>();
-		List<BankAction> byIsinSerie = new ArrayList<>();
-		List<BankAction> bySecId = new ArrayList<>();
+		List<BankAction> byCusipAndSecIdAndIsin = new ArrayList<>();
+		List<BankAction> byCusipAndSecIdOnly = new ArrayList<>();		
+		List<BankAction> byCusipAndIsinOnly = new ArrayList<>();
+		List<BankAction> bySecIdAndIsinOnly = new ArrayList<>();
+		
+		List<BankAction> byCusipOnly = new ArrayList<>();
+		List<BankAction> byIsinSerieOnly = new ArrayList<>();
+		List<BankAction> bySecIdOnly = new ArrayList<>();
 		List<BankAction> lbac = null;
-	
+
 		Optional<BankAction> bac = repository.findById(actionId);
 		if(bac.isPresent()) {
-			BankAction action = bac.get();
-			String cusip = action.getCusip();
-			String isinSerie = action.getIsinSerie();
-			String secId = action.getSecId();
-
-
-			if(cusip != null) {
-				byCusip = repository.findByCusipAndIsinSerieNotNullAndSecIdNotNull(cusip);
-			}else {
-				if(isinSerie != null) {
-					byIsinSerie = repository.findByIsinSerieAndCusipNotNullAndSecIdNotNull(isinSerie);
-				}else if(secId != null) {
-					bySecId = repository.findBySecIdAndCusipNotNullAndIsinSerieNotNull(secId);
-				}else {
-					LOGGER.debug("no params provided for this query");
-				}
-				
-			}
 			lbac = new ArrayList<BankAction>();
-			lbac.addAll(byCusip);
-			lbac.addAll(byIsinSerie);
-			lbac.addAll(bySecId);
+			BankAction action = bac.get();
+			String cusip = action.getCusip() != null ? action.getCusip().trim() : null;
+			String isinSerie = action.getIsinSerie() != null ? action.getIsinSerie().trim() : null;
+			String secId = action.getSecId() != null ? action.getSecId().trim() : null;
+			LOGGER.info(action.toString());
+			//buscar por cusip por isin y por sec identifier
+			//primero los 3 juntos
+			if(cusip != null && !cusip.isEmpty() && secId != null && !secId.isEmpty() && isinSerie != null && !isinSerie.isEmpty()) {
+				byCusipAndSecIdAndIsin = repository.findByCusipAndSecIdAndIsinSerie(cusip, secId, isinSerie);
+				if(byCusipAndSecIdAndIsin != null && !byCusipAndSecIdAndIsin.isEmpty()) {
+					lbac.addAll(byCusipAndSecIdAndIsin);
+				}else {
+					LOGGER.debug("nothing found with the params provided for this query [byCusipAndSecIdAndIsin] " + cusip +"|"+ secId + "|" + isinSerie);
+				}
+			}else {
+				LOGGER.debug("no params provided for this query [byCusipAndSecIdAndIsin]");
+			}
+			//luego los 3 pero uno c/u a la vez osea cusip con sec id o cusip con isin pero el otro null
+			if(cusip != null && !cusip.isEmpty() && secId != null && !secId.isEmpty() && (isinSerie == null || isinSerie.isEmpty())) {
+				byCusipAndSecIdOnly = repository.findByCusipAndSecIdAndIsinSerieIsNull(cusip, secId);
+				if(byCusipAndSecIdOnly != null && !byCusipAndSecIdOnly.isEmpty()) {
+					lbac.addAll(byCusipAndSecIdOnly);
+				}else {
+					LOGGER.debug("nothing found with the params provided for this query [CUSIP, secId]");
+				}
+			}else {
+				LOGGER.debug("no params provided for this query [CUSIP, secId]");
+			}
+			if(cusip != null && !cusip.isEmpty() && isinSerie != null && !isinSerie.isEmpty() && (secId == null || secId.isEmpty())) {
+				byCusipAndIsinOnly = repository.findByCusipAndIsinSerieAndSecIdIsNull(cusip, isinSerie);
+				if(byCusipAndIsinOnly != null && !byCusipAndIsinOnly.isEmpty()) {
+					lbac.addAll(byCusipAndIsinOnly);
+				}else {
+					LOGGER.debug("nothing found with the params provided for this query [CUSIP, isinSerie]");
+				}
+			}else {
+				LOGGER.debug("no params provided for this query [CUSIP, isinSerie]");
+			}
+			
+			if(isinSerie != null && !isinSerie.isEmpty() && secId != null && !secId.isEmpty() && (cusip == null || cusip.isEmpty())) {
+				bySecIdAndIsinOnly = repository.findByIsinSerieAndSecIdAndCusipIsNull(isinSerie, secId);
+				if(bySecIdAndIsinOnly != null && !bySecIdAndIsinOnly.isEmpty()) {
+					lbac.addAll(bySecIdAndIsinOnly);
+				}else {
+					LOGGER.debug("nothing found with the params provided for this query [isinSerie, secId]");
+				}
+			}else {
+				LOGGER.debug("no params provided for this query [isinSerie, secId]");
+			}
 
+			//luego 1 c/u a la vez pero lo demas null osea solo cusip con los otros 2 null, solo sec id con los otros 2 null y solo isin con los otros 2 null
 
-		
+			if(cusip != null && !cusip.isEmpty() && (isinSerie == null || isinSerie.isEmpty()) && (secId == null || secId.isEmpty())) {
+				byCusipOnly = repository.findByCusipAndIsinSerieIsNullAndSecIdIsNull(cusip);
+				if(byCusipOnly != null && !byCusipOnly.isEmpty()) {
+					lbac.addAll(byCusipOnly);
+				}else {
+					LOGGER.debug("nothing found with the params provided for this query [CUSIP]");
+				}
+			}else {				
+				LOGGER.debug("no params provided for this query [CUSIP]");
+			}
+			if(isinSerie != null && !isinSerie.isEmpty() && (cusip == null || cusip.isEmpty()) && (secId == null || secId.isEmpty())) {
+				byIsinSerieOnly = repository.findByIsinSerieAndCusipIsNullAndSecIdIsNull(isinSerie);
+				if(byIsinSerieOnly != null && !byIsinSerieOnly.isEmpty()) {
+					lbac.addAll(byIsinSerieOnly);
+				}else {
+					LOGGER.debug("nothing found with the params provided for this query [isinSerie]");	
+				}
+			}else {
+				LOGGER.debug("no params provided for this query [isinSerie]");
+			}
+			if(secId != null && !secId.isEmpty() && (cusip == null || cusip.isEmpty()) && (isinSerie == null || isinSerie.isEmpty())) {
+				bySecIdOnly = repository.findBySecIdAndCusipIsNullAndIsinSerieIsNull(secId);
+				if(bySecIdOnly != null && !bySecIdOnly.isEmpty()) {
+					lbac.addAll(bySecIdOnly);
+				}else {
+					LOGGER.debug("nothing found with the params provided for this query [secId]");
+				}
+			}else {
+				LOGGER.debug("no params provided for this query [secId]");
+			}
+		}else {
+			LOGGER.debug("action no present!");
 		}
 
 		return lbac;

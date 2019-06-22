@@ -60,6 +60,22 @@ public class BankActionItemProcessor implements ItemProcessor<BankAction, BankAc
 			transformedAction.setMonedaOriginal("USD");
 			break;
 		}
+        if(action.getCusip().trim() != null && !action.getCusip().trim().isEmpty()) {
+        	transformedAction.setCusip(action.getCusip().trim().toUpperCase());
+        }else {
+        	transformedAction.setCusip(null);
+        }
+        if(action.getIsinSerie().trim() != null && !action.getIsinSerie().trim().isEmpty()) {
+        	transformedAction.setIsinSerie(action.getIsinSerie().trim().toUpperCase());
+        }else {
+        	transformedAction.setIsinSerie(null);
+        }
+        if(action.getSecId().trim() != null && !action.getSecId().trim().isEmpty()) {
+        	transformedAction.setSecId(action.getSecId().trim().toUpperCase());
+        }else {
+        	transformedAction.setSecId(null);
+        }
+       
         transformedAction.setAccountingRecord(accountIdFinal);
         transformedAction.setStatus(_STATUS);
         transformedAction.setAccount(account);

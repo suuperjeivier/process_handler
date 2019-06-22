@@ -647,7 +647,7 @@ table.floatThead-table {
 								<tbody>
 									<tr
 										data-ng-repeat="ba in bactCtrl.filteredActions | filter: bactCtrl.filterActionNumber track by $index">
-										<td scope="row">{{$index+1}}</td>
+										<td scope="row">{{ba.id}}</td>
 										<td>{{ba.institucion}}</td>
 										<td>{{ba.instrumento}}</td>
 										<td>{{ba.cusip}}</td>
@@ -754,13 +754,13 @@ table.floatThead-table {
 							<tbody>
 								<tr
 									data-ng-repeat="ha in bactCtrl.actionsHistory | orderBy : ha.fechaInicio track by $index">
-									<th scope="row">{{ha.registroContable}}</th>
+									<th scope="row">{{ha.valor}}</th>
 									<td><time>{{ha.fechaInicio | date: 'dd/MM/yyyy'}}</time></td>
 									<td><time>{{ha.fechaFinal | date: 'dd/MM/yyyy'}}</time></td>
 									<td>{{ha.tC}}</td>
 									<td>{{ha.tcInicial}}</td>
 									<td>{{ha.tcFinal}}</td>
-									<td>{{'CUSIP: ' + ha.cusip + ', ISIN/Serie: ' +
+									<td>{{'CUSIP: ' + (ha.cusip ? ha.cusip : '-') + ', ISIN/Serie: ' +
 										ha.isinSerie + ', SEC. ID: ' + ha.secId}}</td>
 								</tr>
 
