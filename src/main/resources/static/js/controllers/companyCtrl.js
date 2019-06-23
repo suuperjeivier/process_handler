@@ -1,4 +1,4 @@
-app.controller('companyCtrl', function ($state, companyService) {
+app.controller('companyCtrl', function ($state, companyService, $filter) {
     const self = this;
     self.company = null;
     self.companys = [];
@@ -108,6 +108,10 @@ app.controller('companyCtrl', function ($state, companyService) {
     
     self.addBankAccount = company => {
     	$state.go('bank-accounts', {'company': company}, {location: false, inherit: false});
+    };
+    
+    self.filterSearch = () => {
+    	self.companysLength = $filter('filter')(self.companys, self.filterCompany);
     };
 
     const initController = () => {

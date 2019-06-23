@@ -608,16 +608,17 @@ table.floatThead-table {
 							<div class="col-sm-3">
 								<input type="search" placeholder="Buscar por CUSIP"
 									class="form-control"
+									data-ng-change="bactCtrl.filterSearch()"
 									data-ng-model="bactCtrl.filterActionNumberCusip">
 							</div>
 							<div class="col-sm-3">
 								<input type="search" placeholder="Buscar por ISIN/Serie"
-									class="form-control"
+									class="form-control" data-ng-change="bactCtrl.filterSearch()"
 									data-ng-model="bactCtrl.filterActionNumberIsin">
 							</div>
 							<div class="col-sm-3">
 								<input type="search" placeholder="Buscar por Security ID"
-									class="form-control"
+									class="form-control" data-ng-change="bactCtrl.filterSearch()"
 									data-ng-model="bactCtrl.filterActionNumberSecId">
 							</div>
 							<div class="float-right">
@@ -682,6 +683,10 @@ table.floatThead-table {
 									</tr>
 								</tbody>
 							</table>
+							<div data-ng-show="!bactCtrl.filteredActionsLength.length && (bactCtrl.filterActionNumberCusip || bactCtrl.filterActionNumberIsin || bactCtrl.filterActionNumberSecId)">
+								<p class="text-muted text-center"><i class="fas fa-search fa-3x"></i></p>
+								<p class="text-muted text-center">No se encontró información con los datos ingresados</p>
+							</div>
 							View <select data-ng-model="bactCtrl.viewby" class="form-control"
 								data-ng-change="bactCtrl.setItemsPerPage(bactCtrl.viewby)">
 								<option>3</option>
@@ -692,7 +697,7 @@ table.floatThead-table {
 								<option>40</option>
 								<option>50</option>
 							</select> records at a time.
-
+							
 							<pager uib-pagination total-items="bactCtrl.bankActions.length"
 								ng-model="bactCtrl.currentPage"
 								items-per-page="bactCtrl.itemsPerPage"

@@ -95,9 +95,15 @@
 									<i class="fa fa-plus"></i> Nueva empresa
 								</button>
 							</div>
-							<div class="col-sm-4">
+							<div class="input-group col-sm-4">
+								<div class="input-group-prepend">
+									<div class="input-group-text">
+										<i class="fas fa-search"></i>
+									</div>
+								</div>
 								<input type="search" placeholder="Buscar..."
-									data-ng-model="cCtrl.filterCompany"class="form-control">
+									data-ng-change="cCtrl.filterSearch()"
+									data-ng-model="cCtrl.filterCompany" class="form-control">
 							</div>
 						</div>
 					</div>
@@ -130,6 +136,10 @@
 									</tr>
 								</tbody>
 							</table>
+							<div data-ng-show="!cCtrl.companysLength.length && cCtrl.filterCompany != null">
+								<p class="text-muted text-center"><i class="fas fa-search fa-3x"></i></p>
+								<p class="text-muted text-center">No se encontró información con los datos ingresados</p>
+							</div>
 						</div>
 					</div>
 				</div>

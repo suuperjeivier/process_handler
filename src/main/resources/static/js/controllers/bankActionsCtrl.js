@@ -202,6 +202,14 @@ app.controller('bankActionsCtrl', function ($scope, $filter, $stateParams, bankA
 	self.cancelbankAction = () =>{
 		self.bankAction = null;
 	};
+	
+	self.filterSearch = () => {
+		self.filteredActionsLength = 
+				$filter('filter')(self.filteredActions, 
+						{cusip: self.filterActionNumberCusip,
+							isinSerie: self.filterActionNumberIsin, 
+							secId: self.filterActionNumberSecId});
+	};
 
 	self.formatDate = (date)=>{
 		var d = new Date(date),
