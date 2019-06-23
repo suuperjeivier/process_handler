@@ -2,9 +2,9 @@
 <style>
 <!--
 table.floatThead-table {
-    border-top: none;
-    border-bottom: none;
-    background-color: #fff;
+	border-top: none;
+	border-bottom: none;
+	background-color: #fff;
 }
 -->
 </style>
@@ -595,30 +595,42 @@ table.floatThead-table {
 <section data-ng-if="!bactCtrl.bankAction">
 	<div class="container-fluid">
 		<header>
-			<h1 class="h3 display">Actions</h1>
+			<div class="float-left">
+				<h1 class="h3 display">Actions</h1>
+			</div>
+
 		</header>
 		<div class="row">
 			<div class="col-lg-12">
 				<div class="card">
 					<div class="card-header">
 						<div class="row">
-							<div class="col-sm-2">
-								<button type="button" class="btn btn-primary"
-									data-ng-click="bactCtrl.newBankAction()">
-									<i class="fa fa-plus"></i> Nueva acción
-								</button>
-							</div>
-							<div class="col-sm-2">
-								<!-- Button trigger modal -->
-								<button type="button" class="btn btn-primary"
-									data-toggle="modal" data-target="#exampleModal">
-									Cargar archivo de acciones</button>
-							</div>
-
-							<div class="col-sm-4">
-								<input type="search" placeholder="Buscar cuenta"
+							<div class="col-sm-3">
+								<input type="search" placeholder="Buscar por CUSIP"
 									class="form-control"
-									data-ng-model="bactCtrl.filterActionNumber">
+									data-ng-model="bactCtrl.filterActionNumberCusip">
+							</div>
+							<div class="col-sm-3">
+								<input type="search" placeholder="Buscar por ISIN/Serie"
+									class="form-control"
+									data-ng-model="bactCtrl.filterActionNumberIsin">
+							</div>
+							<div class="col-sm-3">
+								<input type="search" placeholder="Buscar por Security ID"
+									class="form-control"
+									data-ng-model="bactCtrl.filterActionNumberSecId">
+							</div>
+							<div class="float-right">
+								<div class="btn-group" role="group" aria-label="Basic example">
+									<button type="button" class="btn btn-primary btn-sm"
+										data-ng-click="bactCtrl.newBankAction()">
+										<i class="fa fa-plus"></i>Agregar
+									</button>
+									<button type="button" class="btn btn-info btn-sm"
+										data-toggle="modal" data-target="#exampleModal">
+										<i class="fa fa-upload"></i>Cargar
+									</button>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -646,7 +658,7 @@ table.floatThead-table {
 								</thead>
 								<tbody>
 									<tr
-										data-ng-repeat="ba in bactCtrl.filteredActions | filter: bactCtrl.filterActionNumber track by $index">
+										data-ng-repeat="ba in bactCtrl.filteredActions | filter: {cusip: bactCtrl.filterActionNumberCusip, isinSerie: bactCtrl.filterActionNumberIsin, secId: bactCtrl.filterActionNumberSecId} track by $index">
 										<td scope="row">{{ba.id}}</td>
 										<td>{{ba.institucion}}</td>
 										<td>{{ba.instrumento}}</td>
@@ -760,9 +772,11 @@ table.floatThead-table {
 									<td>{{ha.tC}}</td>
 									<td>{{ha.tcInicial}}</td>
 									<td>{{ha.tcFinal}}</td>
-									<td ng-class="bactCtrl.actionToGetHistory.cusip == ha.cusip 
+									<td
+										ng-class="bactCtrl.actionToGetHistory.cusip == ha.cusip 
 									&& bactCtrl.actionToGetHistory.isinSerie == ha.isinSerie
-									&& bactCtrl.actionToGetHistory.secId == ha.secId? '': 'text-danger'">{{'CUSIP: ' + (ha.cusip ? ha.cusip : '-') + ', ISIN/Serie: ' +
+									&& bactCtrl.actionToGetHistory.secId == ha.secId? '': 'text-danger'">{{'CUSIP:
+										' + (ha.cusip ? ha.cusip : '-') + ', ISIN/Serie: ' +
 										ha.isinSerie + ', SEC. ID: ' + ha.secId}}</td>
 								</tr>
 
@@ -798,7 +812,9 @@ table.floatThead-table {
 </section>
 
 <script>
-$(document).ready(function(){
-    $(".sticky-header").floatThead({top:50});
-});
+	$(document).ready(function() {
+		$(".sticky-header").floatThead({
+			top : 50
+		});
+	});
 </script>
