@@ -760,7 +760,9 @@ table.floatThead-table {
 									<td>{{ha.tC}}</td>
 									<td>{{ha.tcInicial}}</td>
 									<td>{{ha.tcFinal}}</td>
-									<td>{{'CUSIP: ' + (ha.cusip ? ha.cusip : '-') + ', ISIN/Serie: ' +
+									<td ng-class="bactCtrl.actionToGetHistory.cusip == ha.cusip 
+									&& bactCtrl.actionToGetHistory.isinSerie == ha.isinSerie
+									&& bactCtrl.actionToGetHistory.secId == ha.secId? '': 'text-danger'">{{'CUSIP: ' + (ha.cusip ? ha.cusip : '-') + ', ISIN/Serie: ' +
 										ha.isinSerie + ', SEC. ID: ' + ha.secId}}</td>
 								</tr>
 

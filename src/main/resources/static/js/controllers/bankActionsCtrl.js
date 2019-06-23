@@ -220,6 +220,7 @@ app.controller('bankActionsCtrl', function ($scope, $filter, $stateParams, bankA
 	};
 
 	self.getHistory = (ba) =>{
+		self.actionToGetHistory = ba;
 		bankActionService.getActionHistory(ba.id).then(data => {			
 			self.actionsHistory = data;			
 		}, error => {
