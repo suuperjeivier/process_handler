@@ -4,6 +4,7 @@ app.controller('bankAccountsCtrl', function ($state, $stateParams, bankAccountSe
     self.bankAccounts = [];
     self.bankAccount  = null;
     self.bank         = null;
+    self.maxDate      = new Date();
     
     self.newBankAccount = () => {
         self.bankAccount = {
@@ -42,13 +43,20 @@ app.controller('bankAccountsCtrl', function ($state, $stateParams, bankAccountSe
     	
     	bankAccountService.getByBetweenDates(sendData).then(data => {
     		 self.bankAccounts = data;
-    		 console.log('datos optenidos de la busqueda: ', data)
+    		 self.bankAccountsLength = data;
+    		 self.filterAccountNumber = '';
+    		 self.isSearch = true;
     	}, error => {
     		console.log('Error al buscar las cuentas bancarias');
     	});
     	
     };    
-
+    
+    self.cancelSearch = () => {
+    	self.get();
+    	self.isSearch = false;
+    };
+    
     self.update = bankAccount => {
         console.log('cuenta: ',bankAccount);
         bankAccount.date = new Date(bankAccount.date);
@@ -144,6 +152,7 @@ app.controller('bankAccountsCtrl', function ($state, $stateParams, bankAccountSe
     	}else{
     		bankAccountService.get().then(data => {
                 self.bankAccounts = data;
+                self.bankAccountsLength = data;
                 console.log('Datos obtenidos: ', data);
             }, error => {
                 console.log('Error al obtener las cuentas bancarias', error);
@@ -311,6 +320,11 @@ app.controller('bankAccountsCtrl', function ($state, $stateParams, bankAccountSe
     		});
     	}
     	
+    };
+    
+    self.filterSearch = () => {
+    	self.filterAccountNumber = self.filterAccountNumber.length? self.filterAccountNumber: ''; 
+    	self.bankAccountsLength = $filter('filter')(self.bankAccounts, self.filterAccountNumber);
     };
     
     const initController = () => {

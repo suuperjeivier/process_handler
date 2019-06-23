@@ -126,9 +126,14 @@
 									<i class="fa fa-plus"></i> Nuevo Banco
 								</button>
 							</div>
-							<div class="col-sm-4">
+							<div class="input-group col-sm-4">
+								<div class="input-group-prepend">
+									<div class="input-group-text">
+										<i class="fas fa-search"></i>
+									</div>
+								</div>
 								<input type="search" placeholder="Buscar..."
-									data-ng-model="bCtrl.filterBank" class="form-control">
+									data-ng-model="bCtrl.filterBank" data-ng-change="bCtrl.filterSearch()" class="form-control">
 							</div>
 						</div>
 					</div>
@@ -166,6 +171,10 @@
 									</tr>
 								</tbody>
 							</table>
+							<div data-ng-show="!bCtrl.banksLength.length && bCtrl.filterBank">
+								<p class="text-muted text-center"><i class="fas fa-search fa-3x"></i></p>
+								<p class="text-muted text-center">No se encontró información con los datos ingresados</p>
+							</div>
 						</div>
 					</div>
 				</div>

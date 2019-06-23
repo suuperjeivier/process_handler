@@ -1,4 +1,4 @@
-app.controller('banksCtrl', function ($state, banksService) {
+app.controller('banksCtrl', function ($state, banksService, $filter) {
     const self = this;
     self.bank = null;
     self.banks = [];
@@ -15,6 +15,11 @@ app.controller('banksCtrl', function ($state, banksService) {
     
     self.getBankAccounts = bank => {
     	$state.go('bank-accounts', {'bank': bank}, {location: false, inherit: false});
+    };
+    
+    self.filterSearch = () => {
+    	self.filterBank = self.filterBank.length? self.filterBank: ''; 
+    	self.banksLength = $filter('filter')(self.banks, self.filterBank);
     };
 
     self.get = () => {
