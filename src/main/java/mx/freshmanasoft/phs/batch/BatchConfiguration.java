@@ -3,9 +3,11 @@ package mx.freshmanasoft.phs.batch;
 import java.net.MalformedURLException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.Date;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Locale;
+import java.util.TimeZone;
 
 import javax.sql.DataSource;
 
@@ -27,9 +29,12 @@ import org.springframework.batch.item.file.mapping.BeanWrapperFieldSetMapper;
 import org.springframework.batch.item.file.transform.DefaultFieldSetFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.UrlResource;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 
 import mx.freshmanasoft.phs.config.properties.StorageProperties;
 import mx.freshmanasoft.phs.entity.BankAction;
@@ -53,7 +58,11 @@ public class BatchConfiguration {
 	public BatchConfiguration(StorageProperties properties) {
 		this.rootLocation = Paths.get(properties.getLocation());
 	}   
-
+	@InitBinder     
+	public void initBinder(WebDataBinder binder){
+	     binder.registerCustomEditor(       Date.class,     
+	                         new CustomDateEditor(new SimpleDateFormat("dd/MM/yyyy"), true, 10));   
+	}
 	// tag::readerwriterprocessor[]
 	@Bean
 	@StepScope
@@ -62,9 +71,9 @@ public class BatchConfiguration {
 			Locale locale = Locale.US; // set your locale
 			DefaultFieldSetFactory fieldSetFactory = new DefaultFieldSetFactory();
 
-
+			TimeZone.setDefault(TimeZone.getTimeZone("GMT-5:00"));
 			fieldSetFactory.setNumberFormat(NumberFormat.getCurrencyInstance(locale));
-			SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");  
+			SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", locale);  
 			fieldSetFactory.setDateFormat(dateFormat);
 			return new FlatFileItemReaderBuilder<BankAction>()
 					.linesToSkip(1)
@@ -104,7 +113,7 @@ public class BatchConfiguration {
 							"Gastos",
 							"Impuestos"
 							})
-					.fieldSetMapper(new BeanWrapperFieldSetMapper<BankAction>() {{
+					.fieldSetMapper(new BeanWrapperFieldSetMapper<BankAction>() {{						
 						setTargetType(BankAction.class);
 					}})
 					.build();
@@ -134,6 +143,8 @@ public class BatchConfiguration {
 						+ " `dividendos`,"						
 						+ " `fecha_final`,"
 						+ " `fecha_inicio`,"
+						+ " `fecha_final_real`,"
+						+ " `fecha_inicio_real`,"
 						+ " `gastos`,"
 						+ " `impuestos`,"
 						+ " `institucion`,"
@@ -165,6 +176,8 @@ public class BatchConfiguration {
 						":dividendos,\r\n" + 						
 						":fechaFinal,\r\n" + 
 						":fechaInicio,\r\n" + 
+						":fechaFinalReal,\r\n" + 
+						":fechaInicioReal,\r\n" + 
 						":gastos,\r\n" + 
 						":impuestos,\r\n" +
 						":institucion,\r\n" +						

@@ -9,10 +9,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import mx.freshmanasoft.phs.entity.bankaccount.BankAccount;
 
 @Entity
+@Table(name="bank_action")
 public class BankAction {
 
 	@Id
@@ -34,9 +36,11 @@ public class BankAction {
 	private BigDecimal mxnDls;
 	private String registroContable;
 	private String valor;
-	private String monedaOriginal;
-	private Date fechaInicio;
-	private Date fechaFinal;
+	private String monedaOriginal;	
+	private String fechaInicio;
+	private Date fechaInicioReal;
+	private String fechaFinal;
+	private Date fechaFinalReal;
 	private BigDecimal saldoInicial;
 	private BigDecimal depositos;
 	private BigDecimal dividendos;
@@ -73,8 +77,8 @@ public class BankAction {
 	public BankAction(String institucion, String instrumento, String name, String cusip, String isinSerie,
 			String secId, Long titulos, BigDecimal unitCost, BigDecimal valorACosto, BigDecimal marketPrice,
 			BigDecimal valorDeMercado, BigDecimal plusvMinusvAcumulado, BigDecimal intDevengado, BigDecimal tC,
-			BigDecimal mxnDls, String registroContable, String valor, String monedaOriginal, Date fechaInicio,
-			Date fechaFinal, BigDecimal saldoInicial, BigDecimal depositos, BigDecimal dividendos,
+			BigDecimal mxnDls, String registroContable, String valor, String monedaOriginal, String fechaInicio,
+			String fechaFinal, BigDecimal saldoInicial, BigDecimal depositos, BigDecimal dividendos,
 			BigDecimal interesesDevengado, BigDecimal interesesCobrado, BigDecimal cambioMxnVsDis,
 			BigDecimal valuacionAlCierre, BigDecimal cancelacionDeValuacionXVta,
 			BigDecimal cancelacionDeInteresDevengado, BigDecimal compras, BigDecimal ventas, BigDecimal utilidadPerdida,
@@ -278,19 +282,19 @@ public class BankAction {
 		this.monedaOriginal = monedaOriginal;
 	}
 
-	public Date getFechaInicio() {
+	public String getFechaInicio() {
 		return fechaInicio;
 	}
 
-	public void setFechaInicio(Date fechaInicio) {
+	public void setFechaInicio(String fechaInicio) {
 		this.fechaInicio = fechaInicio;
 	}
 
-	public Date getFechaFinal() {
+	public String getFechaFinal() {
 		return fechaFinal;
 	}
 
-	public void setFechaFinal(Date fechaFinal) {
+	public void setFechaFinal(String fechaFinal) {
 		this.fechaFinal = fechaFinal;
 	}
 
@@ -509,6 +513,21 @@ public class BankAction {
 	public void setAccount(BankAccount account) {
 		this.account = account;
 	}
+	public Date getFechaInicioReal() {
+		return fechaInicioReal;
+	}
+
+	public void setFechaInicioReal(Date fechaInicioReal) {
+		this.fechaInicioReal = fechaInicioReal;
+	}
+
+	public Date getFechaFinalReal() {
+		return fechaFinalReal;
+	}
+
+	public void setFechaFinalReal(Date fechaFinalReal) {
+		this.fechaFinalReal = fechaFinalReal;
+	}
 
 	@Override
 	public String toString() {
@@ -532,4 +551,6 @@ public class BankAction {
 				+ accountingRecord + ", status=" + status
 				+ ", account=" + account + "]";
 	}
+
+	
 }

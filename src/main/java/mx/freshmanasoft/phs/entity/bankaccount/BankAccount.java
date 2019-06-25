@@ -11,6 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import mx.freshmanasoft.phs.entity.Bank;
+import mx.freshmanasoft.phs.entity.BankAccountType;
 import mx.freshmanasoft.phs.entity.Company;
 
 @Entity
@@ -18,7 +19,9 @@ public class BankAccount {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
-	private String accountType;
+	@ManyToOne
+	@JoinColumn(name="FK_ID_ACCOUNT_TYPE")
+	private BankAccountType accountType;
 	private String accountNumber;
 	private String address;
 	private String telephone;
@@ -55,13 +58,13 @@ public class BankAccount {
 	/**
 	 * @return the accountType
 	 */
-	public String getAccountType() {
+	public BankAccountType getAccountType() {
 		return accountType;
 	}
 	/**
 	 * @param accountType the accountType to set
 	 */
-	public void setAccountType(String accountType) {
+	public void setAccountType(BankAccountType accountType) {
 		this.accountType = accountType;
 	}
 	/**

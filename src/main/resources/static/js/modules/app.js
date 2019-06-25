@@ -33,6 +33,12 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider,$url
 		controller: 'companyCtrl',
 		controllerAs: 'cCtrl'
 	})
+	.state('bankAccountType',{
+		url: '/bank-accounts/type',
+		templateUrl:'views/bankAccountType.html',
+		controller: 'bankAccountTypeCtrl',
+		controllerAs: 'batCtrl'
+	})
 	.state('banks',{
 		url: '/banks',
 		templateUrl:'views/banks.html',
@@ -40,42 +46,3 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider,$url
 		controllerAs: 'bCtrl'
 	});
 }]);
-////on every request, authenticate user first
-//angular.element(document).ready(() => {
-//	window._keycloak = Keycloak('keycloak/keycloak.json');
-//
-//	window._keycloak.init({
-//		onLoad: 'login-required'
-//	})
-//	.success((authenticated) => {
-//		if(authenticated) {
-//			window._keycloak.loadUserProfile().success(function(profile){
-//				angular.bootstrap(document, ['account-demo']); // manually bootstrap Angular
-//			});
-//		}
-//		else {
-//			window.location.reload();
-//		}
-//	})
-//	.error(function () {
-//		window.location.reload();
-//	});
-//});
-//
-////use bearer token when calling backend
-//app.config(['$httpProvider', function($httpProvider) {
-//	var isExpired = window._keycloak.isTokenExpired();
-//	var token = window._keycloak.token;
-//	
-//	if (sExpired) {
-//		window._keycloak.updateToken(5)
-//		.success(function() {
-//			$httpProvider.defaults.headers.common['Authorization'] = 'BEARER ' + token;
-//		})
-//		.error(function() {
-//			console.error('Failed to refresh token');
-//		});
-//	}
-//		
-//	$httpProvider.defaults.headers.common['Authorization'] = 'BEARER ' + token;
-//}]);

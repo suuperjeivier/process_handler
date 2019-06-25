@@ -1,0 +1,3 @@
+INSERT INTO `bank` (`id`, `address`, `agent`, `agent_phone`, `name`, `status`, `telephone`) VALUES (1, 'las flores 290', 'AGENTE DUMMY', '5514649295', 'JP MORGAN', 1, '5514649295');
+INSERT INTO `company` (`id`, `friendly_account`, `name`, `rfc`, `status`) VALUES (1, 'DUMMY', 'EMPRESA DUMMY SAB DE CV', 'DUMM5544AS1', 1);
+INSERT INTO `bank_account` (`id`, `account_number`, `account_type`, `address`, `client`, `currency`, `date`, `portfolio`, `n_status`, `telephone`, `fk_id_bank`, `fk_id_company`) VALUES (1, '1', 'INVERSION', '1', '551441', 'MXN', '2019-06-23 23:56:10', '551AS', 1, '5514649295', 1, 1);

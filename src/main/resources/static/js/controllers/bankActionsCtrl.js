@@ -1,4 +1,4 @@
-app.controller('bankActionsCtrl', function ($scope, $filter, $stateParams, bankActionService, storageService, batchService, ratesAPIService) {
+app.controller('bankActionsCtrl', function ($scope, $filter, $state, $stateParams, bankActionService, storageService, batchService, ratesAPIService) {
 	const self = this;
 	self.bankActions = [];
 	self.bankAction = null;
@@ -43,12 +43,17 @@ app.controller('bankActionsCtrl', function ($scope, $filter, $stateParams, bankA
 //pager
 	
 	self.paginarAcciones = function(){
-		self.numPages = Math.ceil(self.bankActions.length / self.itemsPerPage);		
-		$scope.$watch('bactCtrl.currentPage + bactCtrl.itemsPerPage', function() {
-		    var begin = ((self.currentPage - 1) * self.itemsPerPage)
-		    , end = begin + self.itemsPerPage;
-		    self.filteredActions = self.bankActions.slice(begin, end);
-		  });
+		if(self.bankActions.length > 10){
+			self.numPages = Math.ceil(self.bankActions.length / self.itemsPerPage);		
+			$scope.$watch('bactCtrl.currentPage + bactCtrl.itemsPerPage', function() {
+			    var begin = ((self.currentPage - 1) * self.itemsPerPage)
+			    , end = begin + self.itemsPerPage;
+			    self.filteredActions = self.bankActions.slice(begin, end);
+			  });
+		}else{
+			self.filteredActions = angular.copy(self.bankActions);
+		}
+		
 	}
 
 
@@ -81,8 +86,9 @@ app.controller('bankActionsCtrl', function ($scope, $filter, $stateParams, bankA
 
 	self.update = bankAction => {
 		console.log('bankAction: ',bankAction);
-		//bankAction.fechaInicio = new Date(bankAction.fechaInicio);
-		bankAction.fechaFinal = new Date(bankAction.fechaFinal);
+		//bankAction.fechaInicio = new Date(bankAction.fechaInicio);		
+		bankAction.fechaFinalReal = new Date(bankAction.fechaFinalReal);
+		bankAction.fechaFinal =  $filter('date')(bankAction.fechaFinalReal, 'dd/MM/yyyy');
 		self.bankAction = bankAction;
 		self.fetchForRates(self.bankAction);
 	};
@@ -171,12 +177,12 @@ app.controller('bankActionsCtrl', function ($scope, $filter, $stateParams, bankA
 			console.log(lastKey);
 	 */
 	self.fetchForRates = (bac) =>{
-		let fechaInicio = $filter('date')(bac.fechaInicio, 'yyyy-MM-dd');
-		let fechaFin = $filter('date')(bac.fechaFinal, 'yyyy-MM-dd');
+		let fechaInicio = $filter('date')(bac.fechaInicioReal, 'yyyy-MM-dd');
+		let fechaFin = $filter('date')(bac.fechaFinalReal, 'yyyy-MM-dd');
 		console.log("inicio:", fechaInicio);
 		console.log("fin:", fechaFin);
-		bac.fechaInicio = new Date(bac.fechaInicio);
-		bac.fechaFinal = new Date(bac.fechaFinal);
+		bac.fechaInicioReal = new Date(bac.fechaInicioReal);
+		bac.fechaFinalReal = new Date(bac.fechaFinalReal);
 
 
 		ratesAPIService.fecthOnPeriod(""+fechaInicio, ""+fechaFin).then(resp =>{
@@ -237,6 +243,14 @@ app.controller('bankActionsCtrl', function ($scope, $filter, $stateParams, bankA
 		
 	};
 	
+	self.getCurrentExchangeRate = ()=>{
+		ratesAPIService.fetchCurrentRate().then(resp =>{
+
+			self.valorDelDolarActual = resp.rates.MXN;
+		},error =>{
+			console.error("error");
+		});
+	};
 
 	const initController = () => {
 		console.log("params:", $stateParams);
@@ -250,6 +264,7 @@ app.controller('bankActionsCtrl', function ($scope, $filter, $stateParams, bankA
 			self.get();
 			self.account = null;
 		}
+		self.getCurrentExchangeRate();
 	};
 	angular.element(document).ready(function () {
 		initController();

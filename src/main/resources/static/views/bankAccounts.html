@@ -86,12 +86,10 @@
 								<div class="col-sm-10">
 									<select class="form-control" required
 										data-ng-class="baCtrl.validClass.accountType? 'is-'+baCtrl.validClass.accountType:''"
-										data-ng-model="baCtrl.bankAccount.accountType">
+										data-ng-model="baCtrl.bankAccount.accountType" data-ng-options="bat as bat.name for bat in baCtrl.bankAccountTypes track by bat.id">
 										<option value="" disabled selected>Seleccione un
 											tipo...</option>
-										<option value="INVERSION">Inversión</option>
-										<option value="MERCADO DE DINERO">Mercado de dinero</option>
-										<option value="TRANSACCION">Transaccion</option>
+										
 									</select>
 									<div class="d-block"
 										data-ng-class="baCtrl.validClass.accountType? baCtrl.validClass.accountType+'-feedback':''"
@@ -302,7 +300,7 @@
 										data-ng-repeat="ba in baCtrl.bankAccounts | filter: baCtrl.filterAccountNumber track by $index">
 										<td scope="row">{{$index+1}}</td>
 										<td>{{ba.company.name}}</td>
-										<td>{{ba.accountType}}</td>
+										<td>{{ba.accountType.name}}</td>
 										<td>{{ba.accountNumber}}</td>
 										<td>{{ba.address}}</td>
 										<td>{{ba.telephone}}</td>

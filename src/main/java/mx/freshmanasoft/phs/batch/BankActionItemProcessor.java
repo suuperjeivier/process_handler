@@ -1,5 +1,8 @@
 package mx.freshmanasoft.phs.batch;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.item.ItemProcessor;
@@ -59,7 +62,16 @@ public class BankActionItemProcessor implements ItemProcessor<BankAction, BankAc
 		default:
 			transformedAction.setMonedaOriginal("USD");
 			break;
-		}
+		}        
+        if(action.getFechaInicio() != null && !action.getFechaInicio().isEmpty()) {
+        	Date date1 = new SimpleDateFormat("dd/MM/yyyy").parse(action.getFechaInicio());  
+        	transformedAction.setFechaInicioReal(date1);
+        }
+        if(action.getFechaFinal() != null && !action.getFechaFinal().isEmpty()) {
+        	Date date2 = new SimpleDateFormat("dd/MM/yyyy").parse(action.getFechaFinal());  
+        	transformedAction.setFechaFinalReal(date2);
+        }
+        
         if(action.getCusip().trim() != null && !action.getCusip().trim().isEmpty()) {
         	transformedAction.setCusip(action.getCusip().trim().toUpperCase());
         }else {
@@ -75,7 +87,7 @@ public class BankActionItemProcessor implements ItemProcessor<BankAction, BankAc
         }else {
         	transformedAction.setSecId(null);
         }
-       
+        
         transformedAction.setAccountingRecord(accountIdFinal);
         transformedAction.setStatus(_STATUS);
         transformedAction.setAccount(account);

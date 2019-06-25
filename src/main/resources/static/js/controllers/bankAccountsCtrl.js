@@ -1,4 +1,4 @@
-app.controller('bankAccountsCtrl', function ($state, $stateParams, bankAccountService, companyService, banksService,$filter, storageService) {
+app.controller('bankAccountsCtrl', function ($state, $stateParams, bankAccountService, bankAccountTypeService, companyService, banksService,$filter, storageService) {
     
 	const self        = this;
     self.bankAccounts = [];
@@ -21,6 +21,13 @@ app.controller('bankAccountsCtrl', function ($state, $stateParams, bankAccountSe
         }
     };
     
+    self.fetchBankAccountTypes = ()=>{
+    	bankAccountTypeService.get().then(data => {
+            self.bankAccountTypes = data;            
+        }, error => {
+            console.log('Error al obtener las cuentas bancarias', error);
+        });
+    };
     
     self.searchStartDate = new Date();
     self.searchEndDate = new Date();
@@ -328,6 +335,7 @@ app.controller('bankAccountsCtrl', function ($state, $stateParams, bankAccountSe
     };
     
     const initController = () => {
+    	self.fetchBankAccountTypes();
     	self.getCompany();
     	self.getBanks();
         console.log("params:", $stateParams);

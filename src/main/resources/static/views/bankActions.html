@@ -135,7 +135,7 @@ table.floatThead-table {
 													Adquisición</label>
 												<div class="col-sm-9">
 													<input type="date" class="form-control"
-														data-ng-model="bactCtrl.bankAction.fechaInicio">
+														data-ng-model="bactCtrl.bankAction.fechaInicioReal">
 												</div>
 											</div>
 											<div class="line"></div>
@@ -172,7 +172,7 @@ table.floatThead-table {
 													final del periodo</label>
 												<div class="col-sm-9">
 													<input type="date" class="form-control" readonly="readonly"
-														data-ng-value="bactCtrl.bankAction.fechaFinal">
+														data-ng-value="bactCtrl.bankAction.fechaFinalReal">
 												</div>
 											</div>
 											<div class="line"></div>
@@ -181,7 +181,7 @@ table.floatThead-table {
 													Inicial</label>
 												<div class="col-sm-9">
 													<input type="number" class="form-control"
-														readonly="readonly" data-ng-value="bactCtrl.tcInical.MXN">
+														data-ng-value="bactCtrl.bankAction.tcInicial">
 												</div>
 											</div>
 											<div class="line"></div>
@@ -190,7 +190,7 @@ table.floatThead-table {
 													Final</label>
 												<div class="col-sm-9">
 													<input type="number" class="form-control"
-														readonly="readonly" data-ng-value="bactCtrl.tcFinal.MXN">
+														data-ng-value="bactCtrl.bankAction.tcFinal">
 												</div>
 											</div>
 											<div class="line"></div>
@@ -229,7 +229,7 @@ table.floatThead-table {
 													precio de mercado</label>
 												<div class="col-sm-9">
 													<input type="date" class="form-control" readonly="readonly"
-														data-ng-value="bactCtrl.bankAction.fechaFinal">
+														data-ng-value="bactCtrl.bankAction.fechaFinalReal">
 												</div>
 											</div>
 											<div class="line"></div>
@@ -295,7 +295,7 @@ table.floatThead-table {
 													final del periodo</label>
 												<div class="col-sm-9">
 													<input type="date" class="form-control" readonly="readonly"
-														data-ng-value="bactCtrl.bankAction.fechaFinal">
+														data-ng-value="bactCtrl.bankAction.fechaFinalReal">
 												</div>
 											</div>
 											<div class="line"></div>
@@ -420,7 +420,7 @@ table.floatThead-table {
 													final del periodo</label>
 												<div class="col-sm-9">
 													<input type="date" class="form-control" readonly="readonly"
-														data-ng-value="bactCtrl.bankAction.fechaFinal">
+														data-ng-value="bactCtrl.bankAction.fechaFinalReal">
 												</div>
 											</div>
 											<div class="line"></div>
@@ -447,7 +447,7 @@ table.floatThead-table {
 													final del periodo</label>
 												<div class="col-sm-9">
 													<input type="date" class="form-control" readonly="readonly"
-														data-ng-value="bactCtrl.bankAction.fechaFinal">
+														data-ng-value="bactCtrl.bankAction.fechaFinalReal">
 												</div>
 											</div>
 											<div class="line"></div>
@@ -596,7 +596,7 @@ table.floatThead-table {
 	<div class="container-fluid">
 		<header>
 			<div class="float-left">
-				<h1 class="h3 display">Actions</h1>
+				<h1 class="h3 display">Actions {{bactCtrl.account ? bactCtrl.account.accountNumber : ''}}</h1>
 			</div>
 
 		</header>
@@ -623,11 +623,11 @@ table.floatThead-table {
 							</div>
 							<div class="float-right">
 								<div class="btn-group" role="group" aria-label="Basic example">
-									<button type="button" class="btn btn-primary btn-sm"
+									<button type="button" class="btn btn-primary"
 										data-ng-click="bactCtrl.newBankAction()">
 										<i class="fa fa-plus"></i>Agregar
 									</button>
-									<button type="button" class="btn btn-info btn-sm"
+									<button type="button" class="btn btn-info"
 										data-toggle="modal" data-target="#exampleModal">
 										<i class="fa fa-upload"></i>Cargar
 									</button>
@@ -636,7 +636,7 @@ table.floatThead-table {
 						</div>
 					</div>
 					<div class="card-body">
-						<div class="table-responsive">
+						<div class="table-responsive" data-ng-if="bactCtrl.filteredActions.length">
 							<table class="table table-striped">
 								<thead>
 									<tr>
@@ -669,7 +669,7 @@ table.floatThead-table {
 										<td>{{ba.titulos}}</td>
 										<td>{{ba.unitCost}}</td>
 										<td>{{ba.titulos*ba.unitCost}}</td>
-										<td>{{ba.fechaInicio | date : 'dd/MM/yyyy'}}</td>
+										<td>{{ba.fechaInicioReal | date : 'dd/MM/yyyy' : '+0500'}}</td>
 										<td>{{ba.registroContable}}</td>
 										<td>{{ba.valor}}</td>
 										<td>{{ba.monedaOriginal}}</td>
@@ -683,10 +683,11 @@ table.floatThead-table {
 									</tr>
 								</tbody>
 							</table>
-							<div data-ng-show="!bactCtrl.filteredActionsLength.length && (bactCtrl.filterActionNumberCusip || bactCtrl.filterActionNumberIsin || bactCtrl.filterActionNumberSecId)">
+							<div data-ng-show="!bactCtrl.filteredActions.length && (bactCtrl.filterActionNumberCusip || bactCtrl.filterActionNumberIsin || bactCtrl.filterActionNumberSecId)">
 								<p class="text-muted text-center"><i class="fas fa-search fa-3x"></i></p>
 								<p class="text-muted text-center">No se encontró información con los datos ingresados</p>
 							</div>
+							
 							View <select data-ng-model="bactCtrl.viewby" class="form-control"
 								data-ng-change="bactCtrl.setItemsPerPage(bactCtrl.viewby)">
 								<option>3</option>
@@ -708,6 +709,10 @@ table.floatThead-table {
 							<pre>Page: {{bactCtrl.currentPage}} / {{bactCtrl.numPages}}</pre>
 
 						</div>
+						<div data-ng-show="!bactCtrl.filteredActions.length && (!bactCtrl.filterActionNumberCusip && !bactCtrl.filterActionNumberIsin && !bactCtrl.filterActionNumberSecId)">
+								<p class="text-muted text-center"><i class="fas fa-search fa-3x"></i></p>
+								<p class="text-muted text-center">No se encontró información registrada</p>
+							</div>
 					</div>
 				</div>
 			</div>
@@ -747,7 +752,12 @@ table.floatThead-table {
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title" id="historyModalLabel">Historial de
-						accion</h5>
+						accion {{bactCtrl.actionToGetHistory.cusip ? bactCtrl.actionToGetHistory.cusip 
+						: bactCtrl.actionToGetHistory.isinSerie ? bactCtrl.actionToGetHistory.isinSerie 
+						: bactCtrl.actionToGetHistory.secId ? bactCtrl.actionToGetHistory.secId : bactCtrl.actionToGetHistory.id}}</h5>
+						
+						<br>
+						{{bactCtrl.valorDelDolarActual}}
 					<button type="button" class="close" data-dismiss="modal"
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
@@ -770,15 +780,15 @@ table.floatThead-table {
 							</thead>
 							<tbody>
 								<tr
-									data-ng-repeat="ha in bactCtrl.actionsHistory | orderBy : ha.fechaInicio track by $index">
+									data-ng-repeat="ha in bactCtrl.actionsHistory | orderBy : ha.fechaInicioReal track by $index">
 									<th scope="row">{{ha.valor}}</th>
-									<td><time>{{ha.fechaInicio | date: 'dd/MM/yyyy'}}</time></td>
-									<td><time>{{ha.fechaFinal | date: 'dd/MM/yyyy'}}</time></td>
+									<td><time>{{ha.fechaInicioReal | date : 'dd/MM/yyyy' : '+0500'}}</time></td>
+									<td><time>{{ha.fechaFinalReal | date : 'dd/MM/yyyy' : '+0500'}}</time></td>
 									<td>{{ha.tC}}</td>
 									<td>{{ha.tcInicial}}</td>
 									<td>{{ha.tcFinal}}</td>
 									<td
-										ng-class="bactCtrl.actionToGetHistory.cusip == ha.cusip 
+										data-ng-class="bactCtrl.actionToGetHistory.cusip == ha.cusip 
 									&& bactCtrl.actionToGetHistory.isinSerie == ha.isinSerie
 									&& bactCtrl.actionToGetHistory.secId == ha.secId? '': 'text-danger'">{{'CUSIP:
 										' + (ha.cusip ? ha.cusip : '-') + ', ISIN/Serie: ' +
@@ -815,11 +825,3 @@ table.floatThead-table {
 		<option value="USD">
 	</datalist>
 </section>
-
-<script>
-	$(document).ready(function() {
-		$(".sticky-header").floatThead({
-			top : 50
-		});
-	});
-</script>
