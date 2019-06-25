@@ -108,7 +108,7 @@
 						</div>
 					</div>
 					<div class="card-body">
-						<div class="table-responsive">
+						<div class="table-responsive" data-ng-if="cCtrl.companys.length">
 							<table class="table table-striped">
 								<thead>
 									<tr>
@@ -141,6 +141,10 @@
 								<p class="text-muted text-center">No se encontró información con los datos ingresados</p>
 							</div>
 						</div>
+						<div data-ng-show="!cCtrl.companys.length && !cCtrl.filterCompany != null">
+								<p class="text-muted text-center"><i class="fas fa-search fa-3x"></i></p>
+								<p class="text-muted text-center">Sin datos registrados</p>
+							</div>
 					</div>
 				</div>
 			</div>

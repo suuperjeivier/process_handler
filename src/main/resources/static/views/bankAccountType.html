@@ -70,7 +70,7 @@
 							<div class="col-sm-2">
 								<button type="button" class="btn btn-primary"
 									data-ng-click="batCtrl.newBankAccountType()">
-									<i class="fa fa-plus"></i> Nuevo tipo de cuenta
+									<i class="fa fa-plus"></i> Nuevo
 								</button>
 							</div>
 							<div class="input-group col-sm-4">
@@ -86,7 +86,7 @@
 						</div>
 					</div>
 					<div class="card-body">
-						<div class="table-responsive">
+						<div class="table-responsive" data-ng-if="batCtrl.bankAccountTypes.length">
 							<table class="table table-striped">
 								<thead>
 									<tr>
@@ -116,7 +116,14 @@
 								<p class="text-muted text-center">No se encontró
 									información con los datos ingresados</p>
 							</div>
+							
 						</div>
+						<div data-ng-show="!batCtrl.bankAccountTypes.length && !batCtrl.filterBank">
+								<p class="text-muted text-center">
+									<i class="fas fa-search fa-3x"></i>
+								</p>
+								<p class="text-muted text-center">Sin datos registrados</p>
+							</div>
 					</div>
 				</div>
 			</div>
