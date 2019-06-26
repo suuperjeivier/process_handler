@@ -297,7 +297,7 @@
 								</thead>
 								<tbody>
 									<tr
-										data-ng-repeat="ba in baCtrl.bankAccounts | filter: baCtrl.filterAccountNumber track by $index">
+										data-ng-repeat="ba in baCtrl.bankAccounts track by $index">
 										<td scope="row">{{$index+1}}</td>
 										<td>{{ba.company.name}}</td>
 										<td>{{ba.accountType.name}}</td>

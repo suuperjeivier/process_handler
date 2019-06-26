@@ -2,6 +2,7 @@ app.controller('bankAccountsCtrl', function ($state, $stateParams, bankAccountSe
     
 	const self        = this;
     self.bankAccounts = [];
+    self.bankAccountsAux = [];
     self.bankAccount  = null;
     self.bank         = null;
     self.maxDate      = new Date();
@@ -159,6 +160,7 @@ app.controller('bankAccountsCtrl', function ($state, $stateParams, bankAccountSe
     	}else{
     		bankAccountService.get().then(data => {
                 self.bankAccounts = data;
+                self.bankAccountsAux = angular.copy(self.bankAccounts);
                 self.bankAccountsLength = data;
                 console.log('Datos obtenidos: ', data);
             }, error => {
@@ -171,6 +173,7 @@ app.controller('bankAccountsCtrl', function ($state, $stateParams, bankAccountSe
     	console.log('buscando por comapny:', comp);
         bankAccountService.getByCompany(comp).then(data => {
             self.bankAccounts = data;
+            self.bankAccountsAux = angular.copy(self.bankAccounts);
         }, error => {
             console.log('Error al obtener las cuentas bancarias', error);
         });
@@ -180,6 +183,7 @@ app.controller('bankAccountsCtrl', function ($state, $stateParams, bankAccountSe
     	console.log('buscando por bank:', bank);
         bankAccountService.getByBank(bank).then(data => {
             self.bankAccounts = data;
+            self.bankAccountsAux = angular.copy(self.bankAccounts);
         }, error => {
             console.log('Error al obtener las cuentas bancarias', error);
         });
@@ -330,8 +334,17 @@ app.controller('bankAccountsCtrl', function ($state, $stateParams, bankAccountSe
     };
     
     self.filterSearch = () => {
-    	self.filterAccountNumber = self.filterAccountNumber.length? self.filterAccountNumber: ''; 
-    	self.bankAccountsLength = $filter('filter')(self.bankAccounts, self.filterAccountNumber);
+    	if(self.filterAccountNumber){
+    		let array = $filter('filter')(self.bankAccounts, self.filterAccountNumber);
+    		if(array != null && array.length){
+    			self.bankAccounts = array;
+    		}else{
+    			 alertify.alert('Error', 'Sin datos para la consulta con los datos proporcionados', function(){ alertify.error('No encontrado'); });
+    		}
+    	}else{
+    		self.bankAccounts = self.bankAccountsAux;
+    	}
+    	
     };
     
     const initController = () => {

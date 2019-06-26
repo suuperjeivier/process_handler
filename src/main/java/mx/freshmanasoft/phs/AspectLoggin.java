@@ -93,8 +93,17 @@ public class AspectLoggin {
 	
 	 @AfterReturning(pointcut="execution(* org.springframework.security.authentication.AuthenticationManager.authenticate(..))"
 	            ,returning="result")
-	    public void after(JoinPoint joinPoint,Object result) throws Throwable {
+	    public void after(JoinPoint point,Object result) throws Throwable {
 	        System.out.println(">>> LOGGIN USER: " + ((Authentication) result).getName());
 	        logginUser = ((Authentication) result).getName();
+	        LocalDateTime ldt = LocalDateTime.now();
+			ZonedDateTime zdt = ldt.atZone(ZoneId.of("Mexico/General")); 
+			LocalDateTime utc = zdt.withZoneSameInstant(ZoneOffset.UTC).toLocalDateTime();
+			loggin = new Loggin();
+			loggin.setMethod(point.getSignature().getName());
+			loggin.setEntity("Main");
+			loggin.setDate(utc); 
+			loggin.setUser(logginUser);
+			repository.save(loggin);
 	    }
 }

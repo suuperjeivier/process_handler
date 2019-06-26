@@ -181,7 +181,7 @@ table.floatThead-table {
 													Inicial</label>
 												<div class="col-sm-9">
 													<input type="number" class="form-control"
-														data-ng-value="bactCtrl.bankAction.tcInicial">
+														data-ng-model="bactCtrl.bankAction.tcInicial">
 												</div>
 											</div>
 											<div class="line"></div>
@@ -190,7 +190,7 @@ table.floatThead-table {
 													Final</label>
 												<div class="col-sm-9">
 													<input type="number" class="form-control"
-														data-ng-value="bactCtrl.bankAction.tcFinal">
+														data-ng-model="bactCtrl.bankAction.tcFinal">
 												</div>
 											</div>
 											<div class="line"></div>
@@ -608,17 +608,17 @@ table.floatThead-table {
 							<div class="col-sm-3">
 								<input type="search" placeholder="Buscar por CUSIP"
 									class="form-control"
-									data-ng-change="bactCtrl.filterSearch()"
+									data-ng-change="bactCtrl.filterActions()"
 									data-ng-model="bactCtrl.filterActionNumberCusip">
 							</div>
 							<div class="col-sm-3">
 								<input type="search" placeholder="Buscar por ISIN/Serie"
-									class="form-control" data-ng-change="bactCtrl.filterSearch()"
+									class="form-control" data-ng-change="bactCtrl.filterActions()"
 									data-ng-model="bactCtrl.filterActionNumberIsin">
 							</div>
 							<div class="col-sm-3">
 								<input type="search" placeholder="Buscar por Security ID"
-									class="form-control" data-ng-change="bactCtrl.filterSearch()"
+									class="form-control" data-ng-change="bactCtrl.filterActions()"
 									data-ng-model="bactCtrl.filterActionNumberSecId">
 							</div>
 							<div class="float-right">
@@ -659,7 +659,7 @@ table.floatThead-table {
 								</thead>
 								<tbody>
 									<tr
-										data-ng-repeat="ba in bactCtrl.filteredActions | filter: {cusip: bactCtrl.filterActionNumberCusip, isinSerie: bactCtrl.filterActionNumberIsin, secId: bactCtrl.filterActionNumberSecId} track by $index">
+										data-ng-repeat="ba in bactCtrl.filteredActions track by $index">
 										<td scope="row">{{ba.id}}</td>
 										<td>{{ba.institucion}}</td>
 										<td>{{ba.instrumento}}</td>
@@ -755,9 +755,7 @@ table.floatThead-table {
 						accion {{bactCtrl.actionToGetHistory.cusip ? bactCtrl.actionToGetHistory.cusip 
 						: bactCtrl.actionToGetHistory.isinSerie ? bactCtrl.actionToGetHistory.isinSerie 
 						: bactCtrl.actionToGetHistory.secId ? bactCtrl.actionToGetHistory.secId : bactCtrl.actionToGetHistory.id}}</h5>
-						
-						<br>
-						{{bactCtrl.valorDelDolarActual}}
+												
 					<button type="button" class="close" data-dismiss="modal"
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
@@ -768,6 +766,11 @@ table.floatThead-table {
 					<div class="table-responsive">
 						<table class="table sticky-header">
 							<thead class="thead-dark">
+								<tr>
+									<th colspan="2">Utilidad (pérdida) por valuación: {{bactCtrl.utilidadPerdidaPorValuacion | currency: '$'}}</th>
+									<th colspan="2">Plusv/minusv acumulado: {{bactCtrl.plusMinusV | currency : '$'}}</th>
+									<th colspan="3"></th>
+								</tr>
 								<tr>
 									<th scope="col">Registro contable</th>
 									<th>Fecha inicio</th>

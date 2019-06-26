@@ -55,6 +55,29 @@ app.controller('bankActionsCtrl', function ($scope, $filter, $state, $stateParam
 		}
 		
 	}
+	self.paginarAccionesFilter = function(array){
+		if(array.length > 10){
+			self.numPages = Math.ceil(array.length / self.itemsPerPage);		
+			$scope.$watch('bactCtrl.currentPage + bactCtrl.itemsPerPage', function() {
+			    var begin = ((self.currentPage - 1) * self.itemsPerPage)
+			    , end = begin + self.itemsPerPage;
+			    self.filteredActions = array.slice(begin, end);
+			  });
+		}else{
+			self.filteredActions = angular.copy(array);
+		}
+		
+	}
+	
+	self.filterActions = () =>{
+		let array = $filter('filter')(self.bankActions, {cusip: self.filterActionNumberCusip, isinSerie: self.filterActionNumberIsin, secId: self.filterActionNumberSecId});
+		if(array != null && array.length){
+			self.paginarAccionesFilter(array);
+		}else{
+			 alertify.alert('Error', 'Sin datos para la consulta con los datos proporcionados', function(){ alertify.error('No encontrado'); });
+		}
+		
+	};
 
 
 	self.setPage = function (pageNo) {
@@ -235,6 +258,13 @@ app.controller('bankActionsCtrl', function ($scope, $filter, $state, $stateParam
 
 	self.getHistory = (ba) =>{
 		self.actionToGetHistory = ba;
+		self.valorMercado = ba.titulos * ba.marketPrice;
+		self.valorACosto = ba.unitCost * ba.titulos;
+		self.valuacionDlsAlInicio = ba.dlsAlInicio * ba.tcInicial;
+		self.valuacionDlsAlFinal = ba.dlsAlInicio * ba.tcFinal;
+		self.utilidadPerdidaPorValuacion = ba.utilidadPerdidaPorValuacion = self.valuacionDlsAlFinal - self.valuacionDlsAlInicio;//1
+		self.plusMinusV = self.valorMercado - self.valorACosto;//2
+		
 		bankActionService.getActionHistory(ba.id).then(data => {			
 			self.actionsHistory = data;			
 		}, error => {

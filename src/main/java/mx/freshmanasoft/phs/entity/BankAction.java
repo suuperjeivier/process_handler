@@ -75,7 +75,7 @@ public class BankAction {
 	}
 
 	public BankAction(String institucion, String instrumento, String name, String cusip, String isinSerie,
-			String secId, Long titulos, BigDecimal unitCost, BigDecimal valorACosto, BigDecimal marketPrice,
+			String secId, Long titulos, BigDecimal unitCost, BigDecimal marketPrice,
 			BigDecimal valorDeMercado, BigDecimal plusvMinusvAcumulado, BigDecimal intDevengado, BigDecimal tC,
 			BigDecimal mxnDls, String registroContable, String valor, String monedaOriginal, String fechaInicio,
 			String fechaFinal, BigDecimal saldoInicial, BigDecimal depositos, BigDecimal dividendos,
