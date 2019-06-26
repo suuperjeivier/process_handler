@@ -1,6 +1,6 @@
 package mx.freshmanasoft.phs.entity;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,7 +16,7 @@ public class Loggin {
 	String user;
 	String entity;
 	String method;
-	Date date;
+	LocalDateTime date;
 	/**
 	 * @return the id
 	 */
@@ -68,13 +68,13 @@ public class Loggin {
 	/**
 	 * @return the date
 	 */
-	public Date getDate() {
+	public LocalDateTime getDate() {
 		return date;
 	}
 	/**
 	 * @param date the date to set
 	 */
-	public void setDate(Date date) {
+	public void setDate(LocalDateTime date) {
 		this.date = date;
 	}
 	@Override
