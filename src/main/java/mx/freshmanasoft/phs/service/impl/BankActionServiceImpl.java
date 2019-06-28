@@ -2,6 +2,8 @@ package mx.freshmanasoft.phs.service.impl;
 
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -72,7 +74,7 @@ public class BankActionServiceImpl implements BankActionService{
 			//buscar por cusip por isin y por sec identifier
 			//primero los 3 juntos
 			if(cusip != null && !cusip.isEmpty() && secId != null && !secId.isEmpty() && isinSerie != null && !isinSerie.isEmpty()) {
-				byCusipAndSecIdAndIsin = repository.findByCusipAndSecIdAndIsinSerie(cusip, secId, isinSerie);
+				byCusipAndSecIdAndIsin = repository.findByCusipAndSecIdAndIsinSerieOrderByFechaInicioRealAndFechaFinalReal(cusip, secId, isinSerie);
 				if(byCusipAndSecIdAndIsin != null && !byCusipAndSecIdAndIsin.isEmpty()) {
 					lbac.addAll(byCusipAndSecIdAndIsin);
 				}else {
@@ -83,7 +85,7 @@ public class BankActionServiceImpl implements BankActionService{
 			}
 			//luego los 3 pero uno c/u a la vez osea cusip con sec id o cusip con isin pero el otro null
 			if(cusip != null && !cusip.isEmpty() && secId != null && !secId.isEmpty() && (isinSerie == null || isinSerie.isEmpty())) {
-				byCusipAndSecIdOnly = repository.findByCusipAndSecIdAndIsinSerieIsNull(cusip, secId);
+				byCusipAndSecIdOnly = repository.findByCusipAndSecIdAndIsinSerieIsNullOrderByFechaInicioRealAndFechaFinalReal(cusip, secId);
 				if(byCusipAndSecIdOnly != null && !byCusipAndSecIdOnly.isEmpty()) {
 					lbac.addAll(byCusipAndSecIdOnly);
 				}else {
@@ -93,7 +95,7 @@ public class BankActionServiceImpl implements BankActionService{
 				LOGGER.debug("no params provided for this query [CUSIP, secId]");
 			}
 			if(cusip != null && !cusip.isEmpty() && isinSerie != null && !isinSerie.isEmpty() && (secId == null || secId.isEmpty())) {
-				byCusipAndIsinOnly = repository.findByCusipAndIsinSerieAndSecIdIsNull(cusip, isinSerie);
+				byCusipAndIsinOnly = repository.findByCusipAndIsinSerieAndSecIdIsNullOrderByFechaInicioRealAndFechaFinalReal(cusip, isinSerie);
 				if(byCusipAndIsinOnly != null && !byCusipAndIsinOnly.isEmpty()) {
 					lbac.addAll(byCusipAndIsinOnly);
 				}else {
@@ -104,7 +106,7 @@ public class BankActionServiceImpl implements BankActionService{
 			}
 			
 			if(isinSerie != null && !isinSerie.isEmpty() && secId != null && !secId.isEmpty() && (cusip == null || cusip.isEmpty())) {
-				bySecIdAndIsinOnly = repository.findByIsinSerieAndSecIdAndCusipIsNull(isinSerie, secId);
+				bySecIdAndIsinOnly = repository.findByIsinSerieAndSecIdAndCusipIsNullOrderByFechaInicioRealAndFechaFinalReal(isinSerie, secId);
 				if(bySecIdAndIsinOnly != null && !bySecIdAndIsinOnly.isEmpty()) {
 					lbac.addAll(bySecIdAndIsinOnly);
 				}else {
@@ -117,7 +119,7 @@ public class BankActionServiceImpl implements BankActionService{
 			//luego 1 c/u a la vez pero lo demas null osea solo cusip con los otros 2 null, solo sec id con los otros 2 null y solo isin con los otros 2 null
 
 			if(cusip != null && !cusip.isEmpty() && (isinSerie == null || isinSerie.isEmpty()) && (secId == null || secId.isEmpty())) {
-				byCusipOnly = repository.findByCusipAndIsinSerieIsNullAndSecIdIsNull(cusip);
+				byCusipOnly = repository.findByCusipAndIsinSerieIsNullAndSecIdIsNullOrderByFechaInicioRealAndFechaFinalReal(cusip);
 				if(byCusipOnly != null && !byCusipOnly.isEmpty()) {
 					lbac.addAll(byCusipOnly);
 				}else {
@@ -127,7 +129,7 @@ public class BankActionServiceImpl implements BankActionService{
 				LOGGER.debug("no params provided for this query [CUSIP]");
 			}
 			if(isinSerie != null && !isinSerie.isEmpty() && (cusip == null || cusip.isEmpty()) && (secId == null || secId.isEmpty())) {
-				byIsinSerieOnly = repository.findByIsinSerieAndCusipIsNullAndSecIdIsNull(isinSerie);
+				byIsinSerieOnly = repository.findByIsinSerieAndCusipIsNullAndSecIdIsNullOrderByFechaInicioRealAndFechaFinalReal(isinSerie);
 				if(byIsinSerieOnly != null && !byIsinSerieOnly.isEmpty()) {
 					lbac.addAll(byIsinSerieOnly);
 				}else {
@@ -137,7 +139,7 @@ public class BankActionServiceImpl implements BankActionService{
 				LOGGER.debug("no params provided for this query [isinSerie]");
 			}
 			if(secId != null && !secId.isEmpty() && (cusip == null || cusip.isEmpty()) && (isinSerie == null || isinSerie.isEmpty())) {
-				bySecIdOnly = repository.findBySecIdAndCusipIsNullAndIsinSerieIsNull(secId);
+				bySecIdOnly = repository.findBySecIdAndCusipIsNullAndIsinSerieIsNullOrderByFechaInicioRealAndFechaFinalReal(secId);
 				if(bySecIdOnly != null && !bySecIdOnly.isEmpty()) {
 					lbac.addAll(bySecIdOnly);
 				}else {
@@ -148,7 +150,7 @@ public class BankActionServiceImpl implements BankActionService{
 			}
 		}else {
 			LOGGER.debug("action no present!");
-		}
+		}		
 
 		return lbac;
 	}

@@ -13,26 +13,26 @@ public interface BankActionRepository extends CrudRepository<BankAction, Long>{
 
 	Iterable<BankAction> findByCusipOrIsinSerieOrSecId(String cusip, String isinSerie, String secId);
 
-	List<BankAction> findByCusipAndIsinSerieNotNullAndSecIdNotNull(String cusip);
+	List<BankAction> findByCusipAndIsinSerieNotNullAndSecIdNotNullOrderByFechaInicioRealAndFechaFinalReal(String cusip);
 
-	List<BankAction> findByIsinSerieAndCusipNotNullAndSecIdNotNull(String isinSerie);
+	List<BankAction> findByIsinSerieAndCusipNotNullAndSecIdNotNullOrderByFechaInicioRealAndFechaFinalReal(String isinSerie);
 
-	List<BankAction> findBySecIdAndCusipNotNullAndIsinSerieNotNull(String isinSerie);
+	List<BankAction> findBySecIdAndCusipNotNullAndIsinSerieNotNullOrderByFechaInicioRealAndFechaFinalReal(String isinSerie);
 
-	List<BankAction> findByCusipAndIsinSerieIsNullAndSecIdIsNull(String cusip);
+	List<BankAction> findByCusipAndIsinSerieIsNullAndSecIdIsNullOrderByFechaInicioRealAndFechaFinalReal(String cusip);
 
-	List<BankAction> findByIsinSerieAndCusipIsNullAndSecIdIsNull(String isinSerie);
+	List<BankAction> findByIsinSerieAndCusipIsNullAndSecIdIsNullOrderByFechaInicioRealAndFechaFinalReal(String isinSerie);
 
-	List<BankAction> findBySecIdAndCusipIsNullAndIsinSerieIsNull(String secId);
+	List<BankAction> findBySecIdAndCusipIsNullAndIsinSerieIsNullOrderByFechaInicioRealAndFechaFinalReal(String secId);
 
-	List<BankAction> findByCusipAndIsinSerieIsNullAndSecId(String cusip, String secId);
+	List<BankAction> findByCusipAndIsinSerieIsNullAndSecIdOrderByFechaInicioRealAndFechaFinalReal(String cusip, String secId);
 
-	List<BankAction> findByCusipAndIsinSerieAndSecIdIsNull(String cusip, String secId);
+	List<BankAction> findByCusipAndIsinSerieAndSecIdIsNullOrderByFechaInicioRealAndFechaFinalReal(String cusip, String secId);
 
-	List<BankAction> findByCusipAndSecIdAndIsinSerieIsNull(String cusip, String secId);
+	List<BankAction> findByCusipAndSecIdAndIsinSerieIsNullOrderByFechaInicioRealAndFechaFinalReal(String cusip, String secId);
 
-	List<BankAction> findByIsinSerieAndSecIdAndCusipIsNull(String isinSerie, String secId);
+	List<BankAction> findByIsinSerieAndSecIdAndCusipIsNullOrderByFechaInicioRealAndFechaFinalReal(String isinSerie, String secId);
 
-	List<BankAction> findByCusipAndSecIdAndIsinSerie(String cusip, String secId, String isinSerie);
+	List<BankAction> findByCusipAndSecIdAndIsinSerieOrderByFechaInicioRealAndFechaFinalReal(String cusip, String secId, String isinSerie);
 
 }

@@ -7,9 +7,11 @@ import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import mx.freshmanasoft.phs.entity.Loggin;
 import mx.freshmanasoft.phs.repository.LogginRepository;
@@ -24,6 +26,7 @@ public class AspectLoggin {
 	
 	private Loggin loggin = null;
 	private String logginUser;
+	private String logoutUser;
 	@After("execution(* mx.freshmanasoft.phs.controller.BankController.*(..))")
 	public void logBank(JoinPoint point) {
 		
@@ -117,11 +120,20 @@ public class AspectLoggin {
 			loggin.setData("security");
 			repository.save(loggin);
 	    }
-	 
-//	 @AfterReturning(pointcut="execution(* org.springframework.security.authentication.*.*(..))"
-//	            ,returning="result")
-//	    public void afterLogout(JoinPoint point,Object result) throws Throwable {
-//	       System.out.println("LOGOUT -->>> "+((Authentication) result).getName()+" \n METHOD-->>"+point.getSignature().getName());
-//	       
-//	    }
+	 @Before("execution(* org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler.logout(..))")
+	 public void beforeLogout(JoinPoint joinPoint) throws Throwable {      
+		 logoutUser = SecurityContextHolder.getContext().getAuthentication().getName();
+	     System.out.println(
+	                 ">>> Aspect : User " +  logoutUser + " successfully logged out.");
+	     
+	        LocalDateTime ldt = LocalDateTime.now();
+			ZonedDateTime zdt = ldt.atZone(ZoneId.of("Mexico/General")); 
+			LocalDateTime utc = zdt.withZoneSameInstant(ZoneOffset.UTC).toLocalDateTime();
+			loggin = new Loggin();
+			loggin.setMethod(joinPoint.getSignature().getName());
+			loggin.setEntity("Main");
+			loggin.setDate(utc); 
+			loggin.setUser(logoutUser);
+			repository.save(loggin);
+	 }
 }
