@@ -125,15 +125,12 @@ public class AspectLoggin {
 		 logoutUser = SecurityContextHolder.getContext().getAuthentication().getName();
 	     System.out.println(
 	                 ">>> Aspect : User " +  logoutUser + " successfully logged out.");
-	     
-	        LocalDateTime ldt = LocalDateTime.now();
-			ZonedDateTime zdt = ldt.atZone(ZoneId.of("Mexico/General")); 
-			LocalDateTime utc = zdt.withZoneSameInstant(ZoneOffset.UTC).toLocalDateTime();
-			loggin = new Loggin();
+	     loggin = new Loggin();
 			loggin.setMethod(joinPoint.getSignature().getName());
 			loggin.setEntity("Main");
-			loggin.setDate(utc); 
+			loggin.setDate(LocalDateTime.now().toString()); 
 			loggin.setUser(logoutUser);
+			loggin.setData("security");
 			repository.save(loggin);
 	 }
 }

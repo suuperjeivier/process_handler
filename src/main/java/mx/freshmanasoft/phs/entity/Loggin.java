@@ -1,35 +1,36 @@
 package mx.freshmanasoft.phs.entity;
 
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 
 @Entity
 public class Loggin {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	Integer id;
-	String user;
-	String entity;
-	String method;
+	private Long id;
+	private String user;
+	private String entity;
+	private String method;
 	@Column(columnDefinition="DATETIME DEFAULT CURRENT_TIMESTAMP")
-	String date;
-	String data;
+	private String date;
+	@Column(columnDefinition="LONGTEXT NOT NULL")
+    @Lob
+	private String data;
 	/**
 	 * @return the id
 	 */
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 	/**
 	 * @param id the id to set
 	 */
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	/**

@@ -3,6 +3,7 @@ package mx.freshmanasoft.phs.entity;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -67,6 +68,9 @@ public class BankAction {
 	private Long utilidadPerdidaPorValuacionMiles;
 	private Long accountingRecord;//lo uso para almacenar de manera temporal el id de la cuenta
 	private int status;
+	@Column(name="N_IS_VENDIDA",
+            columnDefinition="INT(2) NOT NULL DEFAULT 0")
+	private int isVendida;
 	@ManyToOne
 	@JoinColumn(name="FK_ID_BANK_ACCOUNT")
 	private BankAccount account;
@@ -527,6 +531,14 @@ public class BankAction {
 
 	public void setFechaFinalReal(Date fechaFinalReal) {
 		this.fechaFinalReal = fechaFinalReal;
+	}
+
+	public int getIsVendida() {
+		return isVendida;
+	}
+
+	public void setIsVendida(int isVendida) {
+		this.isVendida = isVendida;
 	}
 
 	@Override

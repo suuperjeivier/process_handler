@@ -276,7 +276,7 @@
 					</div>
 					<div class="card-body">
 						<div class="table-responsive" data-ng-if="baCtrl.bankAccounts.length">
-							<table class="table table-striped">
+							<table class="table table-sm table-striped table-hover table-condensed table-inverse table-bordered">
 								<thead>
 									<tr>
 										<th>#</th>
@@ -284,9 +284,7 @@
 										<th>Tipo cuenta</th>
 										<th>No. Cuenta</th>
 										<th>Dirección</th>
-										<th>Teléfono</th>
-										<th>Cliente</th>
-										<th>Portafolio</th>
+										<th>Teléfono</th>										
 										<th>Moneda</th>
 										<th>Banco</th>
 										<th>Fecha</th>
@@ -303,17 +301,15 @@
 										<td>{{ba.accountType.name}}</td>
 										<td>{{ba.accountNumber}}</td>
 										<td>{{ba.address}}</td>
-										<td>{{ba.telephone}}</td>
-										<td>{{ba.client}}</td>
-										<td>{{ba.portfolio}}</td>
+										<td>{{ba.telephone}}</td>										
 										<td>{{ba.currency}}</td>
 										<td>{{ba.bank.name}}</td>
 										<td>{{ba.date | date: 'dd/MM/yyyy'}}</td>
-										<td><button class="btn btn-success"
+										<td><button class="btn btn-success btn-sm"
 												data-ng-click="baCtrl.stateGoTo('bank-actions', ba)">Acciones</button></td>
-										<td><button class="btn btn-info"
+										<td><button class="btn btn-info btn-sm"
 												data-ng-click="baCtrl.update(ba)">Actualizar</button></td>
-										<td><button class="btn btn-danger"
+										<td><button class="btn btn-danger btn-sm"
 												data-ng-click="baCtrl.confirmDelete(ba)">Eliminar</button></td>
 									</tr>
 								</tbody>
