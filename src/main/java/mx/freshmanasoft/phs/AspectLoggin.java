@@ -1,9 +1,7 @@
 package mx.freshmanasoft.phs;
 
 import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZoneOffset;
-import java.time.ZonedDateTime;
+import java.util.Date;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
@@ -28,82 +26,102 @@ public class AspectLoggin {
 	private String logginUser;
 	@After("execution(* mx.freshmanasoft.phs.controller.BankController.*(..))")
 	public void logBank(JoinPoint point) {
-		LocalDateTime ldt = LocalDateTime.now();
-		ZonedDateTime zdt = ldt.atZone(ZoneId.of("Mexico/General")); 
-		LocalDateTime utc = zdt.withZoneSameInstant(ZoneOffset.UTC).toLocalDateTime();
+		
 		loggin = new Loggin();
 		loggin.setMethod(point.getSignature().getName());
 		loggin.setEntity("Bank");
-		loggin.setDate(utc);
+		loggin.setDate(LocalDateTime.now().toString());
+		String params = "";
+		for(Object j : point.getArgs()) {
+			params += j.toString(); 
+		}
+		loggin.setData(params);
 		loggin.setUser(logginUser);
 		repository.save(loggin);
 	}
 	
 	@After("execution(* mx.freshmanasoft.phs.controller.BankAccountController.*(..))")
 	public void logBankAccount(JoinPoint point) {
-		LocalDateTime ldt = LocalDateTime.now();
-		ZonedDateTime zdt = ldt.atZone(ZoneId.of("Mexico/General")); 
-		LocalDateTime utc = zdt.withZoneSameInstant(ZoneOffset.UTC).toLocalDateTime();
+		
 		loggin = new Loggin();
 		loggin.setMethod(point.getSignature().getName());
 		loggin.setEntity("Bank Account");
-		loggin.setDate(utc);
+		loggin.setDate(LocalDateTime.now().toString());
+		String params = "";
+		for(Object j : point.getArgs()) {
+			params += j.toString(); 
+		}
+		loggin.setData(params);
 		loggin.setUser(logginUser);
 		repository.save(loggin);
 	}
 	
 	@After("execution(* mx.freshmanasoft.phs.controller.BankActionController.*(..))")
 	public void logBankAction(JoinPoint point) {
-		LocalDateTime ldt = LocalDateTime.now();
-		ZonedDateTime zdt = ldt.atZone(ZoneId.of("Mexico/General")); 
-		LocalDateTime utc = zdt.withZoneSameInstant(ZoneOffset.UTC).toLocalDateTime();
+		
 		loggin = new Loggin();
 		loggin.setMethod(point.getSignature().getName());
 		loggin.setEntity("Bank Action");
-		loggin.setDate(utc); 
+		loggin.setDate(LocalDateTime.now().toString()); 
 		loggin.setUser(logginUser);
+		String params = "";
+		for(Object j : point.getArgs()) {
+			params += j.toString(); 
+		}
+		loggin.setData(params);
 		repository.save(loggin);
 	}
 	
 	@After("execution(* mx.freshmanasoft.phs.controller.CompanyController.*(..))")
 	public void logCompany(JoinPoint point) {
-		LocalDateTime ldt = LocalDateTime.now();
-		ZonedDateTime zdt = ldt.atZone(ZoneId.of("Mexico/General")); 
-		LocalDateTime utc = zdt.withZoneSameInstant(ZoneOffset.UTC).toLocalDateTime();
+		
 		loggin = new Loggin();
 		loggin.setMethod(point.getSignature().getName());
 		loggin.setEntity("Company");
-		loggin.setDate(utc); 
+		loggin.setDate(LocalDateTime.now().toString()); 
 		loggin.setUser(logginUser);
+		String params = "";
+		for(Object j : point.getArgs()) {
+			params += j.toString(); 
+		}
+		loggin.setData(params);
 		repository.save(loggin);
 	}
 	
 	@After("execution(* mx.freshmanasoft.phs.controller.MainController.*(..))")
 	public void logMain(JoinPoint point) {
-		LocalDateTime ldt = LocalDateTime.now();
-		ZonedDateTime zdt = ldt.atZone(ZoneId.of("Mexico/General")); 
-		LocalDateTime utc = zdt.withZoneSameInstant(ZoneOffset.UTC).toLocalDateTime();
+		
 		loggin = new Loggin();
 		loggin.setMethod(point.getSignature().getName());
 		loggin.setEntity("Main");
-		loggin.setDate(utc); 
+		loggin.setDate(LocalDateTime.now().toString()); 
 		loggin.setUser(logginUser);
+		String params = "";
+		for(Object j : point.getArgs()) {
+			params += j.toString(); 
+		}
+		loggin.setData(params);
 		repository.save(loggin);
 	}
 	
 	 @AfterReturning(pointcut="execution(* org.springframework.security.authentication.AuthenticationManager.authenticate(..))"
 	            ,returning="result")
 	    public void after(JoinPoint point,Object result) throws Throwable {
-	        System.out.println(">>> LOGGIN USER: " + ((Authentication) result).getName());
+		 	System.out.println(">>> LOGGIN USER: " + ((Authentication) result).getName());
 	        logginUser = ((Authentication) result).getName();
-	        LocalDateTime ldt = LocalDateTime.now();
-			ZonedDateTime zdt = ldt.atZone(ZoneId.of("Mexico/General")); 
-			LocalDateTime utc = zdt.withZoneSameInstant(ZoneOffset.UTC).toLocalDateTime();
 			loggin = new Loggin();
 			loggin.setMethod(point.getSignature().getName());
 			loggin.setEntity("Main");
-			loggin.setDate(utc); 
+			loggin.setDate(LocalDateTime.now().toString()); 
 			loggin.setUser(logginUser);
+			loggin.setData("security");
 			repository.save(loggin);
 	    }
+	 
+//	 @AfterReturning(pointcut="execution(* org.springframework.security.authentication.*.*(..))"
+//	            ,returning="result")
+//	    public void afterLogout(JoinPoint point,Object result) throws Throwable {
+//	       System.out.println("LOGOUT -->>> "+((Authentication) result).getName()+" \n METHOD-->>"+point.getSignature().getName());
+//	       
+//	    }
 }

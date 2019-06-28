@@ -1,7 +1,8 @@
 package mx.freshmanasoft.phs.entity;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,7 +17,9 @@ public class Loggin {
 	String user;
 	String entity;
 	String method;
-	LocalDateTime date;
+	@Column(columnDefinition="DATETIME DEFAULT CURRENT_TIMESTAMP")
+	String date;
+	String data;
 	/**
 	 * @return the id
 	 */
@@ -68,14 +71,26 @@ public class Loggin {
 	/**
 	 * @return the date
 	 */
-	public LocalDateTime getDate() {
+	public String getDate() {
 		return date;
 	}
 	/**
 	 * @param date the date to set
 	 */
-	public void setDate(LocalDateTime date) {
+	public void setDate(String date) {
 		this.date = date;
+	}
+	/**
+	 * @return the data
+	 */
+	public String getData() {
+		return data;
+	}
+	/**
+	 * @param data the data to set
+	 */
+	public void setData(String data) {
+		this.data = data;
 	}
 	@Override
 	public String toString() {

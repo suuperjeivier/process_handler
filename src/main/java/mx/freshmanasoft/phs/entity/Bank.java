@@ -100,4 +100,9 @@ public class Bank {
 	public void setStatus(Integer status) {
 		this.status = status;
 	}
+	@Override
+	public String toString() {
+		return "Bank [id=" + id + ", name=" + name + ", agent=" + agent + ", agentPhone=" + agentPhone + ", address="
+				+ address + ", telephone=" + telephone + ", status=" + status + "]";
+	}
 }
