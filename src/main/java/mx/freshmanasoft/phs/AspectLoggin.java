@@ -1,7 +1,6 @@
 package mx.freshmanasoft.phs;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
