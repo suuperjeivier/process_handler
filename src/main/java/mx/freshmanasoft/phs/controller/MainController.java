@@ -50,19 +50,30 @@ public class MainController {
 		return userRepository.findAll();
 	}
 	
-	@RequestMapping(value="/perform_logout", method = RequestMethod.GET)
-	public String logoutPage (HttpServletRequest request, HttpServletResponse response) {
+//	@RequestMapping(value="perform_logout", method = RequestMethod.GET)
+//	public String logoutPage (HttpServletRequest request, HttpServletResponse response) {
+//	    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//	    
+//	     System.out.println(
+//	                 ">>> Aspect : User " +  auth.getName() + " successfully logged out.");
+//	     Loggin loggin = new Loggin();
+//			loggin.setMethod("logoutPage");
+//			loggin.setEntity("Main");
+//			loggin.setDate(LocalDateTime.now().toString()); 
+//			loggin.setUser(auth.getName());
+//			loggin.setData("security");
+//			lRepository.save(loggin);
+//	    if (auth != null){    
+//	        new SecurityContextLogoutHandler().logout(request, response, auth);
+//	      
+//	    }
+//	    return "redirect:/login?logout";//You can redirect wherever you want, but generally it's a good practice to show login screen again.
+//	}
+	
+	@RequestMapping(value="logout_app", method = RequestMethod.GET)
+	public String logoutApp (HttpServletRequest request, HttpServletResponse response) {
 	    Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-	    
-	     System.out.println(
-	                 ">>> Aspect : User " +  auth.getName() + " successfully logged out.");
-	     Loggin loggin = new Loggin();
-			loggin.setMethod("logoutPage");
-			loggin.setEntity("Main");
-			loggin.setDate(LocalDateTime.now().toString()); 
-			loggin.setUser(auth.getName());
-			loggin.setData("security");
-			lRepository.save(loggin);
+
 	    if (auth != null){    
 	        new SecurityContextLogoutHandler().logout(request, response, auth);
 	      

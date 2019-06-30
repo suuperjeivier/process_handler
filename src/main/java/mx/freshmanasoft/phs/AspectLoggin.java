@@ -7,11 +7,9 @@ import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 
 import mx.freshmanasoft.phs.entity.Loggin;
 import mx.freshmanasoft.phs.repository.LogginRepository;
@@ -26,7 +24,7 @@ public class AspectLoggin {
 	
 	private Loggin loggin = null;
 	private String logginUser;
-	private String logoutUser;
+	
 	private static final String DATE_FORMATTER= "yyyy-MM-dd HH:mm:ss";
 	DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern(DATE_FORMATTER);
 	
@@ -102,9 +100,11 @@ public class AspectLoggin {
 		loggin.setEntity("Main");
 		loggin.setDate(localDateTime.format(FORMATTER)); 
 		loggin.setUser(logginUser);
-		String params = "";
-		for(Object j : point.getArgs()) {
-			params += j.toString(); 
+		String params = "security";
+		if(!point.getSignature().getName().equals("logoutApp")) {
+			for(Object j : point.getArgs()) {
+				params += j.toString(); 
+			}
 		}
 		loggin.setData(params);
 		repository.save(loggin);
@@ -112,30 +112,16 @@ public class AspectLoggin {
 	
 	 @AfterReturning(pointcut="execution(* org.springframework.security.authentication.AuthenticationManager.authenticate(..))"
 	            ,returning="result")
-	    public void after(JoinPoint point,Object result) throws Throwable {
-		 LocalDateTime localDateTime = LocalDateTime.now();
-		 	System.out.println(">>> LOGGIN USER: " + ((Authentication) result).getName());
-	        logginUser = ((Authentication) result).getName();
-			loggin = new Loggin();
-			loggin.setMethod(point.getSignature().getName());
-			loggin.setEntity("Main");
-			loggin.setDate(localDateTime.format(FORMATTER)); 
-			loggin.setUser(logginUser);
-			loggin.setData("security");
-			repository.save(loggin);
-	    }
-	 @Before("execution(* org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler.*(..))")
-	 public void beforeLogout(JoinPoint joinPoint) throws Throwable {   
-		 LocalDateTime localDateTime = LocalDateTime.now();
-		 logoutUser = SecurityContextHolder.getContext().getAuthentication().getName();
-	     System.out.println(
-	                 ">>> Aspect : User " +  logoutUser + " successfully logged out.");
-	     loggin = new Loggin();
-			loggin.setMethod(joinPoint.getSignature().getName());
-			loggin.setEntity("Main");
-			loggin.setDate(localDateTime.format(FORMATTER)); 
-			loggin.setUser(logoutUser);
-			loggin.setData("security");
-			repository.save(loggin);
-	 }
+    public void after(JoinPoint point,Object result) throws Throwable {
+	 LocalDateTime localDateTime = LocalDateTime.now();
+	 	System.out.println(">>> LOGGIN USER: " + ((Authentication) result).getName());
+        logginUser = ((Authentication) result).getName();
+		loggin = new Loggin();
+		loggin.setMethod(point.getSignature().getName());
+		loggin.setEntity("Main");
+		loggin.setDate(localDateTime.format(FORMATTER)); 
+		loggin.setUser(logginUser);
+		loggin.setData("security");
+		repository.save(loggin);
+    }
 }
