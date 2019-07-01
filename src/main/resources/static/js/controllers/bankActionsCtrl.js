@@ -4,9 +4,11 @@ app.controller('bankActionsCtrl', function ($scope, $filter, $state, $stateParam
 	self.bankAction = null;
 	self.tcInical = {};
 	self.tcFinal = {};
+	self.account = null;
+	self.subAccountType = 0;
 	//pager
 	self.viewby = 10;	
-	self.currentPage = 4;
+	self.currentPage = 1;
 	self.itemsPerPage = self.viewby;
 	self.maxSize = 5; //Number of pager buttons to show
 	//end pager
@@ -23,14 +25,19 @@ app.controller('bankActionsCtrl', function ($scope, $filter, $state, $stateParam
 	self.get = () => {
 		if(self.account){
 			bankActionService.getByAccountId(self.account.id).then(data => {
-				self.bankActions = data;
+				if(self.subAccountType > 0){
+					self.bankActions = $filter('filter')(data, {subAccountType: self.subAccountType});
+				}else{
+					self.bankActions = data;
+				}				
 				self.paginarAcciones();
 			}, error => {
 				alertify.error('Error');
 				console.log('Error al obtener las acciones bancaras', error);
 			});
 		}else{
-			bankActionService.get().then(data => {
+			bankActionService.getAllGrouped().then(data => {
+				console.log(data);
 				self.bankActions = data;
 				self.paginarAcciones();
 			}, error => {
@@ -46,8 +53,8 @@ app.controller('bankActionsCtrl', function ($scope, $filter, $state, $stateParam
 		if(self.bankActions.length > 10){
 			self.numPages = Math.ceil(self.bankActions.length / self.itemsPerPage);		
 			$scope.$watch('bactCtrl.currentPage + bactCtrl.itemsPerPage', function() {
-			    var begin = ((self.currentPage - 1) * self.itemsPerPage)
-			    , end = begin + self.itemsPerPage;
+			    var begin = ((self.currentPage - 1) * self.itemsPerPage) , end = begin + self.itemsPerPage;
+			    console.log("begin: " + begin+" end: " +end)
 			    self.filteredActions = self.bankActions.slice(begin, end);
 			  });
 		}else{
@@ -95,7 +102,10 @@ app.controller('bankActionsCtrl', function ($scope, $filter, $state, $stateParam
 	//end pager
 
 	self.post = () => {
-		self.bankAction.account = self.account;
+		if(self.account){
+			self.bankAction.account = self.account;
+			self.bankAction.subAccountType = self.subAccountType;
+		}		
 		console.log('informacion de la accion: ',self.bankAction);
 		bankActionService.post(self.bankAction).then(data => {
 			self.bankAction = null;
@@ -111,6 +121,7 @@ app.controller('bankActionsCtrl', function ($scope, $filter, $state, $stateParam
 		console.log('bankAction: ',bankAction);
 		//bankAction.fechaInicio = new Date(bankAction.fechaInicio);		
 		bankAction.fechaFinalReal = new Date(bankAction.fechaFinalReal);
+		bankAction.fechaDeAdquisicion = new Date(bankAction.fechaDeAdquisicion);
 		bankAction.fechaFinal =  $filter('date')(bankAction.fechaFinalReal, 'dd/MM/yyyy');
 		self.bankAction = bankAction;
 		self.fetchForRates(self.bankAction);
@@ -163,7 +174,7 @@ app.controller('bankActionsCtrl', function ($scope, $filter, $state, $stateParam
 			storageService.post(file).then(resp =>{
 				console.log(resp);
 				if(resp.message == "FILE_UPLODED"){
-					batchService.post(resp.newFileName, self.account.id).then(resp =>{
+					batchService.postSubAccount(resp.newFileName, self.account.id, self.subAccountType).then(resp =>{
 						console.log(resp);
 						$('#exampleModal').modal('toggle');
 			            alertify.alert('Exito', 'correcto, archivo procesado!', function(){ alertify.success('Ok'); });
@@ -301,13 +312,19 @@ app.controller('bankActionsCtrl', function ($scope, $filter, $state, $stateParam
 		console.log("params:", $stateParams);
 		if($stateParams.account){
 			self.account = $stateParams.account;
+			if($stateParams.subAccount){
+				self.subAccountType = $stateParams.subAccount;
+			}else{
+				self.subAccountType = 0;
+			}			
 			console.log(self.account);
 			self.get();
 			//self.getByCompany(self.company);
 		}else{
 			//self.company = null;
-			self.get();
 			self.account = null;
+			self.subAccountType = 0;
+			self.get();			
 		}
 		self.getCurrentExchangeRate();
 	};

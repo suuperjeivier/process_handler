@@ -23,7 +23,7 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider,$url
 	.state('bank-actions',{
 		url: '/bank-actions',
 		templateUrl:'views/bankActions.html',
-		params: {account: null},
+		params: {account: null, subAccount: 0},
 		controller: 'bankActionsCtrl',
 		controllerAs: 'bactCtrl'
 	})

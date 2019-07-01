@@ -52,6 +52,7 @@ public class BatchConfiguration {
 
 	private static final String _FILE_NAME = null;
 	private static final String _ACCOUNT_ID = null;
+	private static final String __SUB_ACCOUNT_ID = null;
 	private final Path rootLocation;
 
 	@Autowired
@@ -126,9 +127,11 @@ public class BatchConfiguration {
 
 	@Bean
 	@StepScope
-	public BankActionItemProcessor processor(@Value("#{jobParameters['accountId']}") final String accountId) {
+	public BankActionItemProcessor processor(@Value("#{jobParameters['accountId']}") final String accountId, @Value("#{jobParameters['subAccountId']}") final String subAccountId) {
+		logger.debug("params form controller: " + accountId +  ", subAccountId: " + subAccountId);
 		Long longId = Long.parseLong(accountId);
-		return new BankActionItemProcessor(longId);
+		int intsubAId = Integer.parseInt(subAccountId);
+		return new BankActionItemProcessor(longId, intsubAId);
 	}
 
 	@Bean
@@ -166,7 +169,8 @@ public class BatchConfiguration {
 						+ " `titulos`,"
 						+ " `unit_cost`,"						
 						+ " `valor`,"						
-						+ " `valor_de_mercado`, "										
+						+ " `valor_de_mercado`, "	
+						+ " `n_sub_account_type`, "						
 						+ " `fk_id_bank_account`)"
 						+ " VALUES ("+															
 						":cancelacionDeInteresDevengado,\r\n" + 
@@ -200,6 +204,7 @@ public class BatchConfiguration {
 						":unitCost,\r\n" +						 
 						":valor,\r\n" +
 						":valorDeMercado,\r\n" +
+						":subAccountType,\r\n" +
 						":accountingRecord\r\n" +  
 						")")
 				.dataSource(dataSource)
@@ -223,7 +228,7 @@ public class BatchConfiguration {
 		return stepBuilderFactory.get("step1")
 				.<BankAction, BankAction> chunk(10)
 				.reader(reader(_FILE_NAME))
-				.processor(processor(_ACCOUNT_ID))
+				.processor(processor(_ACCOUNT_ID, __SUB_ACCOUNT_ID))
 				.writer(writer)
 				.build();
 	}

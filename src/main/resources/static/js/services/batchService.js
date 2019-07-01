@@ -12,6 +12,19 @@ app.service('batchService', function($q, factory){
             });
         });
     };
+    
+    self.postSubAccount = (fileName, accountId, subAccountId) => {
+    	let data = new FormData();		
+		data.append('accountId', accountId);
+		data.append('subAccountId', subAccountId);		
+        return $q((resolve, reject) => {
+            factory.postFile(path+'/file/account/sub-account/'+fileName, data).then(data => {
+                resolve(data);
+            }, error => {
+                reject(error);
+            });
+        });
+    };
 
    
 });

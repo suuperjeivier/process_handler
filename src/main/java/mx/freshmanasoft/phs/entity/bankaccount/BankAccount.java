@@ -29,6 +29,18 @@ public class BankAccount {
 	private String portfolio;
 	private String currency;
 	private Date date;
+	@Column(name="N_IS_INVERSION_EN_DOLARES")
+	private Boolean isInversionEnDolares;	
+	private String inversionEnDolaresAccountNumber;
+	@Column(name="N_IS_INVERSION_EN_PESOS")
+	private Boolean isInversionEnPesos;
+	private String inversionEnPesosAccountNumber;
+	@Column(name="N_IS_EFECTIVO_EN_DOLARES")
+	private Boolean isEfectivoEnDolares;
+	private String efectivoEnDolaresAccountNumber;
+	@Column(name="N_IS_EFECTIVO_EN_PESOS")
+	private Boolean isEfectivoEnPesos;
+	private String efectivoEnPesosAccountNumber;		
 	@ManyToOne
 	@JoinColumn(name="FK_ID_COMPANY")
 	private Company company;
@@ -188,6 +200,54 @@ public class BankAccount {
 		this.status = status;
 	}
 	
+	public Boolean getIsInversionEnDolares() {
+		return isInversionEnDolares;
+	}
+	public void setIsInversionEnDolares(Boolean isInversionEnDolares) {
+		this.isInversionEnDolares = isInversionEnDolares;
+	}
+	public Boolean getIsInversionEnPesos() {
+		return isInversionEnPesos;
+	}
+	public void setIsInversionEnPesos(Boolean isInversionEnPesos) {
+		this.isInversionEnPesos = isInversionEnPesos;
+	}
+	public Boolean getIsEfectivoEnDolares() {
+		return isEfectivoEnDolares;
+	}
+	public void setIsEfectivoEnDolares(Boolean isEfectivoEnDolares) {
+		this.isEfectivoEnDolares = isEfectivoEnDolares;
+	}
+	public Boolean getIsEfectivoEnPesos() {
+		return isEfectivoEnPesos;
+	}
+	public void setIsEfectivoEnPesos(Boolean isEfectivoEnPesos) {
+		this.isEfectivoEnPesos = isEfectivoEnPesos;
+	}
+	public String getInversionEnDolaresAccountNumber() {
+		return inversionEnDolaresAccountNumber;
+	}
+	public void setInversionEnDolaresAccountNumber(String inversionEnDolaresAccountNumber) {
+		this.inversionEnDolaresAccountNumber = inversionEnDolaresAccountNumber;
+	}
+	public String getInversionEnPesosAccountNumber() {
+		return inversionEnPesosAccountNumber;
+	}
+	public void setInversionEnPesosAccountNumber(String inversionEnPesosAccountNumber) {
+		this.inversionEnPesosAccountNumber = inversionEnPesosAccountNumber;
+	}
+	public String getEfectivoEnPesosAccountNumber() {
+		return efectivoEnPesosAccountNumber;
+	}
+	public void setEfectivoEnPesosAccountNumber(String efectivoEnPesosAccountNumber) {
+		this.efectivoEnPesosAccountNumber = efectivoEnPesosAccountNumber;
+	}
+	public String getEfectivoEnDolaresAccountNumber() {
+		return efectivoEnDolaresAccountNumber;
+	}
+	public void setEfectivoEnDolaresAccountNumber(String efectivoEnDolaresAccountNumber) {
+		this.efectivoEnDolaresAccountNumber = efectivoEnDolaresAccountNumber;
+	}
 	@Override
 	public String toString() {
 		return "BankAccount [id=" + id + ", accountType=" + accountType + ", accountNumber=" + accountNumber

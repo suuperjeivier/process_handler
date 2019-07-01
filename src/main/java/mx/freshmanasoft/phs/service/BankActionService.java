@@ -9,5 +9,6 @@ public interface BankActionService {
 	BankAction delete(BankAction entity);
 	Iterable<BankAction> fetch(Long accountId);
 	Iterable<BankAction> fetchHistory(Long actionId);
+	Iterable<BankAction> fetchGrouped();
 	
 }

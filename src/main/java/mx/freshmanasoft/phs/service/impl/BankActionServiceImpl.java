@@ -26,6 +26,11 @@ public class BankActionServiceImpl implements BankActionService{
 		LOGGER.debug("getting actions!");
 		return repository.findAll();
 	}
+	
+	@Override
+	public Iterable<BankAction> fetchGrouped() {
+		return repository.findAllGrouped();		
+	}
 
 	@Override
 	public BankAction post(BankAction entity) {
@@ -166,6 +171,8 @@ public class BankActionServiceImpl implements BankActionService{
 
 		return lbac;
 	}
+
+	
 
 
 }

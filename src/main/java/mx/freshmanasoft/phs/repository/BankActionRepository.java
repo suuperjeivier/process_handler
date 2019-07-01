@@ -16,6 +16,11 @@ public interface BankActionRepository extends CrudRepository<BankAction, Long>{
 			nativeQuery = true)
 	Iterable<BankAction> findByAccountId(@Param("accountId") Long accountId);
 	
+	@Query(
+			value = "SELECT * FROM bank_action a WHERE a.status = 1 GROUP BY a.cusip, a.isin_serie, a.sec_id", 
+			nativeQuery = true)
+	Iterable<BankAction> findAllGrouped();	
+	
 	Iterable<BankAction> findByCusipOrIsinSerieOrSecId(String cusip, String isinSerie, String secId);
 	
 	Iterable<BankAction> findAllByAccountIdAndCusipIsNullAndIsinSerieIsNullAndSecIdIsNullOrderByFechaInicioReal(@Param("accountId") Long accountId);

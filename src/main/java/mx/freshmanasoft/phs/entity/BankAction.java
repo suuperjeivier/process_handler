@@ -40,6 +40,7 @@ public class BankAction {
 	private String monedaOriginal;	
 	private String fechaInicio;
 	private Date fechaInicioReal;
+	private Date fechaDeAdquisicion;	
 	private String fechaFinal;
 	private Date fechaFinalReal;
 	private BigDecimal saldoInicial;
@@ -67,6 +68,8 @@ public class BankAction {
 	private Long utilidadPerdidaPorValuacion;
 	private Long utilidadPerdidaPorValuacionMiles;
 	private Long accountingRecord;//lo uso para almacenar de manera temporal el id de la cuenta
+	@Column(name="N_SUB_ACCOUNT_TYPE", columnDefinition = "INT(1) NOT NULL DEFAULT 0")
+	private int subAccountType;
 	private int status;
 	@Column(name="N_IS_VENDIDA",
             columnDefinition="INT(2) NOT NULL DEFAULT 0")
@@ -541,28 +544,43 @@ public class BankAction {
 		this.isVendida = isVendida;
 	}
 
+	public Date getFechaDeAdquisicion() {
+		return fechaDeAdquisicion;
+	}
+
+	public void setFechaDeAdquisicion(Date fechaDeAdquisicion) {
+		this.fechaDeAdquisicion = fechaDeAdquisicion;
+	}
+
+	public int getSubAccountType() {
+		return subAccountType;
+	}
+
+	public void setSubAccountType(int subAccountType) {
+		this.subAccountType = subAccountType;
+	}
+
 	@Override
 	public String toString() {
 		return "BankAction [id=" + id + ", institucion=" + institucion + ", instrumento=" + instrumento + ", name="
 				+ name + ", cusip=" + cusip + ", isinSerie=" + isinSerie + ", secId=" + secId + ", titulos=" + titulos
-				+ ", unitCost=" + unitCost + ", marketPrice=" + marketPrice
-				+ ", valorDeMercado=" + valorDeMercado + ", plusvMinusvAcumulado=" + plusvMinusvAcumulado
-				+ ", intDevengado=" + intDevengado + ", tC=" + tC + ", mxnDls=" + mxnDls + ", registroContable="
-				+ registroContable + ", valor=" + valor + ", monedaOriginal=" + monedaOriginal + ", fechaInicio="
-				+ fechaInicio + ", fechaFinal=" + fechaFinal + ", saldoInicial=" + saldoInicial + ", depositos="
-				+ depositos + ", dividendos=" + dividendos + ", interesesDevengado=" + interesesDevengado
-				+ ", interesesCobrado=" + interesesCobrado + ", cambioMxnVsDis=" + cambioMxnVsDis
-				+ ", valuacionAlCierre=" + valuacionAlCierre + ", cancelacionDeValuacionXVta="
-				+ cancelacionDeValuacionXVta + ", cancelacionDeInteresDevengado=" + cancelacionDeInteresDevengado
-				+ ", compras=" + compras + ", ventas=" + ventas + ", utilidadPerdida=" + utilidadPerdida + ", retiros="
-				+ retiros + ", gastos=" + gastos + ", impuestos=" + impuestos + ", netoMov=" + netoMov + ", saldoFinal="
-				+ saldoFinal + ", dlsAlInicio=" + dlsAlInicio + ", tcInicial=" + tcInicial + ", tcFinal=" + tcFinal
-				+ ", valuacionDlsAlInicio=" + valuacionDlsAlInicio + ", valuacionDlsAlFinal=" + valuacionDlsAlFinal
-				+ ", utilidadPerdidaPorValuacion=" + utilidadPerdidaPorValuacion + ", utilidadPerdidaPorValuacionMiles="
-				+ utilidadPerdidaPorValuacionMiles + ", accountingRecord="
-				+ accountingRecord + ", status=" + status
-				+ ", account=" + account + "]";
+				+ ", unitCost=" + unitCost + ", marketPrice=" + marketPrice + ", valorDeMercado=" + valorDeMercado
+				+ ", plusvMinusvAcumulado=" + plusvMinusvAcumulado + ", intDevengado=" + intDevengado + ", tC=" + tC
+				+ ", mxnDls=" + mxnDls + ", registroContable=" + registroContable + ", valor=" + valor
+				+ ", monedaOriginal=" + monedaOriginal + ", fechaInicio=" + fechaInicio + ", fechaInicioReal="
+				+ fechaInicioReal + ", fechaDeAdquisicion=" + fechaDeAdquisicion + ", fechaFinal=" + fechaFinal
+				+ ", fechaFinalReal=" + fechaFinalReal + ", saldoInicial=" + saldoInicial + ", depositos=" + depositos
+				+ ", dividendos=" + dividendos + ", interesesDevengado=" + interesesDevengado + ", interesesCobrado="
+				+ interesesCobrado + ", cambioMxnVsDis=" + cambioMxnVsDis + ", valuacionAlCierre=" + valuacionAlCierre
+				+ ", cancelacionDeValuacionXVta=" + cancelacionDeValuacionXVta + ", cancelacionDeInteresDevengado="
+				+ cancelacionDeInteresDevengado + ", compras=" + compras + ", ventas=" + ventas + ", utilidadPerdida="
+				+ utilidadPerdida + ", retiros=" + retiros + ", gastos=" + gastos + ", impuestos=" + impuestos
+				+ ", netoMov=" + netoMov + ", saldoFinal=" + saldoFinal + ", dlsAlInicio=" + dlsAlInicio
+				+ ", tcInicial=" + tcInicial + ", tcFinal=" + tcFinal + ", valuacionDlsAlInicio=" + valuacionDlsAlInicio
+				+ ", valuacionDlsAlFinal=" + valuacionDlsAlFinal + ", utilidadPerdidaPorValuacion="
+				+ utilidadPerdidaPorValuacion + ", utilidadPerdidaPorValuacionMiles=" + utilidadPerdidaPorValuacionMiles
+				+ ", accountingRecord=" + accountingRecord + ", subAccountType=" + subAccountType + ", status=" + status
+				+ ", isVendida=" + isVendida + ", account=" + account + "]";
 	}
-
 	
 }

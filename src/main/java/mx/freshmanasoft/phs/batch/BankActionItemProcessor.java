@@ -13,22 +13,25 @@ import mx.freshmanasoft.phs.entity.bankaccount.BankAccount;
 public class BankActionItemProcessor implements ItemProcessor<BankAction, BankAction> {
 
     private static final Logger log = LoggerFactory.getLogger(BankActionItemProcessor.class);
-    private Long accountId;
+    private Long accountId = 0L;
+    private int subAccountId = 0;
 
     public BankActionItemProcessor() {
     	
     }
-    public BankActionItemProcessor(Long accountId) {
+    public BankActionItemProcessor(Long accountId, int subAccountId) {
+    	log.debug("initializing proccesor");
 		this.accountId = accountId;
+		this.subAccountId = subAccountId;
 	}
 
 	@Override
-    public BankAction process(final BankAction action) throws Exception {
-		
+    public BankAction process(final BankAction action) throws Exception {	
 		
        
         final int _STATUS = 1;
         final Long accountIdFinal = accountId;
+        final int subAccountIdFinal = subAccountId;
         final BankAccount account = new BankAccount(accountIdFinal);
         
         BankAction transformedAction = new BankAction();
@@ -87,12 +90,12 @@ public class BankActionItemProcessor implements ItemProcessor<BankAction, BankAc
         }else {
         	transformedAction.setSecId(null);
         }
-        
+        transformedAction.setSubAccountType(subAccountIdFinal);
         transformedAction.setAccountingRecord(accountIdFinal);
         transformedAction.setStatus(_STATUS);
         transformedAction.setAccount(account);
 
-        log.info("Converting (" + action + ") into (" + transformedAction + ")");
+        //log.info("Converting (" + action + ") into (" + transformedAction + ")");
 
         return transformedAction;
     }

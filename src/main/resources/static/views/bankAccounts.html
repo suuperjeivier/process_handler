@@ -7,7 +7,7 @@
 			<li class="breadcrumb-item" data-ng-if="baCtrl.company"><a
 				href="#!bussiness"
 				data-ng-click="baCtrl.stateGoTo('bussiness', null)">Empresas</a></li>
-			<li class="breadcrumb-item active">Cuentas bancarias</li>
+			<li class="breadcrumb-item active">Cuentas de inversion</li>
 		</ul>
 	</div>
 </div>
@@ -71,8 +71,12 @@
 											banco...</option>
 										<option value="?"></option>
 									</select>
-									<button type="button" data-ng-click="baCtrl.newBank()" class="btn btn-primary col-sm-1" data-toggle="modal" data-target="#modal-new-bank"><i class="fa fa-plus"></i></button>
-									
+									<button type="button" data-ng-click="baCtrl.newBank()"
+										class="btn btn-primary col-sm-1" data-toggle="modal"
+										data-target="#modal-new-bank">
+										<i class="fa fa-plus"></i>
+									</button>
+
 									<div class="d-block"
 										data-ng-class="baCtrl.validClass.bank? baCtrl.validClass.bank+'-feedback':''"
 										data-ng-show="baCtrl.validClass.bank">Seleccione un
@@ -86,10 +90,11 @@
 								<div class="col-sm-10">
 									<select class="form-control" required
 										data-ng-class="baCtrl.validClass.accountType? 'is-'+baCtrl.validClass.accountType:''"
-										data-ng-model="baCtrl.bankAccount.accountType" data-ng-options="bat as bat.name for bat in baCtrl.bankAccountTypes track by bat.id">
+										data-ng-model="baCtrl.bankAccount.accountType"
+										data-ng-options="bat as bat.name for bat in baCtrl.bankAccountTypes track by bat.id">
 										<option value="" disabled selected>Seleccione un
 											tipo...</option>
-										
+
 									</select>
 									<div class="d-block"
 										data-ng-class="baCtrl.validClass.accountType? baCtrl.validClass.accountType+'-feedback':''"
@@ -180,6 +185,90 @@
 							</div>
 							<div class="line"></div>
 							<div class="form-group row">
+								<div class="form-check form-check-inline">
+									<div class="input-group mb-3">
+										<div class="input-group-prepend">
+											<div class="input-group-text">
+												<input class="form-check-input" type="checkbox"
+													data-ng-model="baCtrl.bankAccount.isInversionEnDolares"
+													id="inlineCheckbox0" value="1" data-ng-value="1"> <label
+													class="form-check-label" for="inlineCheckbox0">Inversion
+													en Dolares</label>
+											</div>
+										</div>
+										<input type="text" class="form-control"
+											data-ng-disabled="!baCtrl.bankAccount.isInversionEnDolares"
+											data-ng-model="baCtrl.bankAccount.inversionEnDolaresAccountNumber"
+											placeholder="No. de cuenta"
+											aria-label="Text input with checkbox">
+									</div>
+
+								</div>
+							</div>
+							<div class="line"></div>
+							<div class="form-group row">
+								<div class="form-check form-check-inline">
+									<div class="input-group mb-3">
+										<div class="input-group-prepend">
+											<div class="input-group-text">
+												<input class="form-check-input" type="checkbox"
+													data-ng-model="baCtrl.bankAccount.isInversionEnPesos"
+													id="inlineCheckbox1" value="1" data-ng-value="1"> <label
+													class="form-check-label" for="inlineCheckbox1">Inversion
+													en Pesos</label>
+											</div>
+										</div>
+										<input type="text" class="form-control"
+											data-ng-disabled="!baCtrl.bankAccount.isInversionEnPesos"
+											data-ng-model="baCtrl.bankAccount.inversionEnPesosAccountNumber"
+											placeholder="No. de cuenta"
+											aria-label="Text input with checkbox">
+									</div>
+								</div>
+							</div>
+							<div class="line"></div>
+							<div class="form-group row">
+								<div class="form-check form-check-inline">
+									<div class="input-group mb-3">
+										<div class="input-group-prepend">
+											<div class="input-group-text">
+												<input class="form-check-input" type="checkbox"
+													data-ng-model="baCtrl.bankAccount.isEfectivoEnDolares"
+													id="inlineCheckbox2" value="1" data-ng-value="1"> <label
+													class="form-check-label" for="inlineCheckbox2">Efectivo
+													en Dolares</label>
+											</div>
+										</div>
+										<input type="text" class="form-control"
+											data-ng-disabled="!baCtrl.bankAccount.isEfectivoEnDolares"
+											data-ng-model="baCtrl.bankAccount.efectivoEnDolaresAccountNumber"
+											placeholder="No. de cuenta"
+											aria-label="Text input with checkbox">
+									</div>
+								</div>
+							</div>
+							<div class="line"></div>
+							<div class="form-group row">
+								<div class="form-check form-check-inline">
+									<div class="input-group mb-3">
+										<div class="input-group-prepend">
+											<div class="input-group-text">
+												<input class="form-check-input" type="checkbox"
+													data-ng-model="baCtrl.bankAccount.isEfectivoEnPesos"
+													id="inlineCheckbox3" value="1" data-ng-value="1"> <label
+													class="form-check-label" for="inlineCheckbox3">Efectivo
+													en Pesos</label>
+											</div>
+										</div>
+										<input type="text" class="form-control"
+											data-ng-disabled="!baCtrl.bankAccount.isEfectivoEnPesos"
+											data-ng-model="baCtrl.bankAccount.efectivoEnPesosAccountNumber"
+											placeholder="No. de cuenta"
+											aria-label="Text input with checkbox">
+									</div>
+								</div>
+							</div>
+							<div class="form-group row">
 								<div class="col-sm-4 offset-sm-2">
 									<button type="button" class="btn btn-secondary"
 										data-ng-click="baCtrl.cancelBankAccount()">Cancelar</button>
@@ -209,37 +298,34 @@
 					<div class="card-header">
 						<form class="form-inline mb-3" name="formSearch" novalidate>
 							<div class="form-group">
-								<label>Desde </label> 
+								<label>Desde </label>
 								<div class="input-group ml-3">
 									<div class="input-group-prepend">
 										<div class="input-group-text">
 											<i class="far fa-calendar-alt"></i>
 										</div>
 									</div>
-									<input type="date"
-										class="form-control"
-										data-ng-max="baCtrl.searchEndDate"
-										name="dSearchStartDate" required
+									<input type="date" class="form-control"
+										data-ng-max="baCtrl.searchEndDate" name="dSearchStartDate"
+										required
 										data-ng-class="formSearch.dSearchStartDate.$invalid ? 'is-invalid': ''"
 										data-ng-model="baCtrl.searchStartDate">
 								</div>
-								
+
 							</div>
 							<div class="form-group ml-3">
-								<label>Hasta </label> 
+								<label>Hasta </label>
 								<div class="input-group ml-3">
-								<div class="input-group-prepend">
-									<div class="input-group-text">
-										<i class="far fa-calendar-alt"></i>
+									<div class="input-group-prepend">
+										<div class="input-group-text">
+											<i class="far fa-calendar-alt"></i>
+										</div>
 									</div>
-								</div>
-								<input type="date"
-									class="form-control"
-									data-ng-min="baCtrl.searchStartDate"
-									data-ng-max="baCtrl.maxDate"
-									name="dsearchEndDate" required
-									data-ng-class="formSearch.dsearchEndDate.$invalid ? 'is-invalid': ''"
-									data-ng-model="baCtrl.searchEndDate">
+									<input type="date" class="form-control"
+										data-ng-min="baCtrl.searchStartDate"
+										data-ng-max="baCtrl.maxDate" name="dsearchEndDate" required
+										data-ng-class="formSearch.dsearchEndDate.$invalid ? 'is-invalid': ''"
+										data-ng-model="baCtrl.searchEndDate">
 								</div>
 							</div>
 							<div class="form-group ml-3">
@@ -264,65 +350,142 @@
 									</div>
 								</div>
 								<input type="search" placeholder="Buscar..."
-									data-ng-change="baCtrl.filterSearch()"
-									class="form-control" data-ng-model="baCtrl.filterAccountNumber">
+									data-ng-change="baCtrl.filterSearch()" class="form-control"
+									data-ng-model="baCtrl.filterAccountNumber">
 							</div>
 							<div class="col-sm-1" data-ng-if="baCtrl.isSearch">
-								<button data-ng-click="baCtrl.cancelSearch()" type="button" class="close">
-									&times;
-								</button>
+								<button data-ng-click="baCtrl.cancelSearch()" type="button"
+									class="close">&times;</button>
 							</div>
 						</div>
 					</div>
 					<div class="card-body">
-						<div class="table-responsive" data-ng-if="baCtrl.bankAccounts.length">
-							<table class="table table-sm table-striped table-hover table-condensed table-inverse table-bordered">
-								<thead>
-									<tr>
-										<th>#</th>
-										<th>Empresa</th>
-										<th>Tipo cuenta</th>
-										<th>No. Cuenta</th>
-										<th>Dirección</th>
-										<th>Teléfono</th>										
-										<th>Moneda</th>
-										<th>Banco</th>
-										<th>Fecha</th>
-										<th></th>
-										<th></th>
-										<th></th>
-									</tr>
-								</thead>
+						<div class="table-responsive"
+							data-ng-if="baCtrl.bankAccounts.length">
+							<table class="table table-bordered">
 								<tbody>
-									<tr
-										data-ng-repeat="ba in baCtrl.bankAccounts track by $index">
-										<td scope="row">{{$index+1}}</td>
-										<td>{{ba.company.name}}</td>
-										<td>{{ba.accountType.name}}</td>
-										<td>{{ba.accountNumber}}</td>
-										<td>{{ba.address}}</td>
-										<td>{{ba.telephone}}</td>										
-										<td>{{ba.currency}}</td>
-										<td>{{ba.bank.name}}</td>
-										<td>{{ba.date | date: 'dd/MM/yyyy'}}</td>
-										<td><button class="btn btn-success btn-sm"
-												data-ng-click="baCtrl.stateGoTo('bank-actions', ba)">Acciones</button></td>
-										<td><button class="btn btn-info btn-sm"
-												data-ng-click="baCtrl.update(ba)">Actualizar</button></td>
-										<td><button class="btn btn-danger btn-sm"
-												data-ng-click="baCtrl.confirmDelete(ba)">Eliminar</button></td>
+									<tr data-ng-repeat="ba in baCtrl.bankAccounts track by $index">
+										<td>
+											<table
+												class="table table-sm table-hover table-condensed table-inverse table-bordered">
+												<thead>
+													<tr>
+														<th>#</th>
+														<th>Empresa</th>
+														<th>Tipo cuenta</th>
+														<th>No. Cuenta</th>
+														<th>Dirección</th>
+														<th>Teléfono</th>
+														<th>Moneda</th>
+														<th>Banco</th>
+														<th>Fecha</th>
+														<th colspan="3"></th>														
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td scope="row">{{$index+1}}</td>
+														<td>{{ba.company.name}}</td>
+														<td>{{ba.accountType.name}}</td>
+														<td>{{ba.accountNumber}}</td>
+														<td>{{ba.address}}</td>
+														<td>{{ba.telephone}}</td>
+														<td>{{ba.currency}}</td>
+														<td>{{ba.bank.name}}</td>
+														<td>{{ba.date | date: 'dd/MM/yyyy'}}</td>
+														<td>
+															<button class="btn btn-primary btn-sm" type="button"
+																data-toggle="collapse"
+																data-target="#multiCollapseExample{{$index}}"
+																aria-expanded="false"
+																aria-controls="multiCollapseExample{{$index}}">Cuentas</button>															
+														</td>
+														<td><button class="btn btn-info btn-sm"
+																data-ng-click="baCtrl.update(ba)">Actualizar</button></td>
+														<td><button class="btn btn-danger btn-sm"
+																data-ng-click="baCtrl.confirmDelete(ba)">Eliminar</button></td>
+													</tr>
+													<tr>
+														<td colspan="12">															
+																<div class="collapse multi-collapse"
+																	id="multiCollapseExample{{$index}}">
+																	<div class="card card-body">
+																		<table
+																			class="table table-sm table-striped table-hover table-condensed table-inverse table-bordered">
+																			<thead>
+																				<tr>
+																					<th>Tipo</th>
+																					<th>No. Cuenta</th>
+																					<th></th>																				
+																				</tr>
+																			</thead>
+																			<tbody>
+																				<tr>
+																					<td>Inversión en Dólares</td>
+																					<td>{{ba.inversionEnDolaresAccountNumber}}</td>
+																					<td>
+																						<button class="btn btn-success btn-sm" data-ng-disabled="!ba.isInversionEnDolares"
+																							data-ng-click="baCtrl.stateGoToSubAccount('bank-actions', ba, 1)">Instrumentos
+																							de Inversión</button>
+																					</td>
+																				</tr>
+																				<tr>
+																					<td>Inversión en Pesos</td>
+																					<td>{{ba.inversionEnPesosAccountNumber}}</td>
+																					<td>
+																						<button class="btn btn-success btn-sm" data-ng-disabled="!ba.isInversionEnPesos"
+																							data-ng-click="baCtrl.stateGoToSubAccount('bank-actions', ba, 2)">Instrumentos
+																							de Inversión</button>
+																					</td>
+																				</tr>
+																				<tr>
+																					<td>Efectivo en Dólares</td>
+																					<td>{{ba.efectivoEnDolaresAccountNumber}}</td>
+																					<td>
+																						<button class="btn btn-success btn-sm" data-ng-disabled="!ba.isEfectivoEnDolares"
+																							data-ng-click="baCtrl.stateGoToSubAccount('bank-actions', ba, 3)">Instrumentos
+																							de Inversión</button>
+																					</td>
+																				</tr>
+																				<tr>
+																					<td>Efectivo en Pesos</td>
+																					<td>{{ba.efectivoEnPesosAccountNumber}}</td>
+																					<td>
+																						<button class="btn btn-success btn-sm" data-ng-disabled="!ba.isEfectivoEnPesos"
+																							data-ng-click="baCtrl.stateGoToSubAccount('bank-actions', ba, 4)">Instrumentos
+																							de Inversión</button>
+																					</td>
+																				</tr>
+																			</tbody>
+																		</table>
+																	</div>
+																</div>
+															
+														</td>
+													</tr>
+												</tbody>
+
+											</table>
+										</td>
 									</tr>
 								</tbody>
 							</table>
-							<div data-ng-show="!baCtrl.bankAccountsLength.length && baCtrl.filterAccountNumber != null">
-								<p class="text-muted text-center"><i class="fas fa-search fa-3x"></i></p>
-								<p class="text-muted text-center">No se encontró información con los datos ingresados</p>
+							<div
+								data-ng-show="!baCtrl.bankAccountsLength.length && baCtrl.filterAccountNumber != null">
+								<p class="text-muted text-center">
+									<i class="fas fa-search fa-3x"></i>
+								</p>
+								<p class="text-muted text-center">No se encontró información
+									con los datos ingresados</p>
 							</div>
 						</div>
-						<div data-ng-show="!baCtrl.bankAccounts.length && !baCtrl.filterAccountNumber != null">
-								<p class="text-muted text-center"><i class="fas fa-search fa-3x"></i></p>
-								<p class="text-muted text-center">Sin datos registrados</p>
-							</div>
+						<div
+							data-ng-show="!baCtrl.bankAccounts.length && !baCtrl.filterAccountNumber != null">
+							<p class="text-muted text-center">
+								<i class="fas fa-search fa-3x"></i>
+							</p>
+							<p class="text-muted text-center">Sin datos registrados</p>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -332,7 +495,8 @@
 <div class="modal fade" id="modal-new-bank" tabindex="-1" role="dialog"
 	aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog" role="document">
-		<form class="modal-content" name="formBank" data-ng-submit="baCtrl.submitFormBank(formBank.$valid)" novalidate>
+		<form class="modal-content" name="formBank"
+			data-ng-submit="baCtrl.submitFormBank(formBank.$valid)" novalidate>
 			<div class="modal-header">
 				<h5 class="modal-title" id="exampleModalLabel">Nuevo Banco</h5>
 				<button type="button" class="close" data-dismiss="modal"
@@ -351,8 +515,8 @@
 								data-ng-model="baCtrl.bank.name" required>
 							<div class="d-block"
 								data-ng-class="baCtrl.validClass.name? baCtrl.validClass.name+'-feedback':''"
-								data-ng-show="baCtrl.validClass.name">Ingrese el nombre del
-								banco</div>
+								data-ng-show="baCtrl.validClass.name">Ingrese el nombre
+								del banco</div>
 						</div>
 					</div>
 					<div class="line"></div>
@@ -409,11 +573,13 @@
 								correctamente el teléfono [5555555555]</div>
 						</div>
 					</div>
+
 					<div class="line"></div>
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-ng-click="baCtrl.cancelBank()" data-dismiss="modal">Cerrar</button>
+				<button type="button" class="btn btn-secondary"
+					data-ng-click="baCtrl.cancelBank()" data-dismiss="modal">Cerrar</button>
 				<button type="submit" class="btn btn-primary">Registrar</button>
 			</div>
 		</form>
@@ -421,26 +587,25 @@
 </div>
 
 <!-- Modal -->
-<article class="modal fade" id="modal-bulk-load" tabindex="-1" role="dialog"
-	aria-labelledby="exampleModalLabel" aria-hidden="true">
+<article class="modal fade" id="modal-bulk-load" tabindex="-1"
+	role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Carga de
-					cuentas bancarias</h5>
+				<h5 class="modal-title" id="exampleModalLabel">Carga de cuentas
+					bancarias</h5>
 				<button type="button" class="close" data-dismiss="modal"
 					aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
 			<div class="modal-body">
-				
+
 				<input data-file-model="baCtrl.myFile" type="file" id="file"
 					name="file" />
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary"
-					data-dismiss="modal">Cerrar</button>
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
 				<button type="button" data-ng-click="baCtrl.addDocument()"
 					class="btn btn-primary" data-ng-disabled="baCtrl.processing">Cargar</button>
 			</div>

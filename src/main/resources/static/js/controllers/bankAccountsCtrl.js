@@ -262,6 +262,9 @@ app.controller('bankAccountsCtrl', function ($state, $stateParams, bankAccountSe
         });
     };
     
+    self.stateGoToSubAccount = (stateTrans, data, subAccountType) =>{
+    	$state.go(stateTrans, {'account': data, 'subAccount': subAccountType}, {location: false, inherit: false});
+    };
     self.stateGoTo = (stateTrans, data) =>{
     	$state.go(stateTrans, {'account': data}, {location: false, inherit: false});
     };

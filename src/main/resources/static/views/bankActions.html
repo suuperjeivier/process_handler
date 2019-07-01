@@ -19,8 +19,8 @@ table.floatThead-table {
 			<li class="breadcrumb-item" data-ng-if="bactCtrl.account"><a
 				href="#!bank-accounts"
 				data-ng-click="bactCtrl.stateGoTo('bank-accounts', {account: bactCtrl.account})">Cuentas
-					bancarias</a></li>
-			<li class="breadcrumb-item active">Acciones</li>
+					de Inversión</a></li>
+			<li class="breadcrumb-item active">Instrumentos de Inversión</li>
 		</ul>
 	</div>
 </div>
@@ -132,13 +132,12 @@ table.floatThead-table {
 												data-ng-value="bactCtrl.bankAction.titulos*bactCtrl.bankAction.unitCost">
 										</div>
 									</div>
-									<div class="line"></div>
+									<div class="line"></div>									
 									<div class="form-group row">
-										<label class="col-sm-3 form-control-label">Fecha de
-											Adquisición</label>
+										<label class="col-sm-3 form-control-label">Fecha de adquisición</label>
 										<div class="col-sm-9">
 											<input type="date" class="form-control"
-												data-ng-model="bactCtrl.bankAction.fechaInicioReal">
+												data-ng-model="bactCtrl.bankAction.fechaDeAdquisicion">
 										</div>
 									</div>
 									<div class="line"></div>
@@ -591,7 +590,7 @@ table.floatThead-table {
 	<div class="container-fluid">
 		<header>
 			<div class="float-left">
-				<h1 class="h3 display">Actions {{bactCtrl.account ?
+				<h1 class="h3 display">Instrumentos de Inversión {{bactCtrl.account ?
 					bactCtrl.account.accountNumber : ''}}</h1>
 			</div>
 
@@ -663,9 +662,9 @@ table.floatThead-table {
 										<td>{{ba.isinSerie}}</td>
 										<td>{{ba.secId}}</td>
 										<td>{{ba.titulos}}</td>
-										<td>{{ba.unitCost}}</td>
-										<td>{{ba.titulos*ba.unitCost}}</td>
-										<td>{{ba.fechaInicioReal | date : 'dd/MM/yyyy' :
+										<td>{{ba.unitCost | currency : '$' : 4}}</td>
+										<td>{{ba.titulos*ba.unitCost | currency : '$' : 4}}</td>
+										<td>{{ba.fechaDeAdquisicion | date : 'dd/MM/yyyy' :
 											'+0500'}}</td>
 										<td>{{ba.registroContable}}</td>
 										<td>{{ba.valor}}</td>
@@ -756,8 +755,7 @@ table.floatThead-table {
 		<div class="modal-dialog modal-lg" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="historyModalLabel">Historial de
-						accion {{bactCtrl.actionToGetHistory.cusip ?
+					<h5 class="modal-title" id="historyModalLabel">Movimientos del instrumento de inversión {{bactCtrl.actionToGetHistory.cusip ?
 						bactCtrl.actionToGetHistory.cusip :
 						bactCtrl.actionToGetHistory.isinSerie ?
 						bactCtrl.actionToGetHistory.isinSerie :
