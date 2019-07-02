@@ -216,7 +216,7 @@ app.controller('bankAccountsCtrl', function ($state, $stateParams, bankAccountSe
             self.get();
             self.bankAccount = null;
         }, error => {
-            console.log('Error al registrar la cuenta bancaria', error);
+            alertify.alert('Error', 'Ha ocurrido un error al realizar el registro', function(){ alertify.error('Error'); });
         });
     };
     
@@ -230,6 +230,7 @@ app.controller('bankAccountsCtrl', function ($state, $stateParams, bankAccountSe
             alertify.alert('Exito', 'Banco registrado exitosamente', function(){ alertify.success('Ok'); });
             
         }, error => {
+            alertify.alert('Error', 'Ha ocurrido un error al realizar el registro', function(){ alertify.error('Error'); });
             console.log('Error al registrar la accion bancaria', error);
         });
     };
@@ -241,6 +242,7 @@ app.controller('bankAccountsCtrl', function ($state, $stateParams, bankAccountSe
             self.get();
             alertify.alert('Exito', 'Cuenta bancaria actualizada exitosamente', function(){ alertify.success('Ok'); });
         }, error => {
+            alertify.alert('Error', 'Ha ocurrido un error al realizar la actualización', function(){ alertify.error('Error'); });
             console.log('Error al actualizar la cuenta bancaría', error);
         });
     };
@@ -258,7 +260,8 @@ app.controller('bankAccountsCtrl', function ($state, $stateParams, bankAccountSe
         	alertify.success('Eliminado') 
             self.get();
         }, error => {
-            console.log("Error al eliminar el archivo");
+            alertify.alert('Error', 'Ha ocurrido un error al eliminar el registro', function(){ alertify.error('Error'); });
+            console.log("Error al eliminar la cuenta: ", error);
         });
     };
     
