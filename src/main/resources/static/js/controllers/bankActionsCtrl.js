@@ -1,4 +1,4 @@
-app.controller('bankActionsCtrl', function ($scope, $filter, $state, $stateParams, bankActionService, storageService, batchService, ratesAPIService) {
+app.controller('bankActionsCtrl', function ($scope, $filter, $state, $stateParams, bankActionService, storageService, batchService, ratesAPIService, bankAccountService) {
 	const self = this;
 	self.bankActions = [];
 	self.bankAction = null;
@@ -13,6 +13,7 @@ app.controller('bankActionsCtrl', function ($scope, $filter, $state, $stateParam
 	self.maxSize = 5; //Number of pager buttons to show
 	//end pager
 	self.newBankAction = () => {
+		self.getBankAccounts();
 		self.bankAction = {
 				status: 1
 		}
@@ -20,6 +21,14 @@ app.controller('bankActionsCtrl', function ($scope, $filter, $state, $stateParam
 
 	self.cancel = () => {
 		self.bankAction = null;
+	};
+	
+	self.getBankAccounts = () => {
+		bankAccountService.get().then( data => {
+			self.bankAccounts = data;
+		}, error => {
+			
+		});
 	};
 
 	self.get = () => {
