@@ -7,7 +7,7 @@
 			<li class="breadcrumb-item" data-ng-if="baCtrl.company"><a
 				href="#!bussiness"
 				data-ng-click="baCtrl.stateGoTo('bussiness', null)">Empresas</a></li>
-			<li class="breadcrumb-item active">Cuentas de inversion</li>
+			<li class="breadcrumb-item active">Cuentas de Inversión</li>
 		</ul>
 	</div>
 </div>
@@ -16,7 +16,7 @@
 	<div class="container-fluid">
 		<header>
 			<h1 class="h3 display">{{!baCtrl.bankAccount.id? 'Nueva' :
-				'Actualizar'}} cuenta bancaria</h1>
+				'Actualizar'}} Cuenta de Inversión</h1>
 		</header>
 		<div class="row">
 			<div class="col-lg-2"></div>
@@ -25,8 +25,7 @@
 					<div class="card-header"></div>
 					<div class="card-body">
 						<form class="form-horizontal" name="formBankAccount"
-							data-ng-submit="baCtrl.submitForm(formBankAccount.$valid)"
-							novalidate>
+							data-ng-submit="baCtrl.submitForm(formBankAccount.$valid)">
 							<div class="form-group row">
 								<label class="col-sm-2 form-control-label">Fecha</label>
 								<div class="col-sm-10">
@@ -188,7 +187,7 @@
 							<div class="line"></div>
 							<div class="form-group row">
 								<div class="form-check form-check-inline">
-									<div class="input-group mb-3">
+									<div class="input-group col-sm-12">
 										<div class="input-group-prepend">
 											<div class="input-group-text">
 												<input class="form-check-input" type="checkbox"
@@ -210,7 +209,7 @@
 							<div class="line"></div>
 							<div class="form-group row">
 								<div class="form-check form-check-inline">
-									<div class="input-group mb-3">
+									<div class="input-group col-sm-12">
 										<div class="input-group-prepend">
 											<div class="input-group-text">
 												<input class="form-check-input" type="checkbox"
@@ -231,7 +230,7 @@
 							<div class="line"></div>
 							<div class="form-group row">
 								<div class="form-check form-check-inline">
-									<div class="input-group mb-3">
+									<div class="input-group col-sm-12">
 										<div class="input-group-prepend">
 											<div class="input-group-text">
 												<input class="form-check-input" type="checkbox"
@@ -252,7 +251,7 @@
 							<div class="line"></div>
 							<div class="form-group row">
 								<div class="form-check form-check-inline">
-									<div class="input-group mb-3">
+									<div class="input-group col-sm-12">
 										<div class="input-group-prepend">
 											<div class="input-group-text">
 												<input class="form-check-input" type="checkbox"
@@ -291,7 +290,7 @@
 <section data-ng-if="!baCtrl.bankAccount">
 	<div class="container-fluid">
 		<header>
-			<h1 class="h3 display">Cuentas bancarias {{baCtrl.company.id ?
+			<h1 class="h3 display">Cuentas de Inversión {{baCtrl.company.id ?
 				'de ' + baCtrl.company.name : ''}}</h1>
 		</header>
 		<div class="row">
@@ -369,7 +368,7 @@
 									<tr data-ng-repeat="ba in baCtrl.bankAccounts track by $index">
 										<td>
 											<table
-												class="table table-sm table-hover table-condensed table-inverse table-bordered">
+												class="table table-hover table-bordered">
 												<thead>
 													<tr>
 														<th>#</th>
@@ -594,8 +593,7 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Carga de cuentas
-					bancarias</h5>
+				<h5 class="modal-title" id="exampleModalLabel">Carga de Inevrsión</h5>
 				<button type="button" class="close" data-dismiss="modal"
 					aria-label="Close">
 					<span aria-hidden="true">&times;</span>

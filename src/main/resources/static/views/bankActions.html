@@ -60,16 +60,30 @@ table.floatThead-table {
 							<div class="card-header"></div>
 							<div class="card-body">
 								<form class="form-horizontal" name="formbankAction"
-									data-ng-submit="bactCtrl.submitForm(formbankAction.$valid)"
-									novalidate>
+									data-ng-submit="bactCtrl.submitForm(formbankAction.$valid)">
+									<div class="line"></div>
+									<div class="form-group row" data-ng-if="!bactCtrl.account || !bactCtrl.subAccountType">
+										<label class="col-sm-3 form-control-label">Banco</label>
+										<div class="col-sm-9">
+											<select class="form-control col-sm-11"
+										data-ng-options="banco as banco.name for banco in bactCtrl.banks track by banco.id"										
+										data-ng-model="bactCtrl.selectedBank">
+										<option value="" selected>Seleccione un
+											banco...</option>
+										<option value="?"></option>
+									</select>
+										</div>
+									</div>									
 									<div class="line"></div>
 									<div class="form-group row" data-ng-if="!bactCtrl.account || !bactCtrl.subAccountType">
 										<label class="col-sm-3 form-control-label">Institución
 											Cuenta de inversión</label>
 										<div class="col-sm-9">
 											<select class="form-control" data-ng-model="bactCtrl.bankAction.account"
-												data-ng-options="ba as ba.accountNumber for ba in bactCtrl.bankAccounts track by ba.id">
-												<option selected disabled value="">Seleccione un valor..</option>
+												required="required"
+												data-ng-change="bactCtrl.validateAccount()"
+												data-ng-options="ba as ba.accountNumber for ba in bactCtrl.bankAccounts |filter: {bank: bactCtrl.selectedBank} track by ba.id">
+												<option selected value="">Seleccione un valor..</option>
 											</select>
 										</div>
 									</div>
@@ -77,15 +91,19 @@ table.floatThead-table {
 									<div class="form-group row" data-ng-if="!bactCtrl.subAccountType">
 										<label class="col-sm-3 form-control-label">Sub cuentas</label>
 										<div class="col-sm-9">
-											<select class="form-control" data-ng-model="bactCtrl.bankAction.subAccountType">
-												<option selected disabled value="">Seleccione un valor..</option>
-												<option value="1"
+											<select class="form-control" data-ng-model="bactCtrl.bankAction.subAccountType" required="required">
+												<option value="">Seleccione un valor..</option>
+												<option data-ng-value="1" value="1"
+													data-ng-show="bactCtrl.bankAction.account.isInversionEnDolares"
 													data-ng-disabled="!bactCtrl.bankAction.account.isInversionEnDolares">Inversión en dólares {{bactCtrl.bankAction.account.inversionEnDolaresAccountNumber}}</option>
-												<option value="2"
+												<option data-ng-value="2" value="2"
+												data-ng-show="bactCtrl.bankAction.account.isInversionEnPesos"
 													data-ng-disabled="!bactCtrl.bankAction.account.isInversionEnPesos">Inversión en pesos {{bactCtrl.bankAction.account.inversionEnPesosAccountNumber}}</option>
-												<option value="3"
+												<option data-ng-value="3" value="3"
+												data-ng-show="bactCtrl.bankAction.account.isEfectivoEnDolares"
 													data-ng-disabled="!bactCtrl.bankAction.account.isEfectivoEnDolares">Efectivo en dólares {{bactCtrl.bankAction.account.efectivoEnDolaresAccountNumber}}</option>
-												<option value="4"
+												<option data-ng-value="4" value="4"
+												data-ng-show="bactCtrl.bankAction.account.isEfectivoEnPesos"
 													data-ng-disabled="!bactCtrl.bankAction.account.isEfectivoEnPesos">Efectivo en pesos {{bactCtrl.bankAction.account.efectivoEnPesosAccountNumber}}</option>
 											</select>
 										</div>
@@ -95,8 +113,8 @@ table.floatThead-table {
 										<label class="col-sm-3 form-control-label">Institución
 											bancaria</label>
 										<div class="col-sm-9">
-											<input type="text" class="form-control"
-												data-ng-model="bactCtrl.bankAction.institucion">
+											<input type="text" class="form-control" data-ng-readonly="bactCtrl.bankAction.account.bank.id"
+												data-ng-model="bactCtrl.bankAction.institucion" data-ng-value="bactCtrl.bankAction.account.bank ? bactCtrl.bankAction.account.bank.name : ''">
 										</div>
 									</div>
 									<div class="line"></div>
@@ -164,7 +182,7 @@ table.floatThead-table {
 									<div class="form-group row">
 										<label class="col-sm-3 form-control-label">Fecha de adquisición</label>
 										<div class="col-sm-9">
-											<input type="date" class="form-control"
+											<input type="date" class="form-control" data-ng-max="{{bactCtrl.maxDate}}" max="{{bactCtrl.maxDate | date:'yyyy-MM-dd'}}"
 												data-ng-model="bactCtrl.bankAction.fechaDeAdquisicion">
 										</div>
 									</div>
@@ -692,8 +710,7 @@ table.floatThead-table {
 										<td>{{ba.titulos}}</td>
 										<td>{{ba.unitCost | currency : '$' : 4}}</td>
 										<td>{{ba.titulos*ba.unitCost | currency : '$' : 4}}</td>
-										<td>{{ba.fechaDeAdquisicion | date : 'dd/MM/yyyy' :
-											'+0500'}}</td>
+										<td>{{ba.fechaDeAdquisicion | date : 'dd/MM/yyyy'}}</td>
 										<td>{{ba.registroContable}}</td>
 										<td>{{ba.valor}}</td>
 										<td>{{ba.monedaOriginal}}</td>
