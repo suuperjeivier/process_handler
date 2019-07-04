@@ -91,8 +91,6 @@ app.controller('bankAccountsCtrl', function ($state, $stateParams, bankAccountSe
         	
         	if(!self.bankAccount.accountType){
         		self.validClass.accountType = 'invalid';
-        	}else if(self.bankAccount.accountType.trim().length === 0){
-        		self.validClass.accountType = 'invalid';
         	}
         	
 			if(!self.bankAccount.accountNumber){

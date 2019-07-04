@@ -44,5 +44,11 @@ app.config(['$stateProvider', '$urlRouterProvider', function($stateProvider,$url
 		templateUrl:'views/banks.html',
 		controller: 'banksCtrl',
 		controllerAs: 'bCtrl'
+	})
+	.state('logs',{
+		url: '/logs',
+		templateUrl:'views/logs.html',
+		controller: 'logsCtrl',
+		controllerAs: 'lCtrl'
 	});
 }]);
