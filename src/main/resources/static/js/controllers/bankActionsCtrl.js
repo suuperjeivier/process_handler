@@ -1,4 +1,4 @@
-app.controller('bankActionsCtrl', function ($scope, $filter, $state, $stateParams, bankActionService, storageService, batchService, ratesAPIService, bankAccountService) {
+app.controller('bankActionsCtrl', function ($scope, $filter, $state, $stateParams, banksService, bankActionService, storageService, batchService, ratesAPIService, bankAccountService) {
 	const self = this;
 	self.bankActions = [];
 	self.bankAction = null;
@@ -11,9 +11,11 @@ app.controller('bankActionsCtrl', function ($scope, $filter, $state, $stateParam
 	self.currentPage = 1;
 	self.itemsPerPage = self.viewby;
 	self.maxSize = 5; //Number of pager buttons to show
+	self.maxDate = new Date();
+	
 	//end pager
 	self.newBankAction = () => {
-		self.getBankAccounts();
+		
 		self.bankAction = {
 				status: 1
 		}
@@ -30,6 +32,14 @@ app.controller('bankActionsCtrl', function ($scope, $filter, $state, $stateParam
 			
 		});
 	};
+	
+	self.getBanks = () => {
+    	banksService.get().then(data => {
+    		self.banks = data;
+    	}, error => {
+    		console.log('Error al obtener los bancos');
+    	});
+    };
 
 	self.get = () => {
 		if(self.account){
@@ -134,6 +144,7 @@ app.controller('bankActionsCtrl', function ($scope, $filter, $state, $stateParam
 		bankAction.fechaFinal =  $filter('date')(bankAction.fechaFinalReal, 'dd/MM/yyyy');
 		self.bankAction = bankAction;
 		self.fetchForRates(self.bankAction);
+		self.selectedBank = self.bankAction.account.bank;
 	};
 
 	self.submitForm = isValid => {
@@ -204,7 +215,7 @@ app.controller('bankActionsCtrl', function ($scope, $filter, $state, $stateParam
 				self.processing = false;
 			});
 		}else{
-            alertify.alert('Error', 'No permitido, debe iniciar con un numero de cuenta!', function(){ alertify.error('Ok'); });
+            alertify.alert('Error', 'No permitido, debe iniciar con un numero de cuenta!', function(){ alertify.error('Detenido'); });
 			self.processing = false;
 		}
 		//send your binary data via $http or $resource or do anything else with it
@@ -295,7 +306,6 @@ app.controller('bankActionsCtrl', function ($scope, $filter, $state, $stateParam
 	
 	self.getCurrentExchangeRate = ()=>{
 		ratesAPIService.fetchCurrentRate().then(resp =>{
-
 			self.valorDelDolarActual = resp.rates.MXN;
 		},error =>{
 			console.error("error");
@@ -316,6 +326,17 @@ app.controller('bankActionsCtrl', function ($scope, $filter, $state, $stateParam
              return false;
          return true;
      }
+	 
+	 self.validateAccount =()=>{
+		 if(self.bankAction.account.isInversionEnDolares 
+				 || self.bankAction.account.isInversionEnPesos
+				 || self.bankAction.account.isEfectivoEnPesos
+				 ||self.bankAction.account.isEfectivoEnDolares){
+			 
+		 }else{
+			 alertify.alert('Error', 'La Cuenta de Inversión seleccionada, no contiene sub cuentas!', function(){ alertify.error('Detenido'); });
+		 }
+	 };
 
 	const initController = () => {
 		console.log("params:", $stateParams);
@@ -336,6 +357,8 @@ app.controller('bankActionsCtrl', function ($scope, $filter, $state, $stateParam
 			self.get();			
 		}
 		self.getCurrentExchangeRate();
+		self.getBanks();
+		self.getBankAccounts();
 	};
 	angular.element(document).ready(function () {
 		initController();
