@@ -52,6 +52,7 @@ public class BankAction {
 	private BigDecimal valuacionAlCierre;
 	private BigDecimal cancelacionDeValuacionXVta;
 	private BigDecimal cancelacionDeInteresDevengado;
+	private BigDecimal valorActualRegistradoManualmente;
 	private BigDecimal compras;
 	private BigDecimal ventas;
 	private BigDecimal utilidadPerdida;
@@ -495,6 +496,14 @@ public class BankAction {
 
 	public void setUtilidadPerdidaPorValuacionMiles(Long utilidadPerdidaPorValuacionMiles) {
 		this.utilidadPerdidaPorValuacionMiles = utilidadPerdidaPorValuacionMiles;
+	}
+
+	public BigDecimal getValorActualRegistradoManualmente() {
+		return valorActualRegistradoManualmente;
+	}
+
+	public void setValorActualRegistradoManualmente(BigDecimal valorActualRegistradoManualmente) {
+		this.valorActualRegistradoManualmente = valorActualRegistradoManualmente;
 	}
 
 	public Long getAccountingRecord() {
