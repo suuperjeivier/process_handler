@@ -30,13 +30,13 @@
 								<label class="col-sm-2 form-control-label">Fecha</label>
 								<div class="col-sm-10">
 									<input type="date" class="form-control" required
-										max="{{baCtrl.maxDate | date:'yyyy-MM-dd'}}"
+										data-ng-max="baCtrl.maxDate2"
 										name="date"
-										data-ng-class="baCtrl.validClass.date? 'is-'+baCtrl.validClass.date: formBankAccount.$error.date? 'is-invalid':''"
+										data-ng-class="baCtrl.validClass.date? 'is-'+baCtrl.validClass.date: formBankAccount.date.$error.date? 'is-invalid':''"
 										data-ng-model="baCtrl.bankAccount.date">
 									<div class="d-block"
 										data-ng-class="baCtrl.validClass.date? baCtrl.validClass.date+'-feedback':'invalid-feedback'"
-										data-ng-show="baCtrl.validClass.date || formBankAccount.$error.date">Ingrese una fecha
+										data-ng-show="baCtrl.validClass.date || formBankAccount.date.$error.date">Ingrese una fecha
 										correcta</div>
 								</div>
 							</div>

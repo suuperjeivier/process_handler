@@ -16,6 +16,11 @@ app.controller('logsCtrl', function($state, logsService, $filter){
 		self.logsLength = $filter('filter')(self.logs, self.filterLog);
 	};
 	
+	
+	self.setDataShow = (log) => {
+		self.log = log;
+	};
+	
 	const initController = () => {
 		self.get();
 	};

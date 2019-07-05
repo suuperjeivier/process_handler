@@ -88,6 +88,11 @@ app.controller('bankAccountsCtrl', function ($state, $stateParams, bankAccountSe
         	self.validClass.currency = 'valid';
         	self.validClass.bank = 'valid';
         	self.validClass.company = 'valid';
+        	self.validClass.date = 'valid';
+        	
+        	if(!self.bankAccount.date){
+        		self.validClass.accountType = 'invalid';
+        	}
         	
         	if(!self.bankAccount.accountType){
         		self.validClass.accountType = 'invalid';

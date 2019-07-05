@@ -38,9 +38,10 @@
 									<tr>
 										<th>#</th>
 										<th>Fecha</th>
+										<th>User</th>
 										<th>Entidad</th>
 										<th>Método</th>
-										<th>User</th>
+										<th>Datos</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -48,9 +49,11 @@
 										data-ng-repeat="lo in lCtrl.logs | filter: lCtrl.filterLog track by $index">
 										<td>{{$index+1}}</td>
 										<td>{{lo.date | date: 'dd/MM/yyyy'}}</td>
+										<td>{{lo.user}}</td>
 										<td>{{lo.entity}}</td>
 										<td>{{lo.method}}</td>
-										<td>{{lo.user}}</td>
+										<td><button type="button" class="btn btn-info" data-ng-click="lCtrl.setDataShow(lo)"
+											data-toggle="modal" data-target="#modal-show-data">Ver</button></td>
 									</tr>
 								</tbody>
 							</table>
@@ -65,3 +68,24 @@
 		</div>
 	</div>
 </section>
+<div class="modal fade bd-example-modal-lg" id="modal-show-data" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{lCtrl.log.date | date: 'dd/MM/yyyy'}} / {{lCtrl.log.user}} / {{lCtrl.log.entity}} / {{lCtrl.log.method}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        {{lCtrl.log.data}}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+
