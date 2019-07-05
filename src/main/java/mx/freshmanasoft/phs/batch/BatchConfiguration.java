@@ -148,6 +148,7 @@ public class BatchConfiguration {
 						+ " `fecha_inicio`,"
 						+ " `fecha_final_real`,"
 						+ " `fecha_inicio_real`,"
+						+ " `fecha_de_adquisicion`,"
 						+ " `gastos`,"
 						+ " `impuestos`,"
 						+ " `institucion`,"
@@ -181,7 +182,8 @@ public class BatchConfiguration {
 						":fechaFinal,\r\n" + 
 						":fechaInicio,\r\n" + 
 						":fechaFinalReal,\r\n" + 
-						":fechaInicioReal,\r\n" + 
+						":fechaInicioReal,\r\n" +
+						":fechaDeAdquisicion,\r\n" +
 						":gastos,\r\n" + 
 						":impuestos,\r\n" +
 						":institucion,\r\n" +						

@@ -69,6 +69,7 @@ public class BankActionItemProcessor implements ItemProcessor<BankAction, BankAc
         if(action.getFechaInicio() != null && !action.getFechaInicio().isEmpty()) {
         	Date date1 = new SimpleDateFormat("dd/MM/yyyy").parse(action.getFechaInicio());  
         	transformedAction.setFechaInicioReal(date1);
+        	transformedAction.setFechaDeAdquisicion(date1);
         }
         if(action.getFechaFinal() != null && !action.getFechaFinal().isEmpty()) {
         	Date date2 = new SimpleDateFormat("dd/MM/yyyy").parse(action.getFechaFinal());  
