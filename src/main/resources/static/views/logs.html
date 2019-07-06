@@ -46,13 +46,13 @@
 								</thead>
 								<tbody>
 									<tr
-										data-ng-repeat="lo in lCtrl.logs | filter: lCtrl.filterLog track by $index">
+										data-ng-repeat="lo in lCtrl.filteredLogs track by $index">
 										<td>{{$index+1}}</td>
 										<td>{{lo.date | date: 'dd/MM/yyyy'}}</td>
 										<td>{{lo.user}}</td>
 										<td>{{lo.entity}}</td>
 										<td>{{lo.method}}</td>
-										<td><button type="button" class="btn btn-info" data-ng-click="lCtrl.setDataShow(lo)"
+										<td><button data-ng-if="lo.data" type="button" class="btn btn-info" data-ng-click="lCtrl.setDataShow(lo)"
 											data-toggle="modal" data-target="#modal-show-data">Ver</button></td>
 									</tr>
 								</tbody>
@@ -61,6 +61,27 @@
 								<p class="text-muted text-center"><i class="fas fa-search fa-3x"></i></p>
 								<p class="text-muted text-center">No se encontró información los datos ingresados</p>
 							</div>
+							<div data-pagination="" data-num-pages="lCtrl.numPages()"
+								data-current-page="lCtrl.currentPage" data-max-size="lCtrl.maxSize"
+								data-boundary-links="true"></div>
+							<select data-ng-model="lCtrl.viewby" class="form-control"
+									data-ng-change="lCtrl.setItemsPerPage(lCtrl.viewby)">
+										<option>3</option>
+										<option>5</option>
+										<option>10</option>
+										<option>20</option>
+										<option>30</option>
+										<option>40</option>
+										<option>50</option>
+									</select>
+								<pager uib-pagination total-items="lCtrl.logs.length"
+									data-ng-model="lCtrl.currentPage"
+									items-per-page="lCtrl.itemsPerPage"
+									num-pages="lCtrl.numPages" data-ng-change="lCtrl.pageChanged()"
+									max-size="lCtrl.maxSize" class="pagination-sm"
+									boundary-link-numbers="true" rotate="false"
+									boundary-links="true"></pager>
+								<pre>Page: {{lCtrl.currentPage}} / {{lCtrl.numPages}}</pre>
 						</div>
 					</div>
 				</div>

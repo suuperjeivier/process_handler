@@ -33,7 +33,7 @@ public class AspectLoggin {
 		LocalDateTime localDateTime = LocalDateTime.now();
 		loggin = new Loggin();
 		loggin.setMethod(point.getSignature().getName());
-		loggin.setEntity("Bank");
+		loggin.setEntity("Bancos");
 		loggin.setDate(localDateTime.format(FORMATTER));
 		String params = "";
 		for(Object j : point.getArgs()) {
@@ -49,7 +49,7 @@ public class AspectLoggin {
 		LocalDateTime localDateTime = LocalDateTime.now();
 		loggin = new Loggin();
 		loggin.setMethod(point.getSignature().getName());
-		loggin.setEntity("Bank Account");
+		loggin.setEntity("Cuentas de inversión");
 		loggin.setDate(localDateTime.format(FORMATTER));
 		String params = "";
 		for(Object j : point.getArgs()) {
@@ -65,7 +65,7 @@ public class AspectLoggin {
 		LocalDateTime localDateTime = LocalDateTime.now();
 		loggin = new Loggin();
 		loggin.setMethod(point.getSignature().getName());
-		loggin.setEntity("Bank Action");
+		loggin.setEntity("Instrumentos de inversión");
 		loggin.setDate(localDateTime.format(FORMATTER)); 
 		loggin.setUser(logginUser);
 		String params = "";
@@ -81,7 +81,7 @@ public class AspectLoggin {
 		LocalDateTime localDateTime = LocalDateTime.now();
 		loggin = new Loggin();
 		loggin.setMethod(point.getSignature().getName());
-		loggin.setEntity("Company");
+		loggin.setEntity("Empresas");
 		loggin.setDate(localDateTime.format(FORMATTER)); 
 		loggin.setUser(logginUser);
 		String params = "";
@@ -97,10 +97,10 @@ public class AspectLoggin {
 		LocalDateTime localDateTime = LocalDateTime.now();
 		loggin = new Loggin();
 		loggin.setMethod(point.getSignature().getName());
-		loggin.setEntity("Main");
+		loggin.setEntity("Principal");
 		loggin.setDate(localDateTime.format(FORMATTER)); 
 		loggin.setUser(logginUser);
-		String params = "security";
+		String params = "";
 		if(!point.getSignature().getName().equals("logoutApp")) {
 			for(Object j : point.getArgs()) {
 				params += j.toString(); 

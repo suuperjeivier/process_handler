@@ -6,6 +6,7 @@ app.controller('bankAccountsCtrl', function ($state, $stateParams, bankAccountSe
     self.bankAccount  = null;
     self.bank         = null;
     self.maxDate      = new Date();
+    self.maxDate2      = new Date();
     
     self.newBankAccount = () => {
         self.bankAccount = {

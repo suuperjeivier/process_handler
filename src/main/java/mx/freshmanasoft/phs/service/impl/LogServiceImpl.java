@@ -16,7 +16,7 @@ public class LogServiceImpl implements LogService{
 	@Override
 	public Iterable<Loggin> fetch() {
 		
-		return repository.findAll();
+		return repository.findAllByOrderByDateDesc();
 	}
 	
 }
