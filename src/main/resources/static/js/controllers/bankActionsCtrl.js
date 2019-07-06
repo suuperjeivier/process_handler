@@ -155,6 +155,15 @@ app.controller('bankActionsCtrl', function ($scope, $filter, $state, $stateParam
 	};
 
 	self.addUpdate = () => {
+		
+		if(self.bankAction.titulos && typeof self.bankAction.titulos === 'string') self.bankAction.titulos = Number(self.bankAction.titulos);
+		if(self.bankAction.unitCost && typeof self.bankAction.unitCost === 'string') self.bankAction.unitCost = Number(self.bankAction.unitCost);
+		if(self.bankAction.tcInicial && typeof self.bankAction.tcInicial === 'string') self.bankAction.tcInicial = Number(self.bankAction.tcInicial);
+		if(self.bankAction.tcFinal && typeof self.bankAction.tcFinal === 'string') self.bankAction.tcFinal = Number(self.bankAction.tcFinal);
+		if(self.bankAction.marketPrice && typeof self.bankAction.marketPrice === 'string') self.bankAction.marketPrice = Number(self.bankAction.marketPrice);
+		if(self.bankAction.valorActualRegistradoManualmente && typeof self.bankAction.valorActualRegistradoManualmente === 'string') self.bankAction.valorActualRegistradoManualmente = Number(self.bankAction.valorActualRegistradoManualmente);
+		if(self.bankAction.saldoInicial && typeof self.bankAction.saldoInicial === 'string') self.bankAction.saldoInicial = Number(self.bankAction.saldoInicial);
+		
 		if (self.bankAction.id) {
 			self.put();
 		} else {
@@ -231,7 +240,8 @@ app.controller('bankActionsCtrl', function ($scope, $filter, $state, $stateParam
 			console.log(lastKey);
 	 */
 	self.fetchForRates = (bac) =>{
-		let fechaInicio = $filter('date')(bac.fechaInicioReal, 'yyyy-MM-dd');
+		let dateInicio =  new Date(bac.fechaInicioReal);
+		let fechaInicio =  dateInicio.getFullYear() > 1969 ? $filter('date')(bac.fechaInicioReal, 'yyyy-MM-dd') : $filter('date')(bac.fechaDeAdquisicion, 'yyyy-MM-dd');
 		let fechaFin = $filter('date')(bac.fechaFinalReal, 'yyyy-MM-dd');
 		console.log("inicio:", fechaInicio);
 		console.log("fin:", fechaFin);
@@ -244,7 +254,7 @@ app.controller('bankActionsCtrl', function ($scope, $filter, $state, $stateParam
 			let keys = Object.keys(resp.rates);
 			for(var i in keys) {				
 				if(keys[i] == fechaInicio){
-					self.tcInical = resp.rates[keys[i]];
+					self.tcInicial = resp.rates[keys[i]];
 					console.warn("encontrado inicial!");
 				}
 				if(keys[i] == fechaFin){
@@ -289,15 +299,28 @@ app.controller('bankActionsCtrl', function ($scope, $filter, $state, $stateParam
 
 	self.getHistory = (ba) =>{
 		self.actionToGetHistory = ba;
-		self.valorMercado = ba.titulos * ba.marketPrice;
-		self.valorACosto = ba.unitCost * ba.titulos;
-		self.valuacionDlsAlInicio = ba.dlsAlInicio * ba.tcInicial;
-		self.valuacionDlsAlFinal = ba.dlsAlInicio * ba.tcFinal;
-		self.utilidadPerdidaPorValuacion = ba.utilidadPerdidaPorValuacion = self.valuacionDlsAlFinal - self.valuacionDlsAlInicio;//1
-		self.plusMinusV = self.valorMercado - self.valorACosto;//2
+		self.fetchForRates(ba);
 		
-		bankActionService.getActionHistory(ba.id).then(data => {			
-			self.actionsHistory = data;			
+		bankActionService.getActionHistory(ba.id).then(data => {	
+			
+			self.actionsHistory = data;
+			if(self.actionsHistory.slice(-1)){
+				let lastItem = self.actionsHistory.slice(-1).pop()
+				self.valorMercado = lastItem.titulos * lastItem.marketPrice;
+				self.valorACosto = lastItem.unitCost * lastItem.titulos;
+				setTimeout(() => {
+					self.valuacionDlsAlInicio = lastItem.dlsAlInicio * (lastItem.tcInicial ? lastItem.tcInicial : self.tcInicial.MXN);
+					self.valuacionDlsAlFinal = lastItem.dlsAlInicio * (lastItem.tcFinal ? lastItem.tcFinal : self.tcFinal.MXN);
+					self.utilidadPerdidaPorValuacion = lastItem.utilidadPerdidaPorValuacion = self.valuacionDlsAlFinal - self.valuacionDlsAlInicio;//1
+					self.plusMinusV = self.valorMercado - self.valorACosto;//2
+					
+					self.valorDeInstrumentoDeInversionPorTipoDeCambio = lastItem.titulos * self.valorDelDolarActual;
+					self.valorActualRegistradoManualmente = lastItem.valorActualRegistradoManualmente;
+				}, 1000);
+				
+			}
+			
+			
 		}, error => {
 			console.log('Error al obtener el historial de la accion bancaria', error);
 		});
@@ -379,3 +402,117 @@ app.directive('fileModel', ['$parse', function ($parse) {
 		}
 	};
 }]);
+
+app.directive('uiCurrency', function ($filter, $parse) {
+    return {
+        require: 'ngModel',
+        restrict: 'A',
+        link: function (scope, element, attrs, ngModel) {
+
+            function parse(viewValue, noRender) {
+                if (!viewValue)
+                    return viewValue;
+
+                // strips all non digits leaving periods.
+                var clean = viewValue.toString().replace(/[^0-9.]+/g, '').replace(/\.{2,}/, '.');
+
+                // case for users entering multiple periods throughout the number
+                var dotSplit = clean.split('.');
+                if (dotSplit.length > 2) {
+                    clean = dotSplit[0] + '.' + dotSplit[1].slice(0, 2);
+                } else if (dotSplit.length == 2) {
+                    clean = dotSplit[0] + '.' + dotSplit[1].slice(0, 2);
+                }
+
+                if (!noRender)
+                    ngModel.$render();
+                return clean;
+            }
+
+            ngModel.$parsers.unshift(parse);
+
+            ngModel.$render = function() {
+                console.log('viewValue', ngModel.$viewValue);
+                console.log('modelValue', ngModel.$modelValue);
+                var clean = parse(ngModel.$viewValue, true);
+                if (!clean)
+                    return;
+
+                var currencyValue,
+                    dotSplit = clean.split('.');
+
+                // todo: refactor, this is ugly
+                if (clean[clean.length-1] === '.') {
+                     currencyValue = '$' + $filter('number')(parseFloat(clean)) + '.';
+
+                } else if (clean.indexOf('.') != -1 && dotSplit[dotSplit.length - 1].length == 1) {
+                    currencyValue = '$' + $filter('number')(parseFloat(clean), 1);
+                } else if (clean.indexOf('.') != -1 && dotSplit[dotSplit.length - 1].length == 1) {
+                    currencyValue = '$' + $filter('number')(parseFloat(clean), 2);
+                } else {
+                     currencyValue = '$' + $filter('number')(parseFloat(clean));
+                }
+
+                element.val(currencyValue);
+            };
+
+        }
+    };
+})
+
+app.directive('uiQuantity', function ($filter, $parse) {
+    return {
+        require: 'ngModel',
+        restrict: 'A',
+        link: function (scope, element, attrs, ngModel) {
+
+            function parse(viewValue, noRender) {
+                if (!viewValue)
+                    return viewValue;
+
+                // strips all non digits leaving periods.
+                var clean = viewValue.toString().replace(/[^0-9.]+/g, '').replace(/\.{2,}/, '.');
+
+                // case for users entering multiple periods throughout the number
+                var dotSplit = clean.split('.');
+                if (dotSplit.length > 2) {
+                    clean = dotSplit[0] + '.' + dotSplit[1].slice(0, 2);
+                } else if (dotSplit.length == 2) {
+                    clean = dotSplit[0] + '.' + dotSplit[1].slice(0, 2);
+                }
+
+                if (!noRender)
+                    ngModel.$render();
+                return clean;
+            }
+
+            ngModel.$parsers.unshift(parse);
+
+            ngModel.$render = function() {
+                console.log('viewValue', ngModel.$viewValue);
+                console.log('modelValue', ngModel.$modelValue);
+                var clean = parse(ngModel.$viewValue, true);
+                if (!clean)
+                    return;
+
+                var currencyValue,
+                    dotSplit = clean.split('.');
+
+                // todo: refactor, this is ugly
+                if (clean[clean.length-1] === '.') {
+                     currencyValue = '' + $filter('number')(parseFloat(clean)) + '.';
+
+                } else if (clean.indexOf('.') != -1 && dotSplit[dotSplit.length - 1].length == 1) {
+                    currencyValue = '' + $filter('number')(parseFloat(clean), 1);
+                } else if (clean.indexOf('.') != -1 && dotSplit[dotSplit.length - 1].length == 1) {
+                    currencyValue = '' + $filter('number')(parseFloat(clean), 2);
+                } else {
+                     currencyValue = '' + $filter('number')(parseFloat(clean));
+                }
+
+                element.val(currencyValue);
+            };
+
+        }
+    };
+})
