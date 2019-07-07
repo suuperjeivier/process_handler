@@ -364,9 +364,12 @@ app.controller('bankActionsCtrl', function ($scope, $filter, $state, $stateParam
 	self.complete=function(string){
 		var output=[];
 		angular.forEach(self.instList,function(inst){
-			if(inst.toLowerCase().indexOf(string.toLowerCase())>=0){
-				output.push(inst);
+			if(inst){
+				if(inst.toLowerCase().indexOf(string.toLowerCase())>=0){
+					output.push(inst);
+				}
 			}
+			
 		});
 		self.filterInst=output;
 	};
@@ -377,10 +380,8 @@ app.controller('bankActionsCtrl', function ($scope, $filter, $state, $stateParam
 	};
 
 	self.getInst = ()=>{
-		bankActionService.getInstGruped().then(data => {
-			
-			self.instList = data;
-			
+		bankActionService.getInstGruped().then(data => {			
+			self.instList = data;			
 		}, error => {
 			alertify.error('Error');
 			console.log('Error al obtener las acciones bancarias inst', error);
