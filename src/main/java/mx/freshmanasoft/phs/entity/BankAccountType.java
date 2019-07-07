@@ -49,4 +49,9 @@ public class BankAccountType {
 	public void setStatus(Integer status) {
 		this.status = status;
 	}
+	@Override
+	public String toString() {
+		return "BankAccountType [id=" + id + ", name=" + name + ", status=" + status + "]";
+	}
+	
 }

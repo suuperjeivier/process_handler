@@ -252,8 +252,12 @@ public class BankAccount {
 	public String toString() {
 		return "BankAccount [id=" + id + ", accountType=" + accountType + ", accountNumber=" + accountNumber
 				+ ", address=" + address + ", telephone=" + telephone + ", client=" + client + ", portfolio="
-				+ portfolio + ", currency=" + currency + ", bank=" + bank + ", company="
-				+ company + ", status=" + status + "]";
+				+ portfolio + ", currency=" + currency + ", date=" + date + ", isInversionEnDolares="
+				+ isInversionEnDolares + ", inversionEnDolaresAccountNumber=" + inversionEnDolaresAccountNumber
+				+ ", isInversionEnPesos=" + isInversionEnPesos + ", inversionEnPesosAccountNumber="
+				+ inversionEnPesosAccountNumber + ", isEfectivoEnDolares=" + isEfectivoEnDolares
+				+ ", efectivoEnDolaresAccountNumber=" + efectivoEnDolaresAccountNumber + ", isEfectivoEnPesos="
+				+ isEfectivoEnPesos + ", efectivoEnPesosAccountNumber=" + efectivoEnPesosAccountNumber + ", company="
+				+ company + ", bank=" + bank + ", status=" + status + "]";
 	}
-	
 }

@@ -582,14 +582,14 @@ public class BankAction {
 				+ ", dividendos=" + dividendos + ", interesesDevengado=" + interesesDevengado + ", interesesCobrado="
 				+ interesesCobrado + ", cambioMxnVsDis=" + cambioMxnVsDis + ", valuacionAlCierre=" + valuacionAlCierre
 				+ ", cancelacionDeValuacionXVta=" + cancelacionDeValuacionXVta + ", cancelacionDeInteresDevengado="
-				+ cancelacionDeInteresDevengado + ", compras=" + compras + ", ventas=" + ventas + ", utilidadPerdida="
-				+ utilidadPerdida + ", retiros=" + retiros + ", gastos=" + gastos + ", impuestos=" + impuestos
-				+ ", netoMov=" + netoMov + ", saldoFinal=" + saldoFinal + ", dlsAlInicio=" + dlsAlInicio
-				+ ", tcInicial=" + tcInicial + ", tcFinal=" + tcFinal + ", valuacionDlsAlInicio=" + valuacionDlsAlInicio
-				+ ", valuacionDlsAlFinal=" + valuacionDlsAlFinal + ", utilidadPerdidaPorValuacion="
-				+ utilidadPerdidaPorValuacion + ", utilidadPerdidaPorValuacionMiles=" + utilidadPerdidaPorValuacionMiles
-				+ ", accountingRecord=" + accountingRecord + ", subAccountType=" + subAccountType + ", status=" + status
-				+ ", isVendida=" + isVendida + ", account=" + account + "]";
+				+ cancelacionDeInteresDevengado + ", valorActualRegistradoManualmente="
+				+ valorActualRegistradoManualmente + ", compras=" + compras + ", ventas=" + ventas
+				+ ", utilidadPerdida=" + utilidadPerdida + ", retiros=" + retiros + ", gastos=" + gastos
+				+ ", impuestos=" + impuestos + ", netoMov=" + netoMov + ", saldoFinal=" + saldoFinal + ", dlsAlInicio="
+				+ dlsAlInicio + ", tcInicial=" + tcInicial + ", tcFinal=" + tcFinal + ", valuacionDlsAlInicio="
+				+ valuacionDlsAlInicio + ", valuacionDlsAlFinal=" + valuacionDlsAlFinal
+				+ ", utilidadPerdidaPorValuacion=" + utilidadPerdidaPorValuacion + ", utilidadPerdidaPorValuacionMiles="
+				+ utilidadPerdidaPorValuacionMiles + ", accountingRecord=" + accountingRecord + ", subAccountType="
+				+ subAccountType + ", status=" + status + ", isVendida=" + isVendida + ", account=" + account + "]";
 	}
-	
 }

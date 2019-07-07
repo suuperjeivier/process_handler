@@ -12,7 +12,7 @@ app.controller('logsCtrl', function($state, logsService, $filter, $scope, $timeo
 		logsService.get().then( data => {
 			self.logs = data;
 			self.paginarLogs();
-			console.log('Self data: ', data);
+			
 		}, error => {
 			 alertify.alert('Exito', 'Error al obtener los logs', function(){ alertify.error('Ok'); });
 		});
@@ -40,7 +40,7 @@ app.controller('logsCtrl', function($state, logsService, $filter, $scope, $timeo
 				self.filteredLogs = self.logs.slice(begin, end);
 			});
 		} else {
-			self.filteredLogs = angular.copy(self.bankActions);
+			self.filteredLogs = angular.copy(self.logs);
 		}
 	};
 	
@@ -51,18 +51,15 @@ app.controller('logsCtrl', function($state, logsService, $filter, $scope, $timeo
 				let begin = ((self.currentPage - 1) * self.itemsPerPage),
 					end = begin + self.itemsPerPage;
 				self.filteredLogs = self.logs.slice(begin, end);
+				console.log('Self data: ', self.filteredLogs);
 			});
 		} else {
-			self.filteredLogs = angular.copy(self.bankActions)
+			self.filteredLogs = angular.copy(self.logs)
 		}
 	};
 	
 	self.setPage = pageNo => {
 		self.currentPage = pageNo;
-	};
-	
-	self.pageChanged = () => {
-		console.log('Page change to: ' + self.currentPage);
 	};
 	
 	self.setItemsPerPage = num => {
@@ -72,7 +69,11 @@ app.controller('logsCtrl', function($state, logsService, $filter, $scope, $timeo
 	
 	self.setDataShow = (log) => {
 		self.log = log;
+		self.log.data
+		console.log('Data: ', self.log.data);
 	};
+	
+	
 	
 	const initController = () => {
 		self.get();
