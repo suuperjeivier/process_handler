@@ -70,7 +70,6 @@ app.controller('logsCtrl', function($state, logsService, $filter, $scope, $timeo
 	self.setDataShow = (log) => {
 		self.log = log;
 		self.log.data
-		console.log('Data: ', self.log.data);
 	};
 	
 	
