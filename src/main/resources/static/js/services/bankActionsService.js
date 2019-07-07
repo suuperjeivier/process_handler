@@ -22,6 +22,16 @@ app.service('bankActionService', function($q, factory){
 		});
 	};
 	
+	self.getInstGruped = () =>{
+		return $q((resolve, reject) => {
+			factory.get(path+ '/inst/grouped').then(data => {
+				resolve(data);
+			}, error => {
+				reject(error);
+			});
+		});
+	};
+	
 	self.getByAccountId = (accountId) => {
 		let data = {accountId: accountId};
 		return $q((resolve, reject) => {

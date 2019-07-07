@@ -139,8 +139,14 @@ table.floatThead-table {
 										<div class="col-sm-9">
 											<input type="text" class="form-control"
 												data-ng-readonly="bactCtrl.bankAction.account.accountType.name || bactCtrl.account.accountType.name"
+												data-ng-keyup="bactCtrl.complete(bactCtrl.bankAction.instrumento)"
 												data-ng-model="bactCtrl.bankAction.instrumento"
 												data-ng-value="bactCtrl.bankAction.account.accountType.name ? bactCtrl.bankAction.account.accountType.name : bactCtrl.account.accountType.name ? bactCtrl.account.accountType.name :''">
+											<ul class="list-group">
+												<li class="list-group-item"
+													data-ng-repeat="instdata in bactCtrl.filterInst"
+													data-ng-click="bactCtrl.fillTextbox(instdata)">{{instdata}}</li>
+											</ul>
 
 										</div>
 									</div>
@@ -193,7 +199,7 @@ table.floatThead-table {
 										<div class="col-sm-9">
 											<input type="text" step="any" class="form-control"
 												readonly="readonly" placeholder="Valor calculado"
-												value="{{bactCtrl.valorACosto/bactCtrl.bankAction.titulos | currency}}">
+												value="{{bactCtrl.valorACosto/bactCtrl.bankAction.titulos | currency:'$':4}}">
 										</div>
 									</div>
 									<div class="line"></div>
@@ -205,7 +211,7 @@ table.floatThead-table {
 												placeholder=""
 												data-ng-readonly="bactCtrl.bankAction.unitCost"
 												data-ng-model="bactCtrl.valorACosto" ui-currency
-												value="{{(bactCtrl.bankAction.titulos*bactCtrl.bankAction.unitCost) | currency}}">
+												value="{{(bactCtrl.bankAction.titulos*bactCtrl.bankAction.unitCost) | currency:'$':4}}">
 										</div>
 									</div>
 									<div class="line"></div>
@@ -262,7 +268,7 @@ table.floatThead-table {
 											Inicial</label>
 										<div class="col-sm-9">
 											<input type="text" class="form-control"
-												onkeypress="return onlyNumbersWithDot(event);" step="0.0001"
+												 step="0.0001"
 												min="0" ui-currency
 												data-ng-model="bactCtrl.bankAction.tcInicial">
 										</div>
@@ -272,7 +278,7 @@ table.floatThead-table {
 										<label class="col-sm-3 form-control-label">T.C. Final</label>
 										<div class="col-sm-9">
 											<input type="text" class="form-control"
-												onkeypress="return onlyNumbersWithDot(event);" step="0.0001"
+												 step="0.0001"
 												min="0" ui-currency
 												data-ng-model="bactCtrl.bankAction.tcFinal">
 										</div>
@@ -283,7 +289,7 @@ table.floatThead-table {
 											Dls Compra</label>
 										<div class="col-sm-9">
 											<input type="text" class="form-control" readonly="readonly"
-												value="{{(bactCtrl.bankAction.titulos*bactCtrl.bankAction.unitCost)*(bactCtrl.bankAction.tcInicial ? bactCtrl.bankAction.tcInicial : bactCtrl.tcInicial.MXN)| currency}}">
+												value="{{(bactCtrl.bankAction.titulos*bactCtrl.bankAction.unitCost)*(bactCtrl.bankAction.tcInicial ? bactCtrl.bankAction.tcInicial : bactCtrl.tcInicial.MXN)| currency:'$':4}}">
 										</div>
 									</div>
 									<div class="line"></div>
@@ -292,7 +298,7 @@ table.floatThead-table {
 											Dls afectados al Final del periodo</label>
 										<div class="col-sm-9">
 											<input type="text" class="form-control" readonly="readonly"
-												value="{{(bactCtrl.bankAction.titulos*bactCtrl.bankAction.unitCost)* (bactCtrl.bankAction.tcFinal ? bactCtrl.bankAction.tcFinal : bactCtrl.tcFinal.MXN) | currency}}">
+												value="{{(bactCtrl.bankAction.titulos*bactCtrl.bankAction.unitCost)* (bactCtrl.bankAction.tcFinal ? bactCtrl.bankAction.tcFinal : bactCtrl.tcFinal.MXN) | currency:'$':4}}">
 										</div>
 									</div>
 									<div class="line"></div>
@@ -301,7 +307,7 @@ table.floatThead-table {
 											(pérdida) por valuación</label>
 										<div class="col-sm-9">
 											<input type="text" class="form-control" readonly="readonly"
-												value="{{((bactCtrl.bankAction.titulos*bactCtrl.bankAction.unitCost)*(bactCtrl.bankAction.tcFinal ? bactCtrl.bankAction.tcFinal : bactCtrl.tcFinal.MXN))-((bactCtrl.bankAction.titulos*bactCtrl.bankAction.unitCost)*(bactCtrl.bankAction.tcInicial ? bactCtrl.bankAction.tcInicial : bactCtrl.tcInicial.MXN)) | currency}}">
+												value="{{((bactCtrl.bankAction.titulos*bactCtrl.bankAction.unitCost)*(bactCtrl.bankAction.tcFinal ? bactCtrl.bankAction.tcFinal : bactCtrl.tcFinal.MXN))-((bactCtrl.bankAction.titulos*bactCtrl.bankAction.unitCost)*(bactCtrl.bankAction.tcInicial ? bactCtrl.bankAction.tcInicial : bactCtrl.tcInicial.MXN)) | currency:'$':4}}">
 										</div>
 									</div>
 									<div class="line"></div>
@@ -318,7 +324,7 @@ table.floatThead-table {
 										<label class="col-sm-3 form-control-label">Market
 											price (Precio de mercado)</label>
 										<div class="col-sm-9">
-											<input type="text" class="form-control" step="0.00001"
+											<input type="text" class="form-control" step="0.000001"
 												ui-currency data-ng-model="bactCtrl.bankAction.marketPrice">
 										</div>
 									</div>
@@ -329,7 +335,7 @@ table.floatThead-table {
 										<div class="col-sm-9">
 											<input type="text" class="form-control" readonly="readonly"
 												step=".00001"
-												value="{{bactCtrl.bankAction.marketPrice*bactCtrl.bankAction.titulos | currency}}">
+												value="{{bactCtrl.bankAction.marketPrice*bactCtrl.bankAction.titulos | currency:'$':4}}">
 										</div>
 									</div>
 									<div class="line"></div>
@@ -338,7 +344,7 @@ table.floatThead-table {
 											mensual</label>
 										<div class="col-sm-9">
 											<input type="text" class="form-control" readonly="readonly"
-												value="{{(bactCtrl.bankAction.marketPrice*bactCtrl.bankAction.titulos)-(bactCtrl.bankAction.titulos*bactCtrl.bankAction.unitCost) | currency}}">
+												value="{{(bactCtrl.bankAction.marketPrice*bactCtrl.bankAction.titulos)-(bactCtrl.bankAction.titulos*bactCtrl.bankAction.unitCost) | currency:'$':4}}">
 										</div>
 									</div>
 									<div class="line"></div>
@@ -347,7 +353,7 @@ table.floatThead-table {
 											acumulado</label>
 										<div class="col-sm-9">
 											<input type="text" class="form-control" readonly="readonly"
-												value="{{(bactCtrl.bankAction.marketPrice*bactCtrl.bankAction.titulos)-(bactCtrl.bankAction.titulos*bactCtrl.bankAction.unitCost)| currency}}">
+												value="{{(bactCtrl.bankAction.marketPrice*bactCtrl.bankAction.titulos)-(bactCtrl.bankAction.titulos*bactCtrl.bankAction.unitCost)| currency:'$':4}}">
 										</div>
 									</div>
 									<div class="line"></div>
@@ -383,7 +389,7 @@ table.floatThead-table {
 											Dls al Final del periodo</label>
 										<div class="col-sm-9">
 											<input type="text" class="form-control" readonly="readonly"
-												value="{{(bactCtrl.bankAction.marketPrice*bactCtrl.bankAction.titulos)*(bactCtrl.bankAction.tcFinal ? bactCtrl.bankAction.tcFinal : bactCtrl.tcFinal.MXN)|currency}}">
+												value="{{(bactCtrl.bankAction.marketPrice*bactCtrl.bankAction.titulos)*(bactCtrl.bankAction.tcFinal ? bactCtrl.bankAction.tcFinal : bactCtrl.tcFinal.MXN)|currency:'$':4}}">
 										</div>
 									</div>
 									<div class="line"></div>
@@ -392,7 +398,7 @@ table.floatThead-table {
 											mensual</label>
 										<div class="col-sm-9">
 											<input type="text" class="form-control" readonly="readonly"
-												value="{{((bactCtrl.bankAction.marketPrice*bactCtrl.bankAction.titulos)*(bactCtrl.bankAction.tcFinal ? bactCtrl.bankAction.tcFinal : bactCtrl.tcFinal.MXN))-((bactCtrl.bankAction.titulos*bactCtrl.bankAction.unitCost)*(bactCtrl.bankAction.tcInicial > 0 ? bactCtrl.bankAction.tcInicial : bactCtrl.tcInicial.MXN))|currency}}">
+												value="{{((bactCtrl.bankAction.marketPrice*bactCtrl.bankAction.titulos)*(bactCtrl.bankAction.tcFinal ? bactCtrl.bankAction.tcFinal : bactCtrl.tcFinal.MXN))-((bactCtrl.bankAction.titulos*bactCtrl.bankAction.unitCost)*(bactCtrl.bankAction.tcInicial > 0 ? bactCtrl.bankAction.tcInicial : bactCtrl.tcInicial.MXN))|currency:'$':4}}">
 										</div>
 									</div>
 									<div class="line"></div>
@@ -401,7 +407,7 @@ table.floatThead-table {
 											acumulado</label>
 										<div class="col-sm-9">
 											<input type="text" class="form-control" readonly="readonly"
-												value="{{((bactCtrl.bankAction.marketPrice*bactCtrl.bankAction.titulos)*(bactCtrl.bankAction.tcFinal ? bactCtrl.bankAction.tcFinal : bactCtrl.tcFinal.MXN))-((bactCtrl.bankAction.titulos*bactCtrl.bankAction.unitCost)*(bactCtrl.bankAction.tcInicial ? bactCtrl.bankAction.tcInicial : bactCtrl.tcInicial.MXN)) | currency}}">
+												value="{{((bactCtrl.bankAction.marketPrice*bactCtrl.bankAction.titulos)*(bactCtrl.bankAction.tcFinal ? bactCtrl.bankAction.tcFinal : bactCtrl.tcFinal.MXN))-((bactCtrl.bankAction.titulos*bactCtrl.bankAction.unitCost)*(bactCtrl.bankAction.tcInicial ? bactCtrl.bankAction.tcInicial : bactCtrl.tcInicial.MXN)) | currency:'$':4}}">
 										</div>
 									</div>
 									<div class="line"></div>
@@ -449,7 +455,7 @@ table.floatThead-table {
 											price (Precio de mercado)</label>
 										<div class="col-sm-9">
 											<input type="text" class="form-control" readonly="readonly"
-												value="{{bactCtrl.bankAction.marketPrice|currency}}">
+												value="{{bactCtrl.bankAction.marketPrice|currency:'$':6}}">
 										</div>
 									</div>
 									<div class="line"></div>
@@ -458,7 +464,7 @@ table.floatThead-table {
 											mercado</label>
 										<div class="col-sm-9">
 											<input type="text" class="form-control" readonly="readonly"
-												value="{{bactCtrl.bankAction.marketPrice*bactCtrl.bankAction.titulos |currency}}">
+												value="{{bactCtrl.bankAction.marketPrice*bactCtrl.bankAction.titulos |currency:'$':4}}">
 										</div>
 									</div>
 									<div class="line"></div>
@@ -467,7 +473,7 @@ table.floatThead-table {
 											mensual</label>
 										<div class="col-sm-9">
 											<input type="text" class="form-control" readonly="readonly"
-												value="{{(bactCtrl.bankAction.marketPrice*bactCtrl.bankAction.titulos)-(bactCtrl.bankAction.titulos*bactCtrl.bankAction.unitCost)|currency}}">
+												value="{{(bactCtrl.bankAction.marketPrice*bactCtrl.bankAction.titulos)-(bactCtrl.bankAction.titulos*bactCtrl.bankAction.unitCost)|currency:'$':4}}">
 										</div>
 									</div>
 									<div class="line"></div>
@@ -476,7 +482,7 @@ table.floatThead-table {
 											acumulado</label>
 										<div class="col-sm-9">
 											<input type="text" class="form-control" readonly="readonly"
-												value="{{(bactCtrl.bankAction.marketPrice*bactCtrl.bankAction.titulos)-(bactCtrl.bankAction.titulos*bactCtrl.bankAction.unitCost) |currency}}">
+												value="{{(bactCtrl.bankAction.marketPrice*bactCtrl.bankAction.titulos)-(bactCtrl.bankAction.titulos*bactCtrl.bankAction.unitCost) |currency:'$':4}}">
 										</div>
 									</div>
 									<div class="line"></div>
@@ -512,7 +518,7 @@ table.floatThead-table {
 											Inicial</label>
 										<div class="col-sm-9">
 											<input type="text" class="form-control" readonly="readonly"
-												value="{{(bactCtrl.bankAction.tcInicial ? bactCtrl.bankAction.tcInicial : bactCtrl.tcInicial.MXN)|currency}}">
+												value="{{(bactCtrl.bankAction.tcInicial ? bactCtrl.bankAction.tcInicial : bactCtrl.tcInicial.MXN)|currency:'$':4}}">
 										</div>
 									</div>
 									<div class="line"></div>
@@ -520,7 +526,7 @@ table.floatThead-table {
 										<label class="col-sm-3 form-control-label">T.C. Final</label>
 										<div class="col-sm-9">
 											<input type="text" class="form-control" readonly="readonly"
-												value="{{(bactCtrl.bankAction.tcFinal ? bactCtrl.bankAction.tcFinal : bactCtrl.tcFinal.MXN)|currency}}">
+												value="{{(bactCtrl.bankAction.tcFinal ? bactCtrl.bankAction.tcFinal : bactCtrl.tcFinal.MXN)|currency:'$':4}}">
 										</div>
 									</div>
 									<div class="line"></div>
@@ -538,7 +544,7 @@ table.floatThead-table {
 											Dls periodo anterior</label>
 										<div class="col-sm-9">
 											<input type="text" class="form-control" readonly="readonly"
-												value="{{(bactCtrl.bankAction.marketPrice*bactCtrl.bankAction.titulos)*(bactCtrl.bankAction.tcFinal ? bactCtrl.bankAction.tcFinal : bactCtrl.tcFinal.MXN)|currency}}">
+												value="{{(bactCtrl.bankAction.marketPrice*bactCtrl.bankAction.titulos)*(bactCtrl.bankAction.tcFinal ? bactCtrl.bankAction.tcFinal : bactCtrl.tcFinal.MXN)|currency:'$':4}}">
 										</div>
 									</div>
 
@@ -548,7 +554,7 @@ table.floatThead-table {
 											Dls al Final del periodo</label>
 										<div class="col-sm-9">
 											<input type="text" class="form-control" readonly="readonly"
-												value="{{(bactCtrl.bankAction.marketPrice*bactCtrl.bankAction.titulos)*(bactCtrl.bankAction.tcFinal ? bactCtrl.bankAction.tcFinal : bactCtrl.tcFinal.MXN)|currency}}">
+												value="{{(bactCtrl.bankAction.marketPrice*bactCtrl.bankAction.titulos)*(bactCtrl.bankAction.tcFinal ? bactCtrl.bankAction.tcFinal : bactCtrl.tcFinal.MXN)|currency:'$':4}}">
 										</div>
 									</div>
 									<div class="line"></div>
@@ -557,7 +563,7 @@ table.floatThead-table {
 											(pérdida) por valuación</label>
 										<div class="col-sm-9">
 											<input type="text" class="form-control" readonly="readonly"
-												value="{{((bactCtrl.bankAction.titulos*bactCtrl.bankAction.unitCost)*(bactCtrl.bankAction.tcFinal ? bactCtrl.bankAction.tcFinal : bactCtrl.tcFinal.MXN))-((bactCtrl.bankAction.titulos*bactCtrl.bankAction.unitCost)*(bactCtrl.bankAction.tcInicial ? bactCtrl.bankAction.tcInicial : bactCtrl.tcInicial.MXN)) | currency}}">
+												value="{{((bactCtrl.bankAction.titulos*bactCtrl.bankAction.unitCost)*(bactCtrl.bankAction.tcFinal ? bactCtrl.bankAction.tcFinal : bactCtrl.tcFinal.MXN))-((bactCtrl.bankAction.titulos*bactCtrl.bankAction.unitCost)*(bactCtrl.bankAction.tcInicial ? bactCtrl.bankAction.tcInicial : bactCtrl.tcInicial.MXN)) | currency:'$':4}}">
 										</div>
 									</div>
 									<div class="line"></div>
@@ -605,7 +611,7 @@ table.floatThead-table {
 											Inicial</label>
 										<div class="col-sm-9">
 											<input type="text" class="form-control" readonly="readonly"
-												value="{{(bactCtrl.bankAction.tcInicial ? bactCtrl.bankAction.tcInicial : bactCtrl.tcInicial.MXN)|currency}}">
+												value="{{(bactCtrl.bankAction.tcInicial ? bactCtrl.bankAction.tcInicial : bactCtrl.tcInicial.MXN)|currency:'$':4}}">
 										</div>
 									</div>
 									<div class="line"></div>
@@ -613,7 +619,7 @@ table.floatThead-table {
 										<label class="col-sm-3 form-control-label">T.C. Final</label>
 										<div class="col-sm-9">
 											<input type="text" class="form-control" readonly="readonly"
-												value="{{(bactCtrl.bankAction.tcFinal ? bactCtrl.bankAction.tcFinal : bactCtrl.tcFinal.MXN)|currency}}">
+												value="{{(bactCtrl.bankAction.tcFinal ? bactCtrl.bankAction.tcFinal : bactCtrl.tcFinal.MXN)|currency:'$':4}}">
 										</div>
 									</div>
 									<div class="line"></div>
@@ -622,7 +628,7 @@ table.floatThead-table {
 											Dls Compra</label>
 										<div class="col-sm-9">
 											<input type="text" class="form-control" readonly="readonly"
-												value="{{(bactCtrl.bankAction.titulos*bactCtrl.bankAction.unitCost)*(bactCtrl.bankAction.tcInicial ? bactCtrl.bankAction.tcInicial : bactCtrl.tcInicial.MXN)|currency}}">
+												value="{{(bactCtrl.bankAction.titulos*bactCtrl.bankAction.unitCost)*(bactCtrl.bankAction.tcInicial ? bactCtrl.bankAction.tcInicial : bactCtrl.tcInicial.MXN)|currency:'$':4}}">
 										</div>
 									</div>
 									<div class="line"></div>
@@ -631,7 +637,7 @@ table.floatThead-table {
 											Dls afectados al Final del periodo</label>
 										<div class="col-sm-9">
 											<input type="text" class="form-control" readonly="readonly"
-												value="{{(bactCtrl.bankAction.titulos*bactCtrl.bankAction.unitCost)*(bactCtrl.bankAction.tcFinal ? bactCtrl.bankAction.tcFinal : bactCtrl.tcFinal.MXN)|currency}}">
+												value="{{(bactCtrl.bankAction.titulos*bactCtrl.bankAction.unitCost)*(bactCtrl.bankAction.tcFinal ? bactCtrl.bankAction.tcFinal : bactCtrl.tcFinal.MXN)|currency:'$':4}}">
 										</div>
 									</div>
 									<div class="line"></div>
@@ -640,7 +646,7 @@ table.floatThead-table {
 											(pérdida) por valuación</label>
 										<div class="col-sm-9">
 											<input type="text" class="form-control" readonly="readonly"
-												value="{{((bactCtrl.bankAction.titulos*bactCtrl.bankAction.unitCost)*(bactCtrl.bankAction.tcFinal ? bactCtrl.bankAction.tcFinal : bactCtrl.tcFinal.MXN))-((bactCtrl.bankAction.titulos*bactCtrl.bankAction.unitCost)*(bactCtrl.bankAction.tcInicial ? bactCtrl.bankAction.tcInicial : bactCtrl.tcInicial.MXN))|currency}}">
+												value="{{((bactCtrl.bankAction.titulos*bactCtrl.bankAction.unitCost)*(bactCtrl.bankAction.tcFinal ? bactCtrl.bankAction.tcFinal : bactCtrl.tcFinal.MXN))-((bactCtrl.bankAction.titulos*bactCtrl.bankAction.unitCost)*(bactCtrl.bankAction.tcInicial ? bactCtrl.bankAction.tcInicial : bactCtrl.tcInicial.MXN))|currency:'$':4}}">
 										</div>
 									</div>
 									<div class="line"></div>
@@ -719,8 +725,8 @@ table.floatThead-table {
 										data-ng-click="bactCtrl.newBankAction()">
 										<i class="fa fa-plus"></i>Agregar
 									</button>
-									<button type="button" class="btn btn-info" data-toggle="modal" data-ng-if="bactCtrl.account"
-										data-target="#exampleModal">
+									<button type="button" class="btn btn-info" data-toggle="modal"
+										data-ng-if="bactCtrl.account" data-target="#exampleModal">
 										<i class="fa fa-upload"></i>Cargar
 									</button>
 								</div>
@@ -785,7 +791,8 @@ table.floatThead-table {
 									con los datos ingresados</p>
 							</div>
 
-							View <select data-ng-model="bactCtrl.viewby" class="form-control col-sm-3"
+							View <select data-ng-model="bactCtrl.viewby"
+								class="form-control col-sm-3"
 								data-ng-change="bactCtrl.setItemsPerPage(bactCtrl.viewby)">
 								<option>3</option>
 								<option>5</option>
@@ -841,7 +848,7 @@ table.floatThead-table {
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary"
 						data-dismiss="modal">Close</button>
-					<button type="button" data-ng-click="bactCtrl.addDocument()" 
+					<button type="button" data-ng-click="bactCtrl.addDocument()"
 						class="btn btn-primary" data-ng-disabled="bactCtrl.processing">Cargar</button>
 				</div>
 			</div>
@@ -873,18 +880,19 @@ table.floatThead-table {
 						<table class="table sticky-header">
 							<thead class="thead-dark">
 								<tr>
-									<th>Total de movimientos:
-										{{bactCtrl.actionsHistory.length | number}}</th>
+									<th>Total de movimientos: {{bactCtrl.actionsHistory.length
+										| number}}</th>
 
 									<th colspan="1">Utilidad (pérdida) por valuación:
 										{{bactCtrl.utilidadPerdidaPorValuacion | currency: '$'}}</th>
 									<th colspan="1">Plusv/minusv acumulado:
 										{{bactCtrl.plusMinusV | currency : '$'}}</th>
-									<th colspan="2">Valor actual de instrumento de Inversión por tipo
-										de cambio:
+									<th colspan="2">Valor actual de instrumento de Inversión
+										por tipo de cambio:
 										{{bactCtrl.valorDeInstrumentoDeInversionPorTipoDeCambio |
 										currency}}</th>
-									<th colspan="2">Valor actual de instrumento de Inversión registrado manualmente:
+									<th colspan="2">Valor actual de instrumento de Inversión
+										registrado manualmente:
 										{{bactCtrl.valorActualRegistradoManualmente | currency}}</th>
 									<th>Tipo de cambio actual: {{bactCtrl.valorDelDolarActual
 										| currency : '$': 2}}</th>

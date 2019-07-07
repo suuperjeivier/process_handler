@@ -172,6 +172,12 @@ public class BankActionServiceImpl implements BankActionService{
 		return lbac;
 	}
 
+	@Override
+	public Iterable<String> fetchInstGrouped() {
+		
+		return repository.findAllGroupedByInst();
+	}
+
 	
 
 

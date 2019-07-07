@@ -47,4 +47,9 @@ public interface BankActionRepository extends CrudRepository<BankAction, Long>{
 
 	List<BankAction> findByCusipAndSecIdAndIsinSerieOrderByFechaInicioReal(String cusip, String secId, String isinSerie);
 
+	@Query(
+			value = "SELECT instrumento FROM bank_action a WHERE a.status = 1 GROUP BY a.instrumento", 
+			nativeQuery = true)
+	Iterable<String> findAllGroupedByInst();
+
 }
