@@ -26,9 +26,15 @@ public class BankActionController {
 	public @ResponseBody Iterable<BankAction> getAllBankActions(){
 		return service.fetch();
 	}
+	
 	@GetMapping("grouped")
 	public @ResponseBody Iterable<BankAction> getAllGrouped(){
 		return service.fetchGrouped();
+	}
+	
+	@GetMapping("inst/grouped")
+	public @ResponseBody Iterable<String> getInstGrouped(){
+		return service.fetchInstGrouped();
 	}
 	
 	@GetMapping("history/id")

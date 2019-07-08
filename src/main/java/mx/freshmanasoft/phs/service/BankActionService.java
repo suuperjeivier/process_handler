@@ -10,5 +10,6 @@ public interface BankActionService {
 	Iterable<BankAction> fetch(Long accountId);
 	Iterable<BankAction> fetchHistory(Long actionId);
 	Iterable<BankAction> fetchGrouped();
+	Iterable<String> fetchInstGrouped();
 	
 }
