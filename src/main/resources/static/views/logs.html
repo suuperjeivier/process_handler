@@ -99,7 +99,9 @@
         </button>
       </div>
       <div class="modal-body">
-        {{lCtrl.log.data}} 
+      	<div class="row" data-ng-repeat="dta in lCtrl.log.data track by $index">
+			{{dta}}
+      	</div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>

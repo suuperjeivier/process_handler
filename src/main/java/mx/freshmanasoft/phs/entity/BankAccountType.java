@@ -51,7 +51,7 @@ public class BankAccountType {
 	}
 	@Override
 	public String toString() {
-		return "BankAccountType [id=" + id + ", name=" + name + ", status=" + status + "]";
+		return "Nombre=" + name;
 	}
 	
 }

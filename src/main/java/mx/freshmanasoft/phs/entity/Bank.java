@@ -102,7 +102,7 @@ public class Bank {
 	}
 	@Override
 	public String toString() {
-		return "Bank [id=" + id + ", name=" + name + ", agent=" + agent + ", agentPhone=" + agentPhone + ", address="
-				+ address + ", telephone=" + telephone + ", status=" + status + "]";
+		return "Nombre=" + name + ", Agente=" + agent + ", Teléfono=" + agentPhone + ", Dirección="
+				+ address + ", Teléfono=" + telephone;
 	}
 }

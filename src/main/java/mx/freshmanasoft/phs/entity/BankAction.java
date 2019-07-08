@@ -571,25 +571,25 @@ public class BankAction {
 
 	@Override
 	public String toString() {
-		return "BankAction [id=" + id + ", institucion=" + institucion + ", instrumento=" + instrumento + ", name="
-				+ name + ", cusip=" + cusip + ", isinSerie=" + isinSerie + ", secId=" + secId + ", titulos=" + titulos
-				+ ", unitCost=" + unitCost + ", marketPrice=" + marketPrice + ", valorDeMercado=" + valorDeMercado
-				+ ", plusvMinusvAcumulado=" + plusvMinusvAcumulado + ", intDevengado=" + intDevengado + ", tC=" + tC
-				+ ", mxnDls=" + mxnDls + ", registroContable=" + registroContable + ", valor=" + valor
-				+ ", monedaOriginal=" + monedaOriginal + ", fechaInicio=" + fechaInicio + ", fechaInicioReal="
-				+ fechaInicioReal + ", fechaDeAdquisicion=" + fechaDeAdquisicion + ", fechaFinal=" + fechaFinal
-				+ ", fechaFinalReal=" + fechaFinalReal + ", saldoInicial=" + saldoInicial + ", depositos=" + depositos
-				+ ", dividendos=" + dividendos + ", interesesDevengado=" + interesesDevengado + ", interesesCobrado="
-				+ interesesCobrado + ", cambioMxnVsDis=" + cambioMxnVsDis + ", valuacionAlCierre=" + valuacionAlCierre
-				+ ", cancelacionDeValuacionXVta=" + cancelacionDeValuacionXVta + ", cancelacionDeInteresDevengado="
-				+ cancelacionDeInteresDevengado + ", valorActualRegistradoManualmente="
-				+ valorActualRegistradoManualmente + ", compras=" + compras + ", ventas=" + ventas
-				+ ", utilidadPerdida=" + utilidadPerdida + ", retiros=" + retiros + ", gastos=" + gastos
-				+ ", impuestos=" + impuestos + ", netoMov=" + netoMov + ", saldoFinal=" + saldoFinal + ", dlsAlInicio="
-				+ dlsAlInicio + ", tcInicial=" + tcInicial + ", tcFinal=" + tcFinal + ", valuacionDlsAlInicio="
-				+ valuacionDlsAlInicio + ", valuacionDlsAlFinal=" + valuacionDlsAlFinal
-				+ ", utilidadPerdidaPorValuacion=" + utilidadPerdidaPorValuacion + ", utilidadPerdidaPorValuacionMiles="
-				+ utilidadPerdidaPorValuacionMiles + ", accountingRecord=" + accountingRecord + ", subAccountType="
-				+ subAccountType + ", status=" + status + ", isVendida=" + isVendida + ", account=" + account + "]";
+		return "Institución=" + institucion + ", Instrumento=" + instrumento + ", Nombre="
+				+ name + ", Cusip=" + cusip + ", Isin serie=" + isinSerie + ", Sec id=" + secId + ", Titulos=" + titulos
+				+ ", Unit cost=" + unitCost + ", Market price=" + marketPrice + ", Valor de mercado=" + valorDeMercado
+				+ ", Plusv minusv acumulado=" + plusvMinusvAcumulado + ", IntDevengado=" + intDevengado + ", TC=" + tC
+				+ ", Mxn dls=" + mxnDls + ", Registro contable=" + registroContable + ", Valor=" + valor
+				+ ", Moneda original=" + monedaOriginal + ", Fecha inicio=" + fechaInicio + ", Fecha inicio real="
+				+ fechaInicioReal + ", Fecha de adquisición=" + fechaDeAdquisicion + ", Fecha Final=" + fechaFinal
+				+ ", Fecha final real=" + fechaFinalReal + ", Saldo inicial=" + saldoInicial + ", Depositos=" + depositos
+				+ ", Dividendos=" + dividendos + ", Intereses devengado=" + interesesDevengado + ", Intereses cobrado="
+				+ interesesCobrado + ", Cambio Mxn Vs Dis=" + cambioMxnVsDis + ", Valuación al cierre=" + valuacionAlCierre
+				+ ", Cancelación deValuación XVta=" + cancelacionDeValuacionXVta + ", Cancelacion de interes devengado="
+				+ cancelacionDeInteresDevengado + ", Valor actual registrado manualmente="
+				+ valorActualRegistradoManualmente + ", Compras=" + compras + ", ventas=" + ventas
+				+ ", Utilidad perdida=" + utilidadPerdida + ", Retiros=" + retiros + ", Gastos=" + gastos
+				+ ", Impuestos=" + impuestos + ", Neto mov=" + netoMov + ", Saldo final=" + saldoFinal + ", Dls al inicio="
+				+ dlsAlInicio + ", Tc Inicial=" + tcInicial + ", Tc final=" + tcFinal + ", Valuación Dls al inicio="
+				+ valuacionDlsAlInicio + ", Valuación Dls al final=" + valuacionDlsAlFinal
+				+ ", Utilidad perdida por valuación=" + utilidadPerdidaPorValuacion + ", Utilidad perdida por valuación miles="
+				+ utilidadPerdidaPorValuacionMiles + ", Accounting record=" + accountingRecord + ", Sub account type="
+				+ subAccountType + ", Status=" + status + ", Is vendida=" + isVendida + ", Account=" + account;
 	}
 }

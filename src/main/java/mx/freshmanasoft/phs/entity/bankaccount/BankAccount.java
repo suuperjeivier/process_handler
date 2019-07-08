@@ -250,14 +250,14 @@ public class BankAccount {
 	}
 	@Override
 	public String toString() {
-		return "BankAccount [id=" + id + ", accountType=" + accountType + ", accountNumber=" + accountNumber
-				+ ", address=" + address + ", telephone=" + telephone + ", client=" + client + ", portfolio="
-				+ portfolio + ", currency=" + currency + ", date=" + date + ", isInversionEnDolares="
-				+ isInversionEnDolares + ", inversionEnDolaresAccountNumber=" + inversionEnDolaresAccountNumber
-				+ ", isInversionEnPesos=" + isInversionEnPesos + ", inversionEnPesosAccountNumber="
-				+ inversionEnPesosAccountNumber + ", isEfectivoEnDolares=" + isEfectivoEnDolares
-				+ ", efectivoEnDolaresAccountNumber=" + efectivoEnDolaresAccountNumber + ", isEfectivoEnPesos="
-				+ isEfectivoEnPesos + ", efectivoEnPesosAccountNumber=" + efectivoEnPesosAccountNumber + ", company="
-				+ company + ", bank=" + bank + ", status=" + status + "]";
+		return  "Account type=" + accountType + ", Número de cuenta=" + accountNumber
+				+ ", Dirección=" + address + ", Teléfono=" + telephone + ", Cliente=" + client + ", Portfolio="
+				+ portfolio + ", currency=" + currency + ", Fecha=" + date + ", Is inversion en dolares="
+				+ isInversionEnDolares + ", Inversión en dolares account number=" + inversionEnDolaresAccountNumber
+				+ ", Is inversion en pesos=" + isInversionEnPesos + ", Inversión en pesos account number="
+				+ inversionEnPesosAccountNumber + ", Is efectivo en dolares=" + isEfectivoEnDolares
+				+ ", Efectivo en dolares account number=" + efectivoEnDolaresAccountNumber + ", Is efectivo en pesos="
+				+ isEfectivoEnPesos + ", Efectivo en pesos account number=" + efectivoEnPesosAccountNumber + ", Empresa="
+				+ company + ", Banco=" + bank + ", status=" + status;
 	}
 }
