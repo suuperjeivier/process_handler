@@ -1,6 +1,5 @@
 package mx.freshmanasoft.phs;
 
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
@@ -31,7 +30,6 @@ public class AspectLoggin {
 	
 	@After("execution(* mx.freshmanasoft.phs.controller.BankController.*(..))")
 	public void logBank(JoinPoint point) {
-		LocalDateTime localDateTime = LocalDateTime.now();
 		loggin = new Loggin();
 		loggin.setMethod(point.getSignature().getName());
 		loggin.setEntity("Bancos");
@@ -47,7 +45,6 @@ public class AspectLoggin {
 	
 	@After("execution(* mx.freshmanasoft.phs.controller.BankAccountController.*(..))")
 	public void logBankAccount(JoinPoint point) {
-		LocalDateTime localDateTime = LocalDateTime.now();
 		loggin = new Loggin();
 		loggin.setMethod(point.getSignature().getName());
 		loggin.setEntity("Cuentas de inversión");
@@ -63,7 +60,6 @@ public class AspectLoggin {
 	
 	@After("execution(* mx.freshmanasoft.phs.controller.BankActionController.*(..))")
 	public void logBankAction(JoinPoint point) {
-		LocalDateTime localDateTime = LocalDateTime.now();
 		loggin = new Loggin();
 		loggin.setMethod(point.getSignature().getName());
 		loggin.setEntity("Instrumentos de inversión");
@@ -79,7 +75,6 @@ public class AspectLoggin {
 	
 	@After("execution(* mx.freshmanasoft.phs.controller.CompanyController.*(..))")
 	public void logCompany(JoinPoint point) {
-		LocalDateTime localDateTime = LocalDateTime.now();
 		loggin = new Loggin();
 		loggin.setMethod(point.getSignature().getName());
 		loggin.setEntity("Empresas");
@@ -95,7 +90,6 @@ public class AspectLoggin {
 	
 	@After("execution(* mx.freshmanasoft.phs.controller.MainController.*(..))")
 	public void logMain(JoinPoint point) {
-		LocalDateTime localDateTime = LocalDateTime.now();
 		loggin = new Loggin();
 		loggin.setMethod(point.getSignature().getName());
 		loggin.setEntity("Principal");
@@ -114,8 +108,7 @@ public class AspectLoggin {
 	 @AfterReturning(pointcut="execution(* org.springframework.security.authentication.AuthenticationManager.authenticate(..))"
 	            ,returning="result")
     public void after(JoinPoint point,Object result) throws Throwable {
-	 LocalDateTime localDateTime = LocalDateTime.now();
-	 	System.out.println(">>> LOGGIN USER: " + ((Authentication) result).getName());
+	 System.out.println(">>> LOGGIN USER: " + ((Authentication) result).getName());
         logginUser = ((Authentication) result).getName();
 		loggin = new Loggin();
 		loggin.setMethod(point.getSignature().getName());

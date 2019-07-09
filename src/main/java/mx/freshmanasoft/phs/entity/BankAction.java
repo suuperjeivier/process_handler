@@ -3,6 +3,7 @@ package mx.freshmanasoft.phs.entity;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import mx.freshmanasoft.phs.entity.bankaccount.BankAccount;
@@ -28,19 +30,19 @@ public class BankAction {
 	private String isinSerie;
 	private String secId;
 	private Long titulos;
-	@Column(precision=10, scale=4)
+	@Column(precision=19, scale=4)
 	private BigDecimal unitCost;	
-	@Column(precision=10, scale=4)
+	@Column(precision=19, scale=6)
 	private BigDecimal marketPrice;
-	@Column(precision=10, scale=4)
+	@Column(precision=19, scale=4)
 	private BigDecimal valorDeMercado;
-	@Column(precision=10, scale=4)
+	@Column(precision=19, scale=4)
 	private BigDecimal plusvMinusvAcumulado;
-	@Column(precision=10, scale=4)
+	@Column(precision=19, scale=4)
 	private BigDecimal intDevengado;
-	@Column(precision=10, scale=4)
+	@Column(precision=19, scale=4)
 	private BigDecimal tC;
-	@Column(precision=10, scale=4)
+	@Column(precision=19, scale=4)
 	private BigDecimal mxnDls;
 	private String registroContable;
 	private String valor;
@@ -50,47 +52,47 @@ public class BankAction {
 	private Date fechaDeAdquisicion;	
 	private String fechaFinal;
 	private Date fechaFinalReal;
-	@Column(precision=10, scale=4)
+	@Column(precision=19, scale=4)
 	private BigDecimal saldoInicial;
-	@Column(precision=10, scale=4)
+	@Column(precision=19, scale=4)
 	private BigDecimal depositos;
-	@Column(precision=10, scale=4)
+	@Column(precision=19, scale=4)
 	private BigDecimal dividendos;
-	@Column(precision=10, scale=4)
+	@Column(precision=19, scale=4)
 	private BigDecimal interesesDevengado;
-	@Column(precision=10, scale=4)
+	@Column(precision=19, scale=4)
 	private BigDecimal interesesCobrado;
-	@Column(precision=10, scale=4)
+	@Column(precision=19, scale=4)
 	private BigDecimal cambioMxnVsDis;
-	@Column(precision=10, scale=4)
+	@Column(precision=19, scale=4)
 	private BigDecimal valuacionAlCierre;
-	@Column(precision=10, scale=4)
+	@Column(precision=19, scale=4)
 	private BigDecimal cancelacionDeValuacionXVta;
-	@Column(precision=10, scale=4)
+	@Column(precision=19, scale=4)
 	private BigDecimal cancelacionDeInteresDevengado;
-	@Column(precision=10, scale=4)
+	@Column(precision=19, scale=4)
 	private BigDecimal valorActualRegistradoManualmente;
-	@Column(precision=10, scale=4)
+	@Column(precision=19, scale=4)
 	private BigDecimal compras;
-	@Column(precision=10, scale=4)
+	@Column(precision=19, scale=4)
 	private BigDecimal ventas;
-	@Column(precision=10, scale=4)
+	@Column(precision=19, scale=4)
 	private BigDecimal utilidadPerdida;
-	@Column(precision=10, scale=4)
+	@Column(precision=19, scale=4)
 	private BigDecimal retiros;
-	@Column(precision=10, scale=4)
+	@Column(precision=19, scale=4)
 	private BigDecimal gastos;
-	@Column(precision=10, scale=4)
+	@Column(precision=19, scale=4)
 	private BigDecimal impuestos;
-	@Column(precision=10, scale=4)
+	@Column(precision=19, scale=4)
 	private BigDecimal netoMov;
-	@Column(precision=10, scale=4)
+	@Column(precision=19, scale=4)
 	private BigDecimal saldoFinal;
-	@Column(precision=10, scale=4)
+	@Column(precision=19, scale=4)
 	private BigDecimal dlsAlInicio;
-	@Column(precision=10, scale=4)
+	@Column(precision=19, scale=4)
 	private BigDecimal tcInicial;
-	@Column(precision=10, scale=4)
+	@Column(precision=19, scale=4)
 	private BigDecimal tcFinal;
 	private Long valuacionDlsAlInicio;
 	private Long valuacionDlsAlFinal;
@@ -106,6 +108,12 @@ public class BankAction {
 	@ManyToOne
 	@JoinColumn(name="FK_ID_BANK_ACCOUNT")
 	private BankAccount account;
+	@OneToOne(cascade = {CascadeType.ALL})
+	@JoinColumn(name="FK_ID_ACTION_VALUATION")
+	private BankActionValuation valuation;
+	@OneToOne
+	@JoinColumn(name="FK_ID_ACTION_SELL")
+	private BankActionSell sell;
 	
 	public BankAction() {
 	}
@@ -595,6 +603,22 @@ public class BankAction {
 
 	public void setSubAccountType(int subAccountType) {
 		this.subAccountType = subAccountType;
+	}
+
+	public BankActionValuation getValuation() {
+		return valuation;
+	}
+
+	public void setValuation(BankActionValuation valuation) {
+		this.valuation = valuation;
+	}
+
+	public BankActionSell getSell() {
+		return sell;
+	}
+
+	public void setSell(BankActionSell sell) {
+		this.sell = sell;
 	}
 
 	@Override
