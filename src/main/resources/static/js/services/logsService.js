@@ -11,4 +11,14 @@ app.service('logsService', function($q, factory){
 			});
 		});
 	};
+	
+	self.getDiccionary = () => {
+		return $q((resolve, reject) => {
+			factory.get("json/diccionary.json").then(data => {
+				resolve(data);
+			}, error => {
+				reject(error);
+			});
+		});
+	};
 });

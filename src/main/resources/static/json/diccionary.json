@@ -1,0 +1,89 @@
+[
+	{
+		"id": 1,
+		"method": "authenticate",
+		"diccionary": "Inició sesión"
+	},
+	{
+		"id": 2,
+		"method": "getAllBankAccounts",
+		"diccionary": "Vió las cuentas de inversión"
+	},
+	{
+		"id": 3,
+		"method":"getByCompany",
+		"diccionary": "Vió las cuentas inversi�n por ID de empresa"
+	},
+	{           
+		"id": 4,
+		"method": "getByBank",
+		"diccionary": "Vió las cuentas inversi�n por ID de banco"
+	},
+	{
+		"id": 5,
+		"method": "getByBetweenDates",
+		"diccionary": "Buscó cuentas de inversi�n por fechas"
+	},
+	{
+		"id": 6,
+		"method": "post",
+		"diccionary": "Registró una nueva entidad"
+	},
+	{
+		"id": 7,
+		"method": "put",
+		"diccionary": "Actualizó una entidad"
+	},
+	{
+		"id": 8,
+		"method": "delete",
+		"diccionary": "Eliminó una nueva entidad"
+	},
+	{
+		"id":9,
+		"method": "getAll",
+		"diccionary": "Vió todos los datos"
+	},
+	{
+		"id": 10,
+		"method": "getAllBankActions",
+		"diccionary": "Vió todos los datos"
+	},
+	{
+		"id": 11,
+		"method": "getAllGrouped",
+		"diccionary": "Vió todos los grupos"
+	}
+	,
+	{
+		"id": 12,
+		"method": "getInstGrouped",
+		"diccionary": "Vió por grupos de Inst"
+	},
+	{
+		"id": 13,
+		"method": "getActionHistory",
+		"diccionary": "Vió el historial por el ID"
+	}
+	,
+	{
+		"id": 14,
+		"method": "getByAccountId",
+		"diccionary": "Vió la cuenta por ID"
+	},
+	{
+		"id": 15,
+		"method": "getAllBank",
+		"diccionary": "Vió todos los datos"
+	},
+	{
+		"id": 16,
+		"method": "getAllCompanies",
+		"diccionary": "Vió todos los datos"
+	},
+	{
+		"id": 17,
+		"method": "logoutApp",
+		"diccionary": "Cerró sesión"
+	}
+]

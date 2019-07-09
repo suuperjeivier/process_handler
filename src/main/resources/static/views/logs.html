@@ -40,7 +40,7 @@
 										<th>Fecha</th>
 										<th>User</th>
 										<th>Entidad</th>
-										<th>Método</th>
+										<th>Movimiento</th>
 										<th>Datos</th>
 									</tr>
 								</thead>
@@ -51,7 +51,7 @@
 										<td>{{lo.date | date: 'dd/MM/yyyy'}}</td>
 										<td>{{lo.user}}</td>
 										<td>{{lo.entity}}</td>
-										<td>{{lo.method}}</td>
+										<td>{{lCtrl.findKeyword(lo.method)}}</td>
 										<td><button data-ng-if="lo.data" type="button" class="btn btn-info" data-ng-click="lCtrl.setDataShow(lo)"
 											data-toggle="modal" data-target="#modal-show-data">Ver</button></td>
 									</tr>

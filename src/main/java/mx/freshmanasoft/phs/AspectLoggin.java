@@ -118,10 +118,10 @@ public class AspectLoggin {
         logginUser = ((Authentication) result).getName();
 		loggin = new Loggin();
 		loggin.setMethod(point.getSignature().getName());
-		loggin.setEntity("Main");
+		loggin.setEntity("Principal");
 		loggin.setDate(localDateTime.format(FORMATTER)); 
 		loggin.setUser(logginUser);
-		loggin.setData("security");
+		loggin.setData("");
 		repository.save(loggin);
     }
 }

@@ -18,6 +18,15 @@ app.controller('logsCtrl', function($state, logsService, $filter, $scope, $timeo
 		});
 	};
 	
+	self.getDiccionary = () => {
+		logsService.getDiccionary().then( data => {
+			self.diccionary = data;
+			
+		}, error => {
+			 alertify.alert('Exito', 'Error al obtener el diccionario', function(){ alertify.error('Ok'); });
+		});
+	};
+	
 	self.filterSearch = () => {
 		self.filterLog = self.filterLog? self.filterLog:'';
 		self.logsLength = $filter('filter')(self.logs, self.filterLog);
@@ -73,8 +82,16 @@ app.controller('logsCtrl', function($state, logsService, $filter, $scope, $timeo
 	};
 	
 	
+	self.findKeyword = keyword => {
+		let key = self.diccionary.find(function(element){
+			return element.method == keyword;
+		});
+		
+		return key.diccionary;
+	};
 	
 	const initController = () => {
+		self.getDiccionary();
 		self.get();
 	};
 	
