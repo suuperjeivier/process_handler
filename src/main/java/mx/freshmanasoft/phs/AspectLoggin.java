@@ -2,6 +2,7 @@ package mx.freshmanasoft.phs;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
@@ -34,7 +35,7 @@ public class AspectLoggin {
 		loggin = new Loggin();
 		loggin.setMethod(point.getSignature().getName());
 		loggin.setEntity("Bancos");
-		loggin.setDate(localDateTime.format(FORMATTER));
+		loggin.setDate(new Date());
 		String params = "";
 		for(Object j : point.getArgs()) {
 			params += j.toString(); 
@@ -50,7 +51,7 @@ public class AspectLoggin {
 		loggin = new Loggin();
 		loggin.setMethod(point.getSignature().getName());
 		loggin.setEntity("Cuentas de inversión");
-		loggin.setDate(localDateTime.format(FORMATTER));
+		loggin.setDate(new Date());
 		String params = "";
 		for(Object j : point.getArgs()) {
 			params += j.toString(); 
@@ -66,7 +67,7 @@ public class AspectLoggin {
 		loggin = new Loggin();
 		loggin.setMethod(point.getSignature().getName());
 		loggin.setEntity("Instrumentos de inversión");
-		loggin.setDate(localDateTime.format(FORMATTER)); 
+		loggin.setDate(new Date()); 
 		loggin.setUser(logginUser);
 		String params = "";
 		for(Object j : point.getArgs()) {
@@ -82,7 +83,7 @@ public class AspectLoggin {
 		loggin = new Loggin();
 		loggin.setMethod(point.getSignature().getName());
 		loggin.setEntity("Empresas");
-		loggin.setDate(localDateTime.format(FORMATTER)); 
+		loggin.setDate(new Date()); 
 		loggin.setUser(logginUser);
 		String params = "";
 		for(Object j : point.getArgs()) {
@@ -98,7 +99,7 @@ public class AspectLoggin {
 		loggin = new Loggin();
 		loggin.setMethod(point.getSignature().getName());
 		loggin.setEntity("Principal");
-		loggin.setDate(localDateTime.format(FORMATTER)); 
+		loggin.setDate(new Date()); 
 		loggin.setUser(logginUser);
 		String params = "";
 		if(!point.getSignature().getName().equals("logoutApp")) {
@@ -119,7 +120,7 @@ public class AspectLoggin {
 		loggin = new Loggin();
 		loggin.setMethod(point.getSignature().getName());
 		loggin.setEntity("Principal");
-		loggin.setDate(localDateTime.format(FORMATTER)); 
+		loggin.setDate(new Date()); 
 		loggin.setUser(logginUser);
 		loggin.setData("");
 		repository.save(loggin);

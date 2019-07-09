@@ -1,5 +1,7 @@
 package mx.freshmanasoft.phs.entity;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,7 +19,7 @@ public class Loggin {
 	private String entity;
 	private String method;
 	@Column(columnDefinition="DATETIME DEFAULT CURRENT_TIMESTAMP")
-	private String date;
+	private Date date;
 	@Column(columnDefinition="LONGTEXT NOT NULL")
     @Lob
 	private String data;
@@ -72,13 +74,13 @@ public class Loggin {
 	/**
 	 * @return the date
 	 */
-	public String getDate() {
+	public Date getDate() {
 		return date;
 	}
 	/**
 	 * @param date the date to set
 	 */
-	public void setDate(String date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
 	/**
