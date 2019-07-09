@@ -12,17 +12,17 @@
 	{
 		"id": 3,
 		"method":"getByCompany",
-		"diccionary": "Vió las cuentas inversi�n por ID de empresa"
+		"diccionary": "Vió las cuentas inversión por ID de empresa"
 	},
 	{           
 		"id": 4,
 		"method": "getByBank",
-		"diccionary": "Vió las cuentas inversi�n por ID de banco"
+		"diccionary": "Vió las cuentas inversión por ID de banco"
 	},
 	{
 		"id": 5,
 		"method": "getByBetweenDates",
-		"diccionary": "Buscó cuentas de inversi�n por fechas"
+		"diccionary": "Buscó cuentas de inversión por fechas"
 	},
 	{
 		"id": 6,
