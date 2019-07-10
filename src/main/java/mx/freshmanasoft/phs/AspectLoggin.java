@@ -1,7 +1,6 @@
 package mx.freshmanasoft.phs;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+
 import java.util.Date;
 
 import org.aspectj.lang.JoinPoint;
@@ -26,12 +25,9 @@ public class AspectLoggin {
 	private Loggin loggin = null;
 	private String logginUser;
 	
-	private static final String DATE_FORMATTER= "yyyy-MM-dd HH:mm:ss";
-	DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern(DATE_FORMATTER);
-	
 	@After("execution(* mx.freshmanasoft.phs.controller.BankController.*(..))")
 	public void logBank(JoinPoint point) {
-		LocalDateTime localDateTime = LocalDateTime.now();
+		
 		loggin = new Loggin();
 		loggin.setMethod(point.getSignature().getName());
 		loggin.setEntity("Bancos");
@@ -47,7 +43,7 @@ public class AspectLoggin {
 	
 	@After("execution(* mx.freshmanasoft.phs.controller.BankAccountController.*(..))")
 	public void logBankAccount(JoinPoint point) {
-		LocalDateTime localDateTime = LocalDateTime.now();
+		
 		loggin = new Loggin();
 		loggin.setMethod(point.getSignature().getName());
 		loggin.setEntity("Cuentas de inversión");
@@ -63,7 +59,7 @@ public class AspectLoggin {
 	
 	@After("execution(* mx.freshmanasoft.phs.controller.BankActionController.*(..))")
 	public void logBankAction(JoinPoint point) {
-		LocalDateTime localDateTime = LocalDateTime.now();
+		
 		loggin = new Loggin();
 		loggin.setMethod(point.getSignature().getName());
 		loggin.setEntity("Instrumentos de inversión");
@@ -79,7 +75,7 @@ public class AspectLoggin {
 	
 	@After("execution(* mx.freshmanasoft.phs.controller.CompanyController.*(..))")
 	public void logCompany(JoinPoint point) {
-		LocalDateTime localDateTime = LocalDateTime.now();
+		
 		loggin = new Loggin();
 		loggin.setMethod(point.getSignature().getName());
 		loggin.setEntity("Empresas");
@@ -93,9 +89,56 @@ public class AspectLoggin {
 		repository.save(loggin);
 	}
 	
+	@After("execution(* mx.freshmanasoft.phs.controller.BankAccountTypeController.*(..))")
+	public void logBankAccountType(JoinPoint point) {
+		
+		loggin = new Loggin();
+		loggin.setMethod(point.getSignature().getName());
+		loggin.setEntity("Tipos de cuenta");
+		loggin.setDate(new Date()); 
+		loggin.setUser(logginUser);
+		String params = "";
+		for(Object j : point.getArgs()) {
+			params += j.toString(); 
+		}
+		loggin.setData(params);
+		repository.save(loggin);
+	}
+	
+	@After("execution(* mx.freshmanasoft.phs.controller.LogController.*(..))")
+	public void logLog(JoinPoint point) {
+		
+		loggin = new Loggin();
+		loggin.setMethod(point.getSignature().getName());
+		loggin.setEntity("Log");
+		loggin.setDate(new Date()); 
+		loggin.setUser(logginUser);
+		String params = "";
+		for(Object j : point.getArgs()) {
+			params += j.toString(); 
+		}
+		loggin.setData(params);
+		repository.save(loggin);
+	}
+	
+	@After("execution(* mx.freshmanasoft.phs.controller.BatchController.*(..))")
+	public void logBatch(JoinPoint point) {
+		
+		loggin = new Loggin();
+		loggin.setMethod(point.getSignature().getName());
+		loggin.setEntity("Batch");
+		loggin.setDate(new Date()); 
+		loggin.setUser(logginUser);
+		String params = "";
+		for(Object j : point.getArgs()) {
+			params += j.toString(); 
+		}
+		loggin.setData(params);
+		repository.save(loggin);
+	}
+	
 	@After("execution(* mx.freshmanasoft.phs.controller.MainController.*(..))")
 	public void logMain(JoinPoint point) {
-		LocalDateTime localDateTime = LocalDateTime.now();
 		loggin = new Loggin();
 		loggin.setMethod(point.getSignature().getName());
 		loggin.setEntity("Principal");
@@ -114,7 +157,6 @@ public class AspectLoggin {
 	 @AfterReturning(pointcut="execution(* org.springframework.security.authentication.AuthenticationManager.authenticate(..))"
 	            ,returning="result")
     public void after(JoinPoint point,Object result) throws Throwable {
-	 LocalDateTime localDateTime = LocalDateTime.now();
 	 	System.out.println(">>> LOGGIN USER: " + ((Authentication) result).getName());
         logginUser = ((Authentication) result).getName();
 		loggin = new Loggin();

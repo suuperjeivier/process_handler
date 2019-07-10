@@ -85,5 +85,15 @@
 		"id": 17,
 		"method": "logoutApp",
 		"diccionary": "Cerró sesión"
+	},
+	{
+		"id": 18,
+		"method": "postSubAccount",
+		"diccionary": "Se agregó una sub cuenta"
+	},
+	{
+		"id": 19,
+		"method": "getAllLog",
+		"diccionary": "Vió el log"
 	}
 ]
