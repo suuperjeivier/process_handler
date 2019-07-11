@@ -1,6 +1,7 @@
 package mx.freshmanasoft.phs.entity;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -20,6 +21,7 @@ public class BankActionSell {
 	private BigDecimal tcInicial;
 	@Column(precision=10, scale=4)
 	private BigDecimal tcFinal;
+	private Date fechaVenta;	
 	@Column(precision=10, scale=4)
 	private BigDecimal valuacionDlsCompra;
 	@Column(precision=10, scale=4)
@@ -52,6 +54,12 @@ public class BankActionSell {
 	}
 	public void setTcFinal(BigDecimal tcFinal) {
 		this.tcFinal = tcFinal;
+	}
+	public Date getFechaVenta() {
+		return fechaVenta;
+	}
+	public void setFechaVenta(Date fechaVenta) {
+		this.fechaVenta = fechaVenta;
 	}
 	public BigDecimal getValuacionDlsCompra() {
 		return valuacionDlsCompra;

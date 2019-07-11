@@ -111,7 +111,7 @@ public class BankAction {
 	@OneToOne(cascade = {CascadeType.ALL})
 	@JoinColumn(name="FK_ID_ACTION_VALUATION")
 	private BankActionValuation valuation;
-	@OneToOne
+	@OneToOne(cascade = {CascadeType.ALL})
 	@JoinColumn(name="FK_ID_ACTION_SELL")
 	private BankActionSell sell;
 	

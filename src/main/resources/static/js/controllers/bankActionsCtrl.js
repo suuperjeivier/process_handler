@@ -142,8 +142,14 @@ app.controller('bankActionsCtrl', function ($scope, $filter, $state, $stateParam
 		bankAction.fechaFinalReal = new Date(bankAction.fechaFinalReal);
 		bankAction.fechaDeAdquisicion = new Date(bankAction.fechaDeAdquisicion);
 		bankAction.fechaFinal =  $filter('date')(bankAction.fechaFinalReal, 'dd/MM/yyyy');
-		if(bankAction.valuation)
+		if(bankAction.valuation){
 			bankAction.valuation.fechaFinalDelPeriodo = new Date(bankAction.valuation.fechaFinalDelPeriodo);
+			bankAction.valuation.utilidadPerdidaPorValuacion = bankAction.valuation.valuacionDolaresAlFinal - bankAction.valuation.valuacionDolaresPeriodoAnterior;
+		}	
+		if(bankAction.sell){
+			bankAction.sell.fechaVenta = new Date(bankAction.sell.fechaVenta);
+		}	
+		
 		self.bankAction = bankAction;
 		self.fetchForRates(self.bankAction);
 		self.selectedBank = self.bankAction.account.bank;
@@ -187,6 +193,14 @@ app.controller('bankActionsCtrl', function ($scope, $filter, $state, $stateParam
 			self.bankAction.valuation.valuacionDolaresAlFinal = parseFloat(self.bankAction.valuation.valuacionDolaresAlFinal);
 		if(self.bankAction.valuation.utilidadPerdidaPorValuacion && typeof self.bankAction.valuation.utilidadPerdidaPorValuacion === 'string') 
 			self.bankAction.valuation.utilidadPerdidaPorValuacion = parseFloat(self.bankAction.valuation.utilidadPerdidaPorValuacion);
+		
+		//venta
+		if(self.bankAction.sell.saldoInicial && typeof self.bankAction.sell.saldoInicial === 'string') 
+			self.bankAction.sell.saldoInicial = parseFloat(self.bankAction.sell.saldoInicial);
+		if(self.bankAction.sell.tcInicial && typeof self.bankAction.sell.tcInicial === 'string') 
+			self.bankAction.sell.tcInicial = parseFloat(self.bankAction.sell.tcInicial);
+		if(self.bankAction.sell.tcFinal && typeof self.bankAction.sell.tcFinal === 'string') 
+			self.bankAction.sell.tcFinal = parseFloat(self.bankAction.sell.tcFinal);
 		
 		
 		if (self.bankAction.id) {
