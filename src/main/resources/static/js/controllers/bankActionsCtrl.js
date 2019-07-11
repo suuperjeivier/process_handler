@@ -149,7 +149,7 @@ app.controller('bankActionsCtrl', function ($scope, $filter, $state, $stateParam
 		if(bankAction.sell){
 			bankAction.sell.fechaVenta = new Date(bankAction.sell.fechaVenta);
 		}	
-		
+
 		self.bankAction = bankAction;
 		self.fetchForRates(self.bankAction);
 		self.selectedBank = self.bankAction.account.bank;
@@ -171,38 +171,42 @@ app.controller('bankActionsCtrl', function ($scope, $filter, $state, $stateParam
 		if(self.bankAction.marketPrice && typeof self.bankAction.marketPrice === 'string') self.bankAction.marketPrice = parseFloat(self.bankAction.marketPrice);
 		if(self.bankAction.valorActualRegistradoManualmente && typeof self.bankAction.valorActualRegistradoManualmente === 'string') self.bankAction.valorActualRegistradoManualmente = parseFloat(self.bankAction.valorActualRegistradoManualmente);
 		if(self.bankAction.saldoInicial && typeof self.bankAction.saldoInicial === 'string') self.bankAction.saldoInicial = parseFloat(self.bankAction.saldoInicial);
-		
+
 		//valuacion
-		if(self.bankAction.valuation.marketPrice && typeof self.bankAction.valuation.marketPrice === 'string') self.bankAction.valuation.marketPrice = parseFloat(self.bankAction.valuation.marketPrice);
-		if(self.bankAction.valuation.valorDeMercado && typeof self.bankAction.valuation.valorDeMercado === 'string') self.bankAction.valuation.valorDeMercado = parseFloat(self.bankAction.valuation.valorDeMercado);
-		if(self.bankAction.valuation.plusvMinusvMensual && typeof self.bankAction.valuation.plusvMinusvMensual === 'string') 
-			self.bankAction.valuation.plusvMinusvMensual = parseFloat(self.bankAction.valuation.plusvMinusvMensual);
-		if(self.bankAction.valuation.plusvMinusvAcumulado && typeof self.bankAction.valuation.plusvMinusvAcumulado === 'string') 
-			self.bankAction.valuation.plusvMinusvAcumulado = parseFloat(self.bankAction.valuation.plusvMinusvAcumulado);
-		if(self.bankAction.valuation.intDevMensual && typeof self.bankAction.valuation.intDevMensual === 'string') 
-			self.bankAction.valuation.intDevMensual = parseFloat(self.bankAction.valuation.intDevMensual);
-		if(self.bankAction.valuation.intDevAcumulado && typeof self.bankAction.valuation.intDevAcumulado === 'string') 
-			self.bankAction.valuation.intDevAcumulado = parseFloat(self.bankAction.valuation.intDevAcumulado);
-		if(self.bankAction.valuation.tcInicial && typeof self.bankAction.valuation.tcInicial === 'string') 
-			self.bankAction.valuation.tcInicial = parseFloat(self.bankAction.valuation.tcInicial);
-		if(self.bankAction.valuation.tcFinal && typeof self.bankAction.valuation.tcFinal === 'string') 
-			self.bankAction.valuation.tcFinal = parseFloat(self.bankAction.valuation.tcFinal);
-		if(self.bankAction.valuation.valuacionDolaresPeriodoAnterior && typeof self.bankAction.valuation.valuacionDolaresPeriodoAnterior === 'string') 
-			self.bankAction.valuation.valuacionDolaresPeriodoAnterior = parseFloat(self.bankAction.valuation.valuacionDolaresPeriodoAnterior);
-		if(self.bankAction.valuation.valuacionDolaresAlFinal && typeof self.bankAction.valuation.valuacionDolaresAlFinal === 'string') 
-			self.bankAction.valuation.valuacionDolaresAlFinal = parseFloat(self.bankAction.valuation.valuacionDolaresAlFinal);
-		if(self.bankAction.valuation.utilidadPerdidaPorValuacion && typeof self.bankAction.valuation.utilidadPerdidaPorValuacion === 'string') 
-			self.bankAction.valuation.utilidadPerdidaPorValuacion = parseFloat(self.bankAction.valuation.utilidadPerdidaPorValuacion);
-		
+		if(self.bankAction.valuation){
+			if(self.bankAction.valuation.marketPrice && typeof self.bankAction.valuation.marketPrice === 'string') self.bankAction.valuation.marketPrice = parseFloat(self.bankAction.valuation.marketPrice);
+			if(self.bankAction.valuation.valorDeMercado && typeof self.bankAction.valuation.valorDeMercado === 'string') self.bankAction.valuation.valorDeMercado = parseFloat(self.bankAction.valuation.valorDeMercado);
+			if(self.bankAction.valuation.plusvMinusvMensual && typeof self.bankAction.valuation.plusvMinusvMensual === 'string') 
+				self.bankAction.valuation.plusvMinusvMensual = parseFloat(self.bankAction.valuation.plusvMinusvMensual);
+			if(self.bankAction.valuation.plusvMinusvAcumulado && typeof self.bankAction.valuation.plusvMinusvAcumulado === 'string') 
+				self.bankAction.valuation.plusvMinusvAcumulado = parseFloat(self.bankAction.valuation.plusvMinusvAcumulado);
+			if(self.bankAction.valuation.intDevMensual && typeof self.bankAction.valuation.intDevMensual === 'string') 
+				self.bankAction.valuation.intDevMensual = parseFloat(self.bankAction.valuation.intDevMensual);
+			if(self.bankAction.valuation.intDevAcumulado && typeof self.bankAction.valuation.intDevAcumulado === 'string') 
+				self.bankAction.valuation.intDevAcumulado = parseFloat(self.bankAction.valuation.intDevAcumulado);
+			if(self.bankAction.valuation.tcInicial && typeof self.bankAction.valuation.tcInicial === 'string') 
+				self.bankAction.valuation.tcInicial = parseFloat(self.bankAction.valuation.tcInicial);
+			if(self.bankAction.valuation.tcFinal && typeof self.bankAction.valuation.tcFinal === 'string') 
+				self.bankAction.valuation.tcFinal = parseFloat(self.bankAction.valuation.tcFinal);
+			if(self.bankAction.valuation.valuacionDolaresPeriodoAnterior && typeof self.bankAction.valuation.valuacionDolaresPeriodoAnterior === 'string') 
+				self.bankAction.valuation.valuacionDolaresPeriodoAnterior = parseFloat(self.bankAction.valuation.valuacionDolaresPeriodoAnterior);
+			if(self.bankAction.valuation.valuacionDolaresAlFinal && typeof self.bankAction.valuation.valuacionDolaresAlFinal === 'string') 
+				self.bankAction.valuation.valuacionDolaresAlFinal = parseFloat(self.bankAction.valuation.valuacionDolaresAlFinal);
+			if(self.bankAction.valuation.utilidadPerdidaPorValuacion && typeof self.bankAction.valuation.utilidadPerdidaPorValuacion === 'string') 
+				self.bankAction.valuation.utilidadPerdidaPorValuacion = parseFloat(self.bankAction.valuation.utilidadPerdidaPorValuacion);
+		}
+
 		//venta
-		if(self.bankAction.sell.saldoInicial && typeof self.bankAction.sell.saldoInicial === 'string') 
-			self.bankAction.sell.saldoInicial = parseFloat(self.bankAction.sell.saldoInicial);
-		if(self.bankAction.sell.tcInicial && typeof self.bankAction.sell.tcInicial === 'string') 
-			self.bankAction.sell.tcInicial = parseFloat(self.bankAction.sell.tcInicial);
-		if(self.bankAction.sell.tcFinal && typeof self.bankAction.sell.tcFinal === 'string') 
-			self.bankAction.sell.tcFinal = parseFloat(self.bankAction.sell.tcFinal);
-		
-		
+		if(self.bankAction.sell){
+			if(self.bankAction.sell.saldoInicial && typeof self.bankAction.sell.saldoInicial === 'string') 
+				self.bankAction.sell.saldoInicial = parseFloat(self.bankAction.sell.saldoInicial);
+			if(self.bankAction.sell.tcInicial && typeof self.bankAction.sell.tcInicial === 'string') 
+				self.bankAction.sell.tcInicial = parseFloat(self.bankAction.sell.tcInicial);
+			if(self.bankAction.sell.tcFinal && typeof self.bankAction.sell.tcFinal === 'string') 
+				self.bankAction.sell.tcFinal = parseFloat(self.bankAction.sell.tcFinal);
+		}
+
+
 		if (self.bankAction.id) {
 			self.put();
 		} else {
@@ -408,16 +412,16 @@ app.controller('bankActionsCtrl', function ($scope, $filter, $state, $stateParam
 					output.push(inst);
 				}
 			}
-			
+
 		});
 		self.filterInst=output;
 	};
-	
+
 	self.fillTextbox=function(string){
 		self.bankAction.instrumento=string;
 		self.filterInst=null;
 	};
-	
+
 	self.restaValuaciones = () => {
 		self.bankAction.valuation.utilidadPerdidaPorValuacion = self.bankAction.valuation.valuacionDolaresAlFinal - self.bankAction.valuation.valuacionDolaresPeriodoAnterior;
 	};
@@ -429,7 +433,7 @@ app.controller('bankActionsCtrl', function ($scope, $filter, $state, $stateParam
 			alertify.error('Error');
 			console.log('Error al obtener las acciones bancarias inst', error);
 		});
-		
+
 	};
 	const initController = () => {
 		console.log("params:", $stateParams);
