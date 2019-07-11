@@ -7,17 +7,17 @@
 	{
 		"id": 2,
 		"method": "getAllBankAccounts",
-		"diccionary": "Vió las cuentas de inversión"
+		"diccionary": "Vio las cuentas de inversión"
 	},
 	{
 		"id": 3,
 		"method":"getByCompany",
-		"diccionary": "Vió las cuentas inversión por ID de empresa"
+		"diccionary": "Vio las cuentas inversión por ID de empresa"
 	},
 	{           
 		"id": 4,
 		"method": "getByBank",
-		"diccionary": "Vió las cuentas inversión por ID de banco"
+		"diccionary": "Vio las cuentas inversión por ID de banco"
 	},
 	{
 		"id": 5,
@@ -42,44 +42,44 @@
 	{
 		"id":9,
 		"method": "getAll",
-		"diccionary": "Vió todos los datos"
+		"diccionary": "Vio todos los datos"
 	},
 	{
 		"id": 10,
 		"method": "getAllBankActions",
-		"diccionary": "Vió todos los datos"
+		"diccionary": "Vio todos los datos"
 	},
 	{
 		"id": 11,
 		"method": "getAllGrouped",
-		"diccionary": "Vió todos los grupos"
+		"diccionary": "Vio todos los grupos"
 	}
 	,
 	{
 		"id": 12,
 		"method": "getInstGrouped",
-		"diccionary": "Vió por grupos de Inst"
+		"diccionary": "Vio por grupos de Inst"
 	},
 	{
 		"id": 13,
 		"method": "getActionHistory",
-		"diccionary": "Vió el historial por el ID"
+		"diccionary": "Vio el historial por el ID"
 	}
 	,
 	{
 		"id": 14,
 		"method": "getByAccountId",
-		"diccionary": "Vió la cuenta por ID"
+		"diccionary": "Vio la cuenta por ID"
 	},
 	{
 		"id": 15,
 		"method": "getAllBank",
-		"diccionary": "Vió todos los datos"
+		"diccionary": "Vio todos los datos"
 	},
 	{
 		"id": 16,
 		"method": "getAllCompanies",
-		"diccionary": "Vió todos los datos"
+		"diccionary": "Vio todos los datos"
 	},
 	{
 		"id": 17,
@@ -94,6 +94,6 @@
 	{
 		"id": 19,
 		"method": "getAllLog",
-		"diccionary": "Vió el log"
+		"diccionary": "Vio el log"
 	}
 ]
