@@ -219,6 +219,7 @@ app.controller('bankAccountsCtrl', function ($state, $stateParams, bankAccountSe
             alertify.alert('Exito', 'Cuenta bancaria registrada exitosamente', function(){ alertify.success('Ok'); });
             self.get();
             self.bankAccount = null;
+            self.selectedSubCuenta = null;
         }, error => {
             alertify.alert('Error', 'Ha ocurrido un error al realizar el registro', function(){ alertify.error('Error'); });
         });
@@ -243,6 +244,7 @@ app.controller('bankAccountsCtrl', function ($state, $stateParams, bankAccountSe
         bankAccountService.post(self.bankAccount).then(data => {
             
             self.bankAccount = null;
+            self.selectedSubCuenta = null;
             self.get();
             alertify.alert('Exito', 'Cuenta bancaria actualizada exitosamente', function(){ alertify.success('Ok'); });
         }, error => {

@@ -30,7 +30,6 @@
 								<label class="col-sm-2 form-control-label">Fecha</label>
 								<div class="col-sm-10">
 									<input type="date" class="form-control" required
-										data-ng-max="baCtrl.maxDate2"
 										name="date"
 										data-ng-class="baCtrl.validClass.date? 'is-'+baCtrl.validClass.date: formBankAccount.date.$error.date? 'is-invalid':''"
 										data-ng-model="baCtrl.bankAccount.date">
@@ -186,87 +185,95 @@
 							</div>
 							<div class="line"></div>
 							<div class="form-group row">
-								<div class="form-check form-check-inline">
-									<div class="input-group col-sm-12">
-										<div class="input-group-prepend">
-											<div class="input-group-text">
-												<input class="form-check-input" type="checkbox"
-													data-ng-model="baCtrl.bankAccount.isInversionEnDolares"
-													id="inlineCheckbox0" value="1" data-ng-value="1"> <label
-													class="form-check-label" for="inlineCheckbox0">Inversion
-													en Dolares</label>
-											</div>
-										</div>
-										<input type="text" class="form-control"
-											data-ng-disabled="!baCtrl.bankAccount.isInversionEnDolares"
-											data-ng-model="baCtrl.bankAccount.inversionEnDolaresAccountNumber"
-											placeholder="No. de cuenta"
-											aria-label="Text input with checkbox">
-									</div>
-
+								<label class="col-sm-2 form-control-label">SubCuentas</label>
+								<div class="col-sm-10">
+									<select class="form-control" data-ng-model="baCtrl.selectedSubCuenta">
+										<option selected disabled value="">Seleccione una sub cuenta...</option>
+										<option value="1">Inversión en Dolares</option>
+										<option value="2">Inversión en Pesos</option>
+										<option value="3">Efectivo en Dolares</option>
+										<option value="4">Efectivo en Pesos</option>
+									</select>
 								</div>
 							</div>
 							<div class="line"></div>
-							<div class="form-group row">
-								<div class="form-check form-check-inline">
-									<div class="input-group col-sm-12">
-										<div class="input-group-prepend">
-											<div class="input-group-text">
-												<input class="form-check-input" type="checkbox"
-													data-ng-model="baCtrl.bankAccount.isInversionEnPesos"
-													id="inlineCheckbox1" value="1" data-ng-value="1"> <label
-													class="form-check-label" for="inlineCheckbox1">Inversion
-													en Pesos</label>
-											</div>
-										</div>
-										<input type="text" class="form-control"
-											data-ng-disabled="!baCtrl.bankAccount.isInversionEnPesos"
-											data-ng-model="baCtrl.bankAccount.inversionEnPesosAccountNumber"
-											placeholder="No. de cuenta"
-											aria-label="Text input with checkbox">
-									</div>
+							<div class="form-group row"
+								data-ng-if="baCtrl.selectedSubCuenta == '1' || baCtrl.bankAccount.inversionEnDolaresAccountNumber">
+								<label class="col-sm-2 form-control-label">Inversión en Dolares</label>
+								<div class="col-sm-9">
+									<input type="text" maxlength="15"
+										data-ng-class="baCtrl.validClass.inversionDolares? 'is-'+baCtrl.validClass.inversionDolares:''"
+										class="form-control" data-ng-disabled="!baCtrl.bankAccount.isInversionEnDolares"
+										data-ng-model="baCtrl.bankAccount.inversionEnDolaresAccountNumber">
+									<div class="d-block"
+										data-ng-class="baCtrl.validClass.inversionDolares? baCtrl.validClass.inversionDolares+'-feedback':''"
+										data-ng-show="baCtrl.validClass.inversionDolares">Ingrese la inversión en Dolares</div>
+								</div>
+								<div class="custom-control custom-checkbox">
+									<input type="checkbox" class="custom-control-input" id="inversion-dolares"
+											value="1" data-ng-value="1"
+											data-ng-model="baCtrl.bankAccount.isInversionEnDolares">
+									 <label class="custom-control-label" for="inversion-dolares"></label>
 								</div>
 							</div>
 							<div class="line"></div>
-							<div class="form-group row">
-								<div class="form-check form-check-inline">
-									<div class="input-group col-sm-12">
-										<div class="input-group-prepend">
-											<div class="input-group-text">
-												<input class="form-check-input" type="checkbox"
-													data-ng-model="baCtrl.bankAccount.isEfectivoEnDolares"
-													id="inlineCheckbox2" value="1" data-ng-value="1"> <label
-													class="form-check-label" for="inlineCheckbox2">Efectivo
-													en Dolares</label>
-											</div>
-										</div>
-										<input type="text" class="form-control"
-											data-ng-disabled="!baCtrl.bankAccount.isEfectivoEnDolares"
-											data-ng-model="baCtrl.bankAccount.efectivoEnDolaresAccountNumber"
-											placeholder="No. de cuenta"
-											aria-label="Text input with checkbox">
-									</div>
+							<div class="form-group row"
+								data-ng-if="baCtrl.selectedSubCuenta == '2' || baCtrl.bankAccount.inversionEnPesosAccountNumber">
+								<label class="col-sm-2 form-control-label">Inversión en Pesos</label>
+								<div class="col-sm-9">
+									<input type="text" maxlength="15"
+										data-ng-class="baCtrl.validClass.inversionPesos? 'is-'+baCtrl.validClass.inversionPesos:''"
+										class="form-control" data-ng-disabled="!baCtrl.bankAccount.isInversionEnPesos"
+										data-ng-model="baCtrl.bankAccount.inversionEnPesosAccountNumber">
+									<div class="d-block"
+										data-ng-class="baCtrl.validClass.inversionPesos? baCtrl.validClass.inversionPesos+'-feedback':''"
+										data-ng-show="baCtrl.validClass.inversionPesos">Ingrese la inversión en Pesos</div>
+								</div>
+								<div class="custom-control custom-checkbox">
+									<input type="checkbox" class="custom-control-input" id="inversion-pesos"
+											value="1" data-ng-value="1"
+											data-ng-model="baCtrl.bankAccount.isInversionEnPesos">
+									 <label class="custom-control-label" for="inversion-pesos"></label>
 								</div>
 							</div>
 							<div class="line"></div>
-							<div class="form-group row">
-								<div class="form-check form-check-inline">
-									<div class="input-group col-sm-12">
-										<div class="input-group-prepend">
-											<div class="input-group-text">
-												<input class="form-check-input" type="checkbox"
-													data-ng-model="baCtrl.bankAccount.isEfectivoEnPesos"
-													id="inlineCheckbox3" value="1" data-ng-value="1"> <label
-													class="form-check-label" for="inlineCheckbox3">Efectivo
-													en Pesos</label>
-											</div>
-										</div>
-										<input type="text" class="form-control"
-											data-ng-disabled="!baCtrl.bankAccount.isEfectivoEnPesos"
-											data-ng-model="baCtrl.bankAccount.efectivoEnPesosAccountNumber"
-											placeholder="No. de cuenta"
-											aria-label="Text input with checkbox">
-									</div>
+							<div class="form-group row"
+								data-ng-if="baCtrl.selectedSubCuenta == '3' || baCtrl.bankAccount.efectivoEnDolaresAccountNumber">
+								<label class="col-sm-2 form-control-label">Efectivo en Dolares</label>
+								<div class="col-sm-9">
+									<input type="text" maxlength="15"
+										data-ng-class="baCtrl.validClass.efectivoDolares? 'is-'+baCtrl.validClass.efectivoDolares:''"
+										class="form-control" data-ng-disabled="!baCtrl.bankAccount.isEfectivoEnDolares"
+										data-ng-model="baCtrl.bankAccount.efectivoEnDolaresAccountNumber">
+									<div class="d-block"
+										data-ng-class="baCtrl.validClass.efectivoDolares? baCtrl.validClass.efectivoDolares+'-feedback':''"
+										data-ng-show="baCtrl.validClass.efectivoDolares">Ingrese el efectivo en Dolares</div>
+								</div>
+								<div class="custom-control custom-checkbox">
+									<input type="checkbox" class="custom-control-input" id="efectivo-dolares"
+											value="1" data-ng-value="1" 
+											data-ng-model="baCtrl.bankAccount.isEfectivoEnDolares">
+									 <label class="custom-control-label" for="efectivo-dolares"></label>
+								</div>
+							</div>
+							<div class="line"></div>
+							<div class="form-group row"
+								data-ng-if="baCtrl.selectedSubCuenta == '4' || baCtrl.bankAccount.efectivoEnPesosAccountNumber">
+								<label class="col-sm-2 form-control-label">Efectivo en Pesos</label>
+								<div class="col-sm-9">
+									<input type="text" maxlength="15"
+										data-ng-class="baCtrl.validClass.efectivoPesos? 'is-'+baCtrl.validClass.efectivoPesos:''"
+										class="form-control" data-ng-disabled="!baCtrl.bankAccount.isEfectivoEnPesos"
+										data-ng-model="baCtrl.bankAccount.efectivoEnPesosAccountNumber">
+									<div class="d-block" 
+										data-ng-class="baCtrl.validClass.efectivoPesos? baCtrl.validClass.efectivoPesos+'-feedback':''"
+										data-ng-show="baCtrl.validClass.efectivoPesos">Ingrese el efectivo en Pesos</div>
+								</div>
+								<div class="custom-control custom-checkbox">
+									<input type="checkbox" class="custom-control-input" id="efectivo-pesos"
+											value="1" data-ng-value="1"
+											data-ng-model="baCtrl.bankAccount.isEfectivoEnPesos">
+									 <label class="custom-control-label" for="efectivo-pesos"></label>
 								</div>
 							</div>
 							<div class="form-group row">
