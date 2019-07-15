@@ -147,33 +147,12 @@ app.controller('bankActionsCtrl', function ($scope, $filter, $state, $stateParam
 			bankAction.valuation.utilidadPerdidaPorValuacion = bankAction.valuation.valuacionDolaresAlFinal - bankAction.valuation.valuacionDolaresPeriodoAnterior;
 		}	
 		if(bankAction.sell){
-			bankAction.sell.fechaVenta = new Date(bankAction.sell.fechaVenta);3
-
+			bankAction.sell.fechaVenta = new Date(bankAction.sell.fechaVenta);
 		}	
 
-
-		bankActionService.getActionHistory(bankAction.id).then(data => {	
-
-			self.actionsHistory = data;
-			if(data && data[0]){
-				if(data[0].id){
-					if(data[0].tcInicial){
-						self.tcInicialHistorico = data[0].tcInicial;
-						bankAction.sell.tcInicial = self.tcInicialHistorico;
-					}
-				}
-			}
-			self.bankAction = bankAction;
-			self.selectedBank = self.bankAction.account.bank;
-			self.restaValuacionesSell(bankAction);
-			self.fetchForRates(self.bankAction);
-
-		}, function error(err){
-			console.error(err);
-		});
-
-
-
+		self.bankAction = bankAction;
+		self.fetchForRates(self.bankAction);
+		self.selectedBank = self.bankAction.account.bank;
 	};
 
 	self.submitForm = isValid => {
@@ -221,20 +200,10 @@ app.controller('bankActionsCtrl', function ($scope, $filter, $state, $stateParam
 		if(self.bankAction.sell){
 			if(self.bankAction.sell.saldoInicial && typeof self.bankAction.sell.saldoInicial === 'string') 
 				self.bankAction.sell.saldoInicial = parseFloat(self.bankAction.sell.saldoInicial);
-			if(self.bankAction.sell.cancelacionValuacionPorVenta && typeof self.bankAction.sell.cancelacionValuacionPorVenta === 'string') 
-				self.bankAction.sell.cancelacionValuacionPorVenta = parseFloat(self.bankAction.sell.cancelacionValuacionPorVenta);
-			if(self.bankAction.sell.ventas && typeof self.bankAction.sell.ventas === 'string') 
-				self.bankAction.sell.ventas = parseFloat(self.bankAction.sell.ventas);
 			if(self.bankAction.sell.tcInicial && typeof self.bankAction.sell.tcInicial === 'string') 
 				self.bankAction.sell.tcInicial = parseFloat(self.bankAction.sell.tcInicial);
 			if(self.bankAction.sell.tcFinal && typeof self.bankAction.sell.tcFinal === 'string') 
 				self.bankAction.sell.tcFinal = parseFloat(self.bankAction.sell.tcFinal);
-			if(self.bankAction.sell.valuacionDlsPeriodoAnterior && typeof self.bankAction.sell.valuacionDlsPeriodoAnterior === 'string') 
-				self.bankAction.sell.valuacionDlsPeriodoAnterior = parseFloat(self.bankAction.sell.valuacionDlsPeriodoAnterior);
-			if(self.bankAction.sell.valuacionDlsAlFinalDelPeriodo && typeof self.bankAction.sell.valuacionDlsAlFinalDelPeriodo === 'string') 
-				self.bankAction.sell.valuacionDlsAlFinalDelPeriodo = parseFloat(self.bankAction.sell.valuacionDlsAlFinalDelPeriodo);
-			if(self.bankAction.sell.utilidadPerdidaPorValuacion && typeof self.bankAction.sell.utilidadPerdidaPorValuacion === 'string') 
-				self.bankAction.sell.utilidadPerdidaPorValuacion = parseFloat(self.bankAction.sell.utilidadPerdidaPorValuacion);
 		}
 
 
@@ -378,13 +347,6 @@ app.controller('bankActionsCtrl', function ($scope, $filter, $state, $stateParam
 		bankActionService.getActionHistory(ba.id).then(data => {	
 
 			self.actionsHistory = data;
-			if(data && data[0]){
-				if(data[0].id){
-					if(data[0].tcInicial){
-						self.tcInicialHistorico = data[0].tcInicial;
-					}
-				}
-			}
 			if(self.actionsHistory.slice(-1)){
 				let lastItem = self.actionsHistory.slice(-1).pop()
 				self.valorMercado = lastItem.titulos * lastItem.marketPrice;
@@ -460,47 +422,9 @@ app.controller('bankActionsCtrl', function ($scope, $filter, $state, $stateParam
 		self.filterInst=null;
 	};
 
-	self.actualizarTcInicial = ()=>{
-		if(!self.bankAction.valuation.tcInicial && self.bankAction.tcFinal){
-			self.bankAction.valuation.tcInicial = self.bankAction.tcFinal;
-		}
-	}
-
-	self.actualizarTcInicialSell = ()=>{
-		bankActionService.getActionHistory(self.bankAction.id).then(data => {			
-			if(data && data[0]){
-				if(data[0].id){
-					if(data[0].tcInicial){
-						self.tcInicialHistorico = data[0].tcInicial;
-						self.bankAction.sell.tcInicial = self.tcInicialHistorico;
-					}
-				}
-			}else{
-				self.bankAction.sell.tcInicial= self.bankAction.tcInicial;
-			}
-
-		}, function error(err){
-			console.error(err);
-		});
-
-	}
-
 	self.restaValuaciones = () => {
-		self.bankAction.valuation.valuacionDolaresAlFinal = (self.bankAction.marketPrice*self.bankAction.titulos)*(self.bankAction.valuation.tcFinal);
-		self.bankAction.valuation.valuacionDolaresPeriodoAnterior = (self.bankAction.tcFinal* (self.bankAction.marketPrice*self.bankAction.titulos));
 		self.bankAction.valuation.utilidadPerdidaPorValuacion = self.bankAction.valuation.valuacionDolaresAlFinal - self.bankAction.valuation.valuacionDolaresPeriodoAnterior;
 	};
-
-	self.restaValuacionesSell = (ba) => {
-		console.log("restando en venta");
-		ba.sell.valuacionDlsAlFinalDelPeriodo = (ba.valuation.marketPrice)*(ba.valuation.tcFinal);
-		console.log(ba.valuation.valorDeMercado);
-		console.log(ba.sell.tcInicial);
-
-		ba.sell.valuacionDlsPeriodoAnterior = (ba.valuation.marketPrice)*(ba.sell.tcInicial);
-		ba.sell.utilidadPerdidaPorValuacion = ba.sell.valuacionDlsAlFinalDelPeriodo - ba.sell.valuacionDlsPeriodoAnterior;
-	};
-
 
 	self.getInst = ()=>{
 		bankActionService.getInstGruped().then(data => {			
@@ -511,6 +435,71 @@ app.controller('bankActionsCtrl', function ($scope, $filter, $state, $stateParam
 		});
 
 	};
+	
+	/*################ ESTART FORMULAS ################*/
+	self.calculateUnicost = () => {
+		if(self.valorACosto && self.bankAction.titulos) {
+			self.unicostCalculated = self.valorACosto/self.bankAction.titulos;
+		}
+	};
+	
+	self.calculateValorCost = () => {
+		if(self.bankAction.titulos && self.bankAction.unitCost) {
+			self.valorACosto = self.bankAction.titulos*self.bankAction.unitCost;
+			self.calculateUnicost();
+			self.calculateValuacionDlsPA();
+		}
+		
+	};
+	
+	self.calculateValorMercado = () => {
+		
+		if(self.bankAction.valuation.marketPrice && self.bankAction.titulos) {
+			self.bankAction.valuation.valorDeMercado = self.bankAction.valuation.marketPrice*self.bankAction.titulos;
+			self.calculateValuacionDlsPA();
+			self.calculateValuacionDlsPF();
+		}
+	};
+	
+	self.calculateValuacionDlsPA = () => {
+		if(self.bankAction.valuation.valorDeMercado && self.bankAction.sell.tcInicial) {
+			self.bankAction.sell.valuacionDlsPeriodoAnterior = 
+				(self.bankAction.valuation.valorDeMercado)*(self.bankAction.sell.tcInicial);
+		}
+		
+	};
+	
+	self.calculateValuacionDlsPF = () => {
+		if(self.bankAction.sell.tcFinal && self.bankAction.valuation.valorDeMercado){
+			self.bankAction.sell.valuacionDlsAlFinalDelPeriodo = 
+				(self.bankAction.valuation.valorDeMercado)*(self.bankAction.sell.tcFinal ? 
+						self.bankAction.sell.tcFinal : self.tcFinal.MXN);
+		}
+		
+	};
+	
+	self.findFirsTCInitial = () => {
+		console.log('Buscando informacion...');
+		self.idBankAction = self.bankActions.find(function(el){
+			return (el.cursip == self.bankAction.cursip && el.isinSerie == self.bankAction.isinSerie && el.secId == self.bankAction.secId);
+		});
+		if(self.idBankAction){
+			console.log('self.idBankAction',self.idBankAction);
+			bankActionService.getActionHistory(self.idBankAction.id).then(data => {
+				console.log('Informacion history: ', data)
+				self.firstTcInicial = $filter('orderBy')(data, 'fechaInicioReal');
+				if(self.firstTcInicial) {
+					self.bankAction.sell.tcInicial = self.firstTcInicial[0].sell.tcInicial; 
+					self.calculateValuacionDlsPA();
+				}
+			});
+		}
+	};
+	
+	
+	
+	/*################ END FORMULAS ################*/
+	
 	const initController = () => {
 		console.log("params:", $stateParams);
 		if($stateParams.account){
@@ -570,9 +559,9 @@ app.directive('uiCurrency', function ($filter, $parse) {
 				// case for users entering multiple periods throughout the number
 				var dotSplit = clean.split('.');
 				if (dotSplit.length > 2) {
-					clean = dotSplit[0] + '.' + dotSplit[1].slice(0, 5);
+					clean = dotSplit[0] + '.' + dotSplit[1].slice(0, 6);
 				} else if (dotSplit.length == 2) {
-					clean = dotSplit[0] + '.' + dotSplit[1].slice(0, 5);
+					clean = dotSplit[0] + '.' + dotSplit[1].slice(0, 6);
 				}
 
 				if (!noRender)
