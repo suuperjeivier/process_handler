@@ -237,7 +237,7 @@ app.controller('bankActionsCtrl', function ($scope, $filter, $state, $stateParam
 		});
 	};
 
-	self.addDocument =()=>{
+	self.addDocument = () =>{
 		var file = self.myFile;
 		console.log('file is ' );
 		console.dir(file);
@@ -479,24 +479,32 @@ app.controller('bankActionsCtrl', function ($scope, $filter, $state, $stateParam
 	};
 	
 	self.findFirsTCInitial = () => {
-		console.log('Buscando informacion...');
-		self.idBankAction = self.bankActions.find(function(el){
-			return (el.cursip == self.bankAction.cursip && el.isinSerie == self.bankAction.isinSerie && el.secId == self.bankAction.secId);
-		});
-		if(self.idBankAction){
-			console.log('self.idBankAction',self.idBankAction);
-			bankActionService.getActionHistory(self.idBankAction.id).then(data => {
-				console.log('Informacion history: ', data)
-				self.firstTcInicial = $filter('orderBy')(data, 'fechaInicioReal');
-				if(self.firstTcInicial) {
-					self.bankAction.sell.tcInicial = self.firstTcInicial[0].sell.tcInicial; 
-					self.calculateValuacionDlsPA();
+
+		let sendData = {
+			cusip: self.bankAction.cusip?self.bankAction.cusip:'',
+			isinSerie: self.bankAction.isinSerie?self.bankAction.isinSerie:'',
+			secId: self.bankAction.secId?self.bankAction.secId:''
+		};
+		
+		bankActionService.getActionHistoryH(sendData).then(data => {
+			console.log('Informacion history: ', data)
+			self.firstTcInicial = $filter('orderBy')(data, 'fechaInicioReal');
+			console.log('TC inicial encontrado: ',self.firstTcInicial);
+			if(self.firstTcInicial.length) {
+				if(self.bankAction.sell) {
+					self.bankAction.sell.tcInicial = self.firstTcInicial[0].sell.tcInicial;
+				} else {
+					self.bankAction.sell = {
+							tcInicial: self.firstTcInicial[0].sell.tcInicial
+					}
 				}
-			});
-		}
+				 
+				console.log('tcInicial: ', self.bankAction.sell.tcInicial);
+				self.calculateValuacionDlsPA();
+			}
+		});
+		
 	};
-	
-	
 	
 	/*################ END FORMULAS ################*/
 	

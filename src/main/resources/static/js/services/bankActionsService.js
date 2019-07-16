@@ -53,6 +53,16 @@ app.service('bankActionService', function($q, factory){
 			});
 		});
 	};
+	
+	self.getActionHistoryH = (data) => {
+		return $q((resolve, reject) => {
+			factory.get(path+'/history/cusip/isinSerie/secId', data).then(data => {
+				resolve(data);
+			}, error => {
+				reject(error);
+			});
+		});
+	};
 
 	self.post = bankAction => {
 		return $q((resolve, reject) => {

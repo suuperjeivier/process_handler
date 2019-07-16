@@ -42,6 +42,14 @@ public class BankActionController {
 		return service.fetchHistory(actionId);
 	}
 	
+	@GetMapping("history/cusip/isinSerie/secId")
+	public @ResponseBody Iterable<BankAction> getActionHistoryH(
+			@RequestParam(name="cusip") final String cusip,
+			@RequestParam(name="isinSerie") final String isinSerie,
+			@RequestParam(name="secId") final String secId){
+		return service.fetchHistoryH(cusip,cusip,secId);
+	}
+	
 	@GetMapping("account/id")
 	public @ResponseBody Iterable<BankAction> getByAccountId(@RequestParam(name="accountId") final Long accountId){
 		return service.fetch(accountId);

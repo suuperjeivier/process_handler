@@ -66,9 +66,9 @@ public class AspectLoggin {
 		loggin.setDate(new Date()); 
 		loggin.setUser(logginUser);
 		String params = "";
-		for(Object j : point.getArgs()) {
-			params += j.toString(); 
-		}
+//		for(Object j : point.getArgs()) {
+//			params += j.toString(); 
+//		}
 		loggin.setData(params);
 		repository.save(loggin);
 	}

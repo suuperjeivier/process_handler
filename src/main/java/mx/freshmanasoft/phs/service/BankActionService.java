@@ -9,6 +9,7 @@ public interface BankActionService {
 	BankAction delete(BankAction entity);
 	Iterable<BankAction> fetch(Long accountId);
 	Iterable<BankAction> fetchHistory(Long actionId);
+	Iterable<BankAction> fetchHistoryH(String cusip, String isinSerie, String secId);
 	Iterable<BankAction> fetchGrouped();
 	Iterable<String> fetchInstGrouped();
 	
