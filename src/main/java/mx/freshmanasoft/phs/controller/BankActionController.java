@@ -47,7 +47,7 @@ public class BankActionController {
 			@RequestParam(name="cusip") final String cusip,
 			@RequestParam(name="isinSerie") final String isinSerie,
 			@RequestParam(name="secId") final String secId){
-		return service.fetchHistoryH(cusip,cusip,secId);
+		return service.fetchHistoryH(cusip,isinSerie,secId);
 	}
 	
 	@GetMapping("account/id")
