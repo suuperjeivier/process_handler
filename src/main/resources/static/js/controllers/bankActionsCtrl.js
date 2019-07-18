@@ -464,7 +464,7 @@ app.controller('bankActionsCtrl', function ($scope, $filter, $state, $stateParam
 	self.calculateValuacionDlsPA = () => {
 		if(self.bankAction.valuation.valorDeMercado && self.bankAction.sell.tcInicial) {
 			self.bankAction.sell.valuacionDlsPeriodoAnterior = 
-				(self.bankAction.valuation.valorDeMercado)*(self.bankAction.sell.tcInicial);
+				(self.bankAction.marketPrice*self.bankAction.titulos)*(self.bankAction.sell.tcInicial);
 		}
 		
 	};
@@ -472,8 +472,7 @@ app.controller('bankActionsCtrl', function ($scope, $filter, $state, $stateParam
 	self.calculateValuacionDlsPF = () => {
 		if(self.bankAction.sell.tcFinal && self.bankAction.valuation.valorDeMercado){
 			self.bankAction.sell.valuacionDlsAlFinalDelPeriodo = 
-				(self.bankAction.valuation.valorDeMercado)*(self.bankAction.sell.tcFinal ? 
-						self.bankAction.sell.tcFinal : self.tcFinal.MXN);
+				(self.bankAction.marketPrice*self.bankAction.titulos)*(self.bankAction.sell.tcFinal);
 		}
 		
 	};
