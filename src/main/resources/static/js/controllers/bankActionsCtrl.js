@@ -153,6 +153,8 @@ app.controller('bankActionsCtrl', function ($scope, $filter, $state, $stateParam
 		self.bankAction = bankAction;
 		self.fetchForRates(self.bankAction);
 		self.selectedBank = self.bankAction.account.bank;
+		self.calculateUnicost();
+		self.calculateValorCost();
 	};
 
 	self.submitForm = isValid => {
