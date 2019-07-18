@@ -484,7 +484,7 @@ app.controller('bankActionsCtrl', function ($scope, $filter, $state, $stateParam
 			isinSerie: self.bankAction.isinSerie?self.bankAction.isinSerie:'',
 			secId: self.bankAction.secId?self.bankAction.secId:''
 		};
-		
+		console.log('data:', sendData);
 		bankActionService.getActionHistoryH(sendData).then(data => {
 			console.log('Informacion history: ', data)
 			self.firstTcInicial = $filter('orderBy')(data, 'fechaInicioReal');
@@ -494,11 +494,18 @@ app.controller('bankActionsCtrl', function ($scope, $filter, $state, $stateParam
 					self.bankAction.sell.tcInicial = self.firstTcInicial[0].sell.tcInicial;
 				} else {
 					self.bankAction.sell = {
-							tcInicial: self.firstTcInicial[0].sell.tcInicial
+							tcInicial: self.firstTcInicial[0].tcInicial
 					}
 				}
-				 
-				console.log('tcInicial: ', self.bankAction.sell.tcInicial);
+				self.calculateValuacionDlsPA();
+			} else {
+				if(self.bankAction.sell) {
+					self.bankAction.sell.tcInicial = self.bankAction.tcInicial;
+				} else {
+					self.bankAction.sell = {
+							tcInicial: self.bankAction.tcInicial
+					}
+				}
 				self.calculateValuacionDlsPA();
 			}
 		});

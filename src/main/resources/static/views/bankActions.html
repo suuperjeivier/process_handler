@@ -713,14 +713,9 @@ div.modal-lg {
 											<label> <input type="radio" class="form-check-input"
 												name="radioVendida"
 												data-ng-model="bactCtrl.bankAction.isVendida"
-												data-ng-checked="bactCtrl.bankAction.isVendida === 1 || !bactCtrl.bankAction.id"
+												data-ng-init="bactCtrl.bankAction.isVendida = 1"
 												value="1" data-ng-value="1"> Si
-											</label><br /> <label> <input type="radio"
-												name="radioVendida" class="form-check-input"
-												data-ng-model="bactCtrl.bankAction.isVendida"
-												data-ng-value="0" value="0"
-												data-ng-checked="!bactCtrl.bankAction.isVendida"> No
-											</label><br />
+											</label>
 										</div>
 									</div>
 									<div class="line"></div>

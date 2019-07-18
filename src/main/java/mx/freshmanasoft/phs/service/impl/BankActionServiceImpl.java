@@ -191,9 +191,9 @@ public class BankActionServiceImpl implements BankActionService{
 			action.setIsinSerie(isinSerie1);
 			action.setSecId(secId1);
 			
-			String cusip = action.getCusip() != null ? action.getCusip().trim() : null;
-			String isinSerie = action.getIsinSerie() != null ? action.getIsinSerie().trim() : null;
-			String secId = action.getSecId() != null ? action.getSecId().trim() : null;
+			String cusip = (action.getCusip() != null || !action.getCusip().equals("")) ? action.getCusip().trim() : null;
+			String isinSerie = (action.getIsinSerie() != null || !action.getIsinSerie().equals("")) ? action.getIsinSerie().trim() : null;
+			String secId = (action.getSecId() != null || !action.getSecId().equals(""))? action.getSecId().trim() : null;
 			LOGGER.info(action.toString());
 			//buscar por cusip por isin y por sec identifier
 			//primero los 3 juntos
