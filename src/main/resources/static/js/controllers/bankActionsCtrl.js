@@ -155,6 +155,9 @@ app.controller('bankActionsCtrl', function ($scope, $filter, $state, $stateParam
 		self.selectedBank = self.bankAction.account.bank;
 		self.calculateUnicost();
 		self.calculateValorCost();
+		self.calculateValuacionDlsPA();
+		self.calculateValuacionDlsPF();
+		self.restaValuaciones();
 	};
 
 	self.submitForm = isValid => {
@@ -424,9 +427,7 @@ app.controller('bankActionsCtrl', function ($scope, $filter, $state, $stateParam
 		self.filterInst=null;
 	};
 
-	self.restaValuaciones = () => {
-		self.bankAction.valuation.utilidadPerdidaPorValuacion = self.bankAction.valuation.valuacionDolaresAlFinal - self.bankAction.valuation.valuacionDolaresPeriodoAnterior;
-	};
+	
 
 	self.getInst = ()=>{
 		bankActionService.getInstGruped().then(data => {			
@@ -439,6 +440,11 @@ app.controller('bankActionsCtrl', function ($scope, $filter, $state, $stateParam
 	};
 	
 	/*################ ESTART FORMULAS ################*/
+	self.restaValuaciones = () => {
+		self.bankAction.valuation.utilidadPerdidaPorValuacion = 
+			(self.bankAction.valuation.tcFinal* (self.bankAction.marketPrice*self.bankAction.titulos))
+			- (self.bankAction.valuation.tcInicial* (self.bankAction.marketPrice*self.bankAction.titulos))
+	};
 	self.calculateUnicost = () => {
 		if(self.valorACosto && self.bankAction.titulos) {
 			self.unicostCalculated = self.valorACosto/self.bankAction.titulos;
@@ -478,6 +484,7 @@ app.controller('bankActionsCtrl', function ($scope, $filter, $state, $stateParam
 		}
 		
 	};
+	
 	
 	self.findFirsTCInitial = () => {
 

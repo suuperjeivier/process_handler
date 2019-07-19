@@ -573,9 +573,8 @@ div.modal-lg {
 										<label class="col-sm-3 form-control-label">Utilidad
 											(pérdida) por valuación</label>
 										<div class="col-sm-9">
-											<input type="text" class="form-control" ui-currency
-												data-ng-model="bactCtrl.bankAction.valuation.utilidadPerdidaPorValuacion"
-												value="{{(bactCtrl.bankAction.valuation.tcFinal* (bactCtrl.bankAction.marketPrice*bactCtrl.bankAction.titulos)) - (bactCtrl.bankAction.valuation.tcInicial* (bactCtrl.bankAction.marketPrice*bactCtrl.bankAction.titulos)) |currency:'$':4}}">
+											<input type="text" readonly="readonly" class="form-control"
+												value="{{ bactCtrl.bankAction.valuation.utilidadPerdidaPorValuacion|currency:'$':4}}">
 										</div>
 									</div>
 									<div class="line"></div>
